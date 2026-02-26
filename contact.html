@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Get in Touch | Ledger Trade & Capital</title>
+<meta name="description" content="Request funding for your next residential investment project. Our team will follow up within one business day.">
+<link rel="stylesheet" href="style.css">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<nav class="nav">
+  <a href="index.html" class="nav-logo">Ledger Trade <span>&</span> Capital</a>
+  <ul class="nav-links">
+    <li class="dropdown">
+      <a href="#">Loan Products ▾</a>
+      <div class="dropdown-menu"><ul>
+        <li><a href="construction.html">Ground-Up Construction</a></li>
+        <li><a href="dscr.html">DSCR Loans</a></li>
+        <li><a href="bridge.html">Bridge Loans</a></li>
+        <li><a href="fix-and-flip.html">Fix & Flip</a></li>
+      </ul></div>
+    </li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="contact.html">Get in Touch</a></li>
+  </ul>
+  <a href="contact.html" class="nav-cta">Get Funded</a>
+</nav>
+
+<section class="page-hero">
+  <h1>Request Funding</h1>
+  <p>Send us your information to start the conversation. Our team will follow up within one business day.</p>
+</section>
+
+<section class="content-section" style="background: var(--cream);">
+  <div class="container">
+
+    <!-- 
+      =============================================
+      FORM SETUP INSTRUCTIONS:
+      =============================================
+      1. Go to https://formspree.io and create a free account
+      2. Create a new form and copy your form ID (looks like: xpzvqkdl)
+      3. Replace YOUR_FORM_ID below with your actual form ID
+      4. Done! Submissions will go to whatever email you used to sign up
+      
+      Free tier: 50 submissions/month
+      Paid tier: $10/month for 1,000 submissions + integrations
+      =============================================
+    -->
+
+    <form class="apply-form" id="contactForm" action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
+      <div class="form-grid">
+        <div class="form-group">
+          <label>First Name *</label>
+          <input type="text" name="first_name" placeholder="John" required>
+        </div>
+        <div class="form-group">
+          <label>Last Name *</label>
+          <input type="text" name="last_name" placeholder="Smith" required>
+        </div>
+        <div class="form-group">
+          <label>Company Name</label>
+          <input type="text" name="company" placeholder="Your LLC or entity name">
+        </div>
+        <div class="form-group">
+          <label>Email *</label>
+          <input type="email" name="email" placeholder="john@company.com" required>
+        </div>
+        <div class="form-group">
+          <label>Phone *</label>
+          <input type="tel" name="phone" placeholder="(555) 555-5555" required>
+        </div>
+        <div class="form-group">
+          <label>Loan Type *</label>
+          <select name="loan_type" required>
+            <option value="" disabled selected>Select a product</option>
+            <option value="Ground-Up Construction">Ground-Up Construction</option>
+            <option value="DSCR">DSCR</option>
+            <option value="Bridge">Bridge</option>
+            <option value="Fix & Flip">Fix & Flip</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Loan Amount Requested</label>
+          <input type="text" name="loan_amount" placeholder="$500,000 - $3,000,000">
+        </div>
+        <div class="form-group">
+          <label>Experience Level</label>
+          <select name="experience">
+            <option value="" disabled selected>Select experience</option>
+            <option value="New (0-3 projects)">New Investor (0-3 projects)</option>
+            <option value="Experienced (4-10 projects)">Experienced (4-10 projects)</option>
+            <option value="Professional (10+ projects)">Professional (10+ projects)</option>
+          </select>
+        </div>
+        <div class="form-group full">
+          <label>Property Address</label>
+          <input type="text" name="property_address" placeholder="Full property address (if identified)">
+        </div>
+        <div class="form-group full">
+          <label>Project Overview</label>
+          <textarea name="project_overview" placeholder="Brief description of your project, timeline, and goals."></textarea>
+        </div>
+
+        <!-- Honeypot spam field (hidden from real users) -->
+        <input type="text" name="_gotcha" style="display:none">
+
+        <!-- Redirect after submission -->
+        <input type="hidden" name="_next" value="thank-you.html">
+
+        <div class="form-submit">
+          <button type="submit">Submit Application</button>
+        </div>
+      </div>
+    </form>
+
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="footer-content">
+    <div class="footer-logo">Ledger Trade <span>&</span> Capital</div>
+    <ul class="footer-links">
+      <li><a href="construction.html">Construction</a></li>
+      <li><a href="dscr.html">DSCR</a></li>
+      <li><a href="bridge.html">Bridge</a></li>
+      <li><a href="fix-and-flip.html">Fix & Flip</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+    <div class="footer-copy">© 2025 Ledger Trade & Capital. All rights reserved.</div>
+  </div>
+</footer>
+
+</body>
+</html>
