@@ -1,12 +1,6 @@
 # Redirects from old WordPress site (ledgertc.com) to new site
-/about/          /whatwedo.html    301
-/about           /whatwedo.html    301
-/what-we-do/     /whatwedo.html    301
-/what-we-do      /whatwedo.html    301
-/get-in-touch/   /contact.html     301
-/get-in-touch    /contact.html     301
-/vertical-construction-loans/  /construction.html  301
-/vertical-construction-loans   /construction.html  301
+/about/          /what-we-do.html    301
+/about           /what-we-do.html    301
 /portfolio-term-loans/         /dscr.html          301
 /portfolio-term-loans          /dscr.html          301
 /private-sale/   /index.html       301
@@ -18,3 +12,7 @@
 /refund_returns/   /index.html     301
 /refund_returns    /index.html     301
 /sitemap/        /sitemap.xml      301
+# Old filenames redirect to new names
+/construction.html  /vertical-construction-loans.html  301
+/whatwedo.html       /what-we-do.html                   301
+/contact.html        /get-in-touch.html                 301
