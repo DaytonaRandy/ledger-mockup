@@ -68,12 +68,18 @@
       <div class="dropdown-menu"><ul>
         <li><a href="vertical-construction-loans.html">New Construction</a></li>
         <li><a href="dscr.html">DSCR Rental</a></li>
-        <li><a href="bridge.html">Bridge</a></li>
+        <li><a href="bridge.html">Bridge Loan</a></li>
         <li><a href="fix-and-flip.html">Fix & Flip</a></li>
+        <li><a href="build-to-rent.html">Build to Rent</a></li>
       </ul></div>
     </li>
-    <li><a href="what-we-do.html">What We Do</a></li>
-    <li><a href="team.html">Meet the Team</a></li>
+    <li class="dropdown">
+      <a href="#">Who We Are ▾</a>
+      <div class="dropdown-menu"><ul>
+        <li><a href="what-we-do.html">What We Do</a></li>
+        <li><a href="team.html">Meet the Team</a></li>
+      </ul></div>
+    </li>
     <li><a href="broker-partners.html">Broker Partners</a></li>
     <li class="dropdown">
       <a href="#">Client Portal ▾</a>
@@ -95,11 +101,15 @@
   <div class="mobile-sub">
     <a href="vertical-construction-loans.html">New Construction</a>
     <a href="dscr.html">DSCR Rental</a>
-    <a href="bridge.html">Bridge</a>
+    <a href="bridge.html">Bridge Loan</a>
     <a href="fix-and-flip.html">Fix &amp; Flip</a>
+    <a href="build-to-rent.html">Build to Rent</a>
   </div>
-  <a href="what-we-do.html">What We Do</a>
-  <a href="team.html">Meet the Team</a>
+  <div class="mobile-section-label">Who We Are</div>
+  <div class="mobile-sub">
+    <a href="what-we-do.html">What We Do</a>
+    <a href="team.html">Meet the Team</a>
+  </div>
   <a href="broker-partners.html">Broker Partners</a>
   <a href="get-in-touch.html" class="mobile-cta">Get in Touch</a>
 </div>
@@ -167,6 +177,63 @@
     </div>
   </div>
 </section>
+
+<!-- LOAN DETAILS + FAQ -->
+<section class="faq-section">
+  <div class="section-label">Program Details</div>
+  <h2>New Construction Loan Parameters</h2>
+
+  <div class="loan-details-grid">
+    <div class="loan-detail-box">
+      <div class="detail-label">Max LTC</div>
+      <div class="detail-value">Up to 100%</div>
+    </div>
+    <div class="loan-detail-box">
+      <div class="detail-label">Max LTARV</div>
+      <div class="detail-value">Up to 75%</div>
+    </div>
+    <div class="loan-detail-box">
+      <div class="detail-label">Min Credit Score</div>
+      <div class="detail-value">660</div>
+    </div>
+    <div class="loan-detail-box">
+      <div class="detail-label">Recourse</div>
+      <div class="detail-value">Non-Recourse Available</div>
+    </div>
+  </div>
+
+  <div class="faq-list">
+    <div class="faq-item">
+      <button class="faq-question">What is the maximum leverage on a construction loan?<svg viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></button>
+      <div class="faq-answer"><div class="faq-answer-inner">New construction loans are available up to 100% of loan-to-cost (LTC) and 75% of the loan-to-after-repair-value (LTARV). Leverage depends on borrower experience, credit score, and the overall project profile.</div></div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-question">What credit score do I need for a construction loan?<svg viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></button>
+      <div class="faq-answer"><div class="faq-answer-inner">The minimum credit score for new construction loan programs is 660. We evaluate the full picture including the project, the builder's track record, and the market when making lending decisions.</div></div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-question">How much experience do I need for a construction loan?<svg viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></button>
+      <div class="faq-answer"><div class="faq-answer-inner">Construction loan borrowers should have completed at least 3 residential construction or renovation projects within the last 3 years. Builders with deeper experience may qualify for improved leverage and pricing.</div></div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-question">Are non-recourse construction loans available?<svg viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></button>
+      <div class="faq-answer"><div class="faq-answer-inner">Yes, non-recourse options are available on new construction loans for qualifying borrowers and projects. Standard carve-outs apply. Our team can walk you through the non-recourse structuring process.</div></div>
+    </div>
+  </div>
+</section>
+
+<script>
+(function(){
+  document.querySelectorAll('.faq-question').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      var item = this.parentElement;
+      var isOpen = item.classList.contains('open');
+      document.querySelectorAll('.faq-item').forEach(function(el){ el.classList.remove('open'); });
+      if (!isOpen) item.classList.add('open');
+    });
+  });
+})();
+</script>
 
 <div class="cta-band">
   <div class="container">

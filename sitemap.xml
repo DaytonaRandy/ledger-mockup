@@ -41,8 +41,18 @@
   </url>
 
   <url>
+    <loc>https://ledgertc.co/broker-partners.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://ledgertc.co/get-in-touch.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://ledgertc.co/build-to-rent.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
   </url>
 </urlset>

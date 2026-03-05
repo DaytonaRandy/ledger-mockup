@@ -284,6 +284,61 @@ section { padding: clamp(4rem, 5vw, 7rem) clamp(1.5rem, 3vw, 4rem); }
   .content-grid { max-width: 1400px; }
 }
 
+/* ─── FAQ ACCORDION ─── */
+.faq-section {
+  padding: clamp(3.5rem, 4.5vw, 6rem) clamp(1.5rem, 3vw, 4rem);
+  background: var(--white);
+}
+.faq-section .section-label { text-align: center; }
+.faq-section h2 {
+  font-family: 'Plus Jakarta Sans', sans-serif; font-size: clamp(1.5rem, 1.3rem + 0.8vw, 1.8rem);
+  font-weight: 700; color: var(--green); text-align: center; margin-bottom: 2rem; letter-spacing: -0.01em;
+}
+.faq-list { max-width: 800px; margin: 0 auto; }
+.faq-item {
+  border: 1px solid var(--gray-100); border-radius: 12px; margin-bottom: 0.75rem;
+  background: var(--cream); overflow: hidden; transition: border-color 0.2s;
+}
+.faq-item:hover { border-color: rgba(196,154,60,0.3); }
+.faq-question {
+  width: 100%; display: flex; justify-content: space-between; align-items: center;
+  padding: 1.25rem 1.5rem; background: none; border: none; cursor: pointer;
+  font-family: 'DM Sans', sans-serif; font-size: clamp(0.9rem, 0.88rem + 0.15vw, 1rem);
+  font-weight: 600; color: var(--green); text-align: left; transition: color 0.2s;
+}
+.faq-question:hover { color: var(--gold-dark); }
+.faq-question svg {
+  width: 20px; height: 20px; flex-shrink: 0; stroke: var(--gold); fill: none; stroke-width: 2;
+  transition: transform 0.3s;
+}
+.faq-item.open .faq-question svg { transform: rotate(180deg); }
+.faq-answer {
+  max-height: 0; overflow: hidden; transition: max-height 0.3s ease, padding 0.3s ease;
+}
+.faq-item.open .faq-answer { max-height: 500px; }
+.faq-answer-inner {
+  padding: 0 1.5rem 1.25rem; font-size: clamp(0.85rem, 0.82rem + 0.15vw, 0.92rem);
+  color: var(--text-secondary); line-height: 1.7;
+}
+
+/* ─── LOAN DETAIL BOXES ─── */
+.loan-details-grid {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1rem; max-width: 800px; margin: 0 auto 2rem;
+}
+.loan-detail-box {
+  background: var(--white); border: 1px solid var(--gray-100); border-radius: 12px;
+  padding: 1.25rem 1.5rem; text-align: center;
+}
+.loan-detail-box .detail-label {
+  font-size: clamp(0.7rem, 0.65rem + 0.15vw, 0.75rem); font-weight: 700;
+  text-transform: uppercase; letter-spacing: 0.1em; color: var(--gold); margin-bottom: 0.25rem;
+}
+.loan-detail-box .detail-value {
+  font-family: 'Plus Jakarta Sans', sans-serif; font-size: clamp(1.1rem, 1rem + 0.3vw, 1.3rem);
+  font-weight: 700; color: var(--green);
+}
+
 @keyframes fade-up { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
 
 /* Logo images */
