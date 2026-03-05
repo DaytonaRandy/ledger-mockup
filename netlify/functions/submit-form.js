@@ -319,8 +319,25 @@ exports.handler = async function (event) {
   }
 
   try {
-    // Parse form data
-    const formData = JSON.parse(event.body);
+    // Parse URL-encoded form data
+    const params = new URLSearchParams(event.body);
+    const raw = Object.fromEntries(params.entries());
+
+    // Map snake_case form field names to camelCase
+    const formData = {
+      firstName: raw.first_name || "",
+      lastName: raw.last_name || "",
+      email: raw.email || "",
+      phone: raw.phone || "",
+      company: raw.company || "",
+      loanType: raw.loan_type || "",
+      loanAmount: raw.loan_amount || "",
+      experience: raw.experience || "",
+      propertyAddress: raw.property_address || "",
+      projectOverview: raw.project_overview || "",
+      website: raw.website || "",
+      pageUrl: raw.page_url || "",
+    };
 
     // ── Honeypot check ──────────────────────────────────────────
     if (formData.website) {
