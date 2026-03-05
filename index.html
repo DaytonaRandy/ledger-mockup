@@ -96,7 +96,7 @@
 <style>
 .hero {
   min-height: 100vh; display: flex; align-items: center;
-  padding: clamp(6rem, 8vw, 10rem) clamp(1.5rem, 3vw, 4rem) clamp(3rem, 4vw, 5rem);
+  padding: clamp(5rem, 6vw, 7rem) clamp(1.5rem, 3vw, 4rem) clamp(2rem, 3vw, 4rem);
   position: relative; overflow: hidden; background: var(--cream);
 }
 .hero::before {
@@ -111,12 +111,15 @@
 .hero-content {
   max-width: 1400px; margin: 0 auto; width: 100%;
 }
+@media (min-width: 768px) {
+  .hero-content { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(2rem, 3vw, 4rem); align-items: center; }
+}
 .hero-text h1 {
   font-family: 'Plus Jakarta Sans', sans-serif; font-size: clamp(2.2rem, 1.5rem + 3vw, 4.2rem); font-weight: 800;
   line-height: 1.08; letter-spacing: -0.03em; margin-bottom: 1.5rem; color: var(--green);
 }
 .hero-text h1 .accent { color: var(--gold); }
-.hero-text p { font-size: clamp(1rem, 0.95rem + 0.2vw, 1.15rem); color: var(--text-secondary); max-width: 520px; margin-bottom: 2rem; line-height: 1.7; }
+.hero-text p { font-size: clamp(1rem, 0.95rem + 0.2vw, 1.15rem); color: var(--text-secondary); margin-bottom: 2rem; line-height: 1.7; }
 .hero-badges { display: grid; grid-template-columns: repeat(4, auto); gap: 1rem; margin-bottom: 2.5rem; justify-content: start; }
 .hero-badge {
   display: inline-flex; align-items: center; gap: 0.5rem; white-space: nowrap;
@@ -126,6 +129,30 @@
 }
 .hero-badge svg { width: 14px; height: 14px; fill: var(--gold); }
 .hero-buttons { display: flex; gap: 1rem; }
+.hero-preview { display: none; }
+@media (min-width: 768px) {
+  .hero-preview { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(0.75rem, 1vw, 1.25rem); }
+}
+.hero-preview-card {
+  background: var(--white); border: 1px solid var(--gray-100); border-radius: 14px;
+  padding: clamp(1.25rem, 1.5vw, 1.75rem); transition: all 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  position: relative; overflow: hidden; text-decoration: none; display: block;
+}
+.hero-preview-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: var(--gold); transform: scaleX(0); transition: transform 0.35s; }
+.hero-preview-card:hover { border-color: rgba(196,154,60,0.3); transform: translateY(-4px); box-shadow: 0 16px 40px rgba(0,0,0,0.07); }
+.hero-preview-card:hover::before { transform: scaleX(1); }
+.hero-preview-icon {
+  width: 44px; height: 44px; background: rgba(196,154,60,0.08); border-radius: 10px;
+  display: flex; align-items: center; justify-content: center; margin-bottom: 0.75rem;
+}
+.hero-preview-icon svg { width: 22px; height: 22px; stroke: var(--gold); fill: none; stroke-width: 1.5; }
+.hero-preview-card h4 {
+  font-family: 'Plus Jakarta Sans', sans-serif; font-size: clamp(0.9rem, 0.85rem + 0.2vw, 1.05rem);
+  font-weight: 700; color: var(--green); margin-bottom: 0.35rem; letter-spacing: -0.01em;
+}
+.hero-preview-card p {
+  font-size: clamp(0.72rem, 0.7rem + 0.1vw, 0.8rem); color: var(--text-secondary); line-height: 1.55; margin: 0;
+}
 .products { background: var(--cream); }
 .products-header { text-align: center; margin-bottom: clamp(2.5rem, 3.5vw, 4rem); }
 .products-header .section-subtitle { margin: 0 auto; }
@@ -162,6 +189,7 @@
 .hero-text { animation: fade-up 0.8s ease-out; }
 @media (max-width: 1024px) {
   .hero-badges { grid-template-columns: repeat(2, auto); }
+  .hero-preview-card p { display: none; }
   .products-grid { grid-template-columns: repeat(2, 1fr); }
   .steps { grid-template-columns: repeat(3, 1fr); }
   .steps::before { display: none; }
@@ -256,6 +284,28 @@
         <a href="get-in-touch.html" class="btn-primary">Get in Touch →</a>
         <a href="#products" class="btn-secondary">View Products</a>
       </div>
+    </div>
+    <div class="hero-preview">
+      <a href="vertical-construction-loans.html" class="hero-preview-card">
+        <div class="hero-preview-icon"><svg viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg></div>
+        <h4>New Construction</h4>
+        <p>Capital for home builders with structured draws and competitive leverage.</p>
+      </a>
+      <a href="dscr.html" class="hero-preview-card">
+        <div class="hero-preview-icon"><svg viewBox="0 0 24 24"><path d="M11.8 10.9c-2.27-.59-3-1.2-3-2.15 0-1.09 1.01-1.85 2.7-1.85 1.78 0 2.44.85 2.5 2.1h2.21c-.07-1.72-1.12-3.3-3.21-3.81V3h-3v2.16c-1.94.42-3.5 1.68-3.5 3.61 0 2.31 1.91 3.46 4.7 4.13 2.5.6 3 1.48 3 2.41 0 .69-.49 1.79-2.7 1.79-2.06 0-2.87-.92-2.98-2.1H6.5c.12 2.19 1.76 3.42 3.68 3.83V21h3v-2.15c1.95-.37 3.5-1.5 3.5-3.55 0-2.84-2.43-3.81-4.88-4.4z"/></svg></div>
+        <h4>DSCR Rental</h4>
+        <p>30-year fixed financing based on property cash flow, not personal income.</p>
+      </a>
+      <a href="bridge.html" class="hero-preview-card">
+        <div class="hero-preview-icon"><svg viewBox="0 0 24 24"><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10 10-4.5 10-10S17.5 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67V7z"/></svg></div>
+        <h4>Bridge</h4>
+        <p>Short-term capital for acquisitions, dispositions, or refinances.</p>
+      </a>
+      <a href="fix-and-flip.html" class="hero-preview-card">
+        <div class="hero-preview-icon"><svg viewBox="0 0 24 24"><path d="M22.7 19l-9.1-9.1c.9-2.3.4-5-1.5-6.9-2-2-5-2.4-7.4-1.3L9 6 6 9 1.6 4.7C.4 7.1.9 10.1 2.9 12.1c1.9 1.9 4.6 2.4 6.9 1.5l9.1 9.1c.4.4 1 .4 1.4 0l2.3-2.3c.5-.4.5-1.1.1-1.4z"/></svg></div>
+        <h4>Fix & Flip</h4>
+        <p>Fast funding for value-add projects including acquisition and renovation.</p>
+      </a>
     </div>
   </div>
 </section>
