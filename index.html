@@ -79,6 +79,20 @@
   ]
 }
 </script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "https://ledgertc.com/"
+    }
+  ]
+}
+</script>
 <style>
 .hero {
   min-height: 100vh; display: flex; align-items: center; padding: 8rem 3rem 4rem;
@@ -103,7 +117,7 @@
 }
 .hero-text h1 .accent { color: var(--gold); }
 .hero-text p { font-size: 1.15rem; color: var(--text-secondary); max-width: 520px; margin-bottom: 2rem; line-height: 1.7; }
-.hero-badges { display: flex; gap: 1rem; margin-bottom: 2.5rem; flex-wrap: wrap; }
+.hero-badges { display: grid; grid-template-columns: repeat(4, auto); gap: 1rem; margin-bottom: 2.5rem; justify-content: start; }
 .hero-badge {
   display: inline-flex; align-items: center; gap: 0.5rem;
   background: rgba(196,154,60,0.08); border: 1px solid rgba(196,154,60,0.18);
@@ -152,6 +166,7 @@
   .hero-content { grid-template-columns: 1fr; }
   .hero-visual { display: none; }
   .hero-text h1 { font-size: 2.8rem; }
+  .hero-badges { grid-template-columns: repeat(2, auto); }
   .products-grid { grid-template-columns: repeat(2, 1fr); }
   .steps { grid-template-columns: repeat(3, 1fr); }
   .steps::before { display: none; }
@@ -160,6 +175,7 @@
 @media (max-width: 640px) {
   .hero { padding: 7rem 1.5rem 3rem; }
   .hero-text h1 { font-size: 2.2rem; }
+  .hero-badges { grid-template-columns: repeat(2, auto); }
   .products-grid { grid-template-columns: 1fr; }
   .steps { grid-template-columns: 1fr; gap: 2rem; }
   .hero-buttons { flex-direction: column; }
@@ -178,7 +194,7 @@
         <ul>
           <li><a href="vertical-construction-loans.html">New Construction</a></li>
           <li><a href="dscr.html">DSCR Rental</a></li>
-          <li><a href="bridge.html">Bridge Loans</a></li>
+          <li><a href="bridge.html">Bridge</a></li>
           <li><a href="fix-and-flip.html">Fix & Flip</a></li>
         </ul>
       </div>
@@ -209,12 +225,12 @@
         <div class="hero-badge"><svg viewBox="0 0 24 24"><path d="M12 2L2 7v10l10 5 10-5V7L12 2zm0 2.18l6 3v5.64l-6 3-6-3V7.18l6-3z"/></svg>Asset Based</div>
       </div>
       <div class="hero-buttons">
-        <a href="get-in-touch.html" class="btn-primary">Request Funding →</a>
+        <a href="get-in-touch.html" class="btn-primary">Get in Touch →</a>
         <a href="#products" class="btn-secondary">View Products</a>
       </div>
     </div>
     <div class="hero-visual">
-      <img src="hero-graphic.svg" alt="" style="width: 100%; max-width: 500px; opacity: 0.9;">
+      <img src="hero-graphic.svg" alt="" style="width: 100%; max-width: 500px; opacity: 0.9; filter: brightness(0.5) sepia(1) hue-rotate(-30deg) saturate(10);">
     </div>
   </div>
 </section>
@@ -240,7 +256,7 @@
       </div>
       <div class="product-card">
         <div class="product-icon"><svg viewBox="0 0 24 24"><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10 10-4.5 10-10S17.5 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67V7z"/></svg></div>
-        <h3>Bridge Loans</h3>
+        <h3>Bridge</h3>
         <p>Short-term capital that gives you time and flexibility between acquisitions, dispositions, or refinances. Close fast and bridge to your next move with confidence.</p>
         <a href="bridge.html" class="product-link">Learn More <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
       </div>
@@ -273,10 +289,24 @@
   </div>
 </section>
 
-<!-- TAGLINE -->
-<section class="stats">
+<!-- STATS BANNER -->
+<section class="stats" id="stats-banner">
   <div class="container" style="text-align: center;">
-    <h2 style="font-family: 'Plus Jakarta Sans', sans-serif; font-size: 2.4rem; font-weight: 800; color: var(--white); letter-spacing: -0.02em;">Capital that Keeps Up.</h2>
+    <div class="section-label" style="color: var(--gold-light);">Capital that Keeps Up.</div>
+    <div class="stats-grid">
+      <div class="stat">
+        <div class="stat-number" data-target="70" data-suffix="+">0</div>
+        <div class="stat-label">Collective Years Experience</div>
+      </div>
+      <div class="stat">
+        <div class="stat-number" data-prefix="$" data-target="1.4" data-suffix="B" data-decimals="1">0</div>
+        <div class="stat-label">in Closed Transactions</div>
+      </div>
+      <div class="stat">
+        <div class="stat-number" data-prefix="$" data-target="20" data-suffix="B">0</div>
+        <div class="stat-label">in Sourced Investments</div>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -306,7 +336,7 @@
 <div class="cta-band">
   <div class="container">
     <h2 class="section-title" style="color: var(--white);">Ready to Start Your Next Project?</h2>
-    <a href="get-in-touch.html" class="btn-primary" style="font-size: 1.05rem; padding: 1rem 2.5rem;">Request Funding →</a>
+    <a href="get-in-touch.html" class="btn-primary" style="font-size: 1.05rem; padding: 1rem 2.5rem;">Get in Touch →</a>
   </div>
 </div>
 
@@ -325,6 +355,57 @@
     <div class="footer-copy" style="text-align: center;">&copy; 2026 Ledger Trade &amp; Capital. All rights reserved.</div>
   </div>
 </footer>
+
+<!-- Stats count-up animation -->
+<script>
+(function () {
+  const duration = 2000; // ms
+  let animated = false;
+
+  function animateCounters() {
+    if (animated) return;
+    animated = true;
+
+    document.querySelectorAll('.stat-number[data-target]').forEach(function (el) {
+      const target = parseFloat(el.getAttribute('data-target'));
+      const decimals = parseInt(el.getAttribute('data-decimals') || '0', 10);
+      const prefix = el.getAttribute('data-prefix') || '';
+      const suffix = el.getAttribute('data-suffix') || '';
+      const start = performance.now();
+
+      function update(now) {
+        const elapsed = now - start;
+        const progress = Math.min(elapsed / duration, 1);
+        // ease-out quad
+        const eased = 1 - (1 - progress) * (1 - progress);
+        const current = eased * target;
+
+        el.textContent = prefix + current.toFixed(decimals) + suffix;
+
+        if (progress < 1) {
+          requestAnimationFrame(update);
+        } else {
+          el.textContent = prefix + target.toFixed(decimals) + suffix;
+        }
+      }
+
+      requestAnimationFrame(update);
+    });
+  }
+
+  var observer = new IntersectionObserver(function (entries) {
+    entries.forEach(function (entry) {
+      if (entry.isIntersecting) {
+        animateCounters();
+        observer.disconnect();
+      }
+    });
+  }, { threshold: 0.3 });
+
+  var statsSection = document.getElementById('stats-banner');
+  if (statsSection) observer.observe(statsSection);
+})();
+</script>
 
 <!-- HubSpot tracking -->
 <script type="text/javascript" id="hs-script-loader" async defer src="//js.hs-scripts.com/46107229.js"></script>

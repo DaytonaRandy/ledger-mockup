@@ -18,6 +18,60 @@
 
 const HUBSPOT_API = "https://api.hubapi.com";
 
+// ─── Rate-limiting & daily-cap stores (in-memory, per instance) ──
+const ipSubmissions = new Map();   // ip -> [timestamp, …]
+const IP_MAX = 5;
+const IP_WINDOW_MS = 60 * 60 * 1000;  // 1 hour
+
+let dailyCount = 0;
+let dailyResetDate = new Date().toISOString().slice(0, 10); // "YYYY-MM-DD"
+const DAILY_CAP = 100;
+
+function pruneAndCount(ip) {
+  const now = Date.now();
+  const cutoff = now - IP_WINDOW_MS;
+  const timestamps = (ipSubmissions.get(ip) || []).filter((t) => t > cutoff);
+  ipSubmissions.set(ip, timestamps);
+  return timestamps.length;
+}
+
+function recordIp(ip) {
+  const timestamps = ipSubmissions.get(ip) || [];
+  timestamps.push(Date.now());
+  ipSubmissions.set(ip, timestamps);
+}
+
+function checkAndIncrementDaily() {
+  const today = new Date().toISOString().slice(0, 10);
+  if (today !== dailyResetDate) {
+    dailyCount = 0;
+    dailyResetDate = today;
+  }
+  dailyCount++;
+  return dailyCount;
+}
+
+async function sendDailyCapAlert() {
+  try {
+    await fetch("https://api.mailchannels.net/tx/v1/send", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        personalizations: [{ to: [{ email: "Info@ledgertc.com" }] }],
+        from: { email: "noreply@ledgertc.com", name: "Ledger TC Website" },
+        subject: "Daily form submission cap reached (100)",
+        content: [{
+          type: "text/plain",
+          value: `The contact form on ledgertc.com has received ${DAILY_CAP} submissions today (${new Date().toISOString().slice(0, 10)}). Further submissions are being rejected until midnight UTC. This may indicate a spam attack — please review recent HubSpot tickets.`,
+        }],
+      }),
+    });
+    console.log("Daily cap alert email sent to Info@ledgertc.com");
+  } catch (err) {
+    console.error("Failed to send daily cap alert email:", err);
+  }
+}
+
 // ─── Helper: make HubSpot API request ─────────────────────────────
 async function hubspot(method, path, body) {
   const opts = {
@@ -267,6 +321,47 @@ exports.handler = async function (event) {
   try {
     // Parse form data
     const formData = JSON.parse(event.body);
+
+    // ── Honeypot check ──────────────────────────────────────────
+    if (formData.website) {
+      console.log("Honeypot triggered — rejecting silently");
+      return {
+        statusCode: 200,
+        headers,
+        body: JSON.stringify({ success: true, message: "Thank you for your submission." }),
+      };
+    }
+
+    // ── IP rate limiting (5 per hour) ───────────────────────────
+    const clientIp = (event.headers["x-forwarded-for"] || event.headers["client-ip"] || "unknown")
+      .split(",")[0].trim();
+
+    if (clientIp !== "unknown") {
+      const recentCount = pruneAndCount(clientIp);
+      if (recentCount >= IP_MAX) {
+        console.warn(`Rate limit exceeded for IP ${clientIp} (${recentCount} in last hour)`);
+        return {
+          statusCode: 429,
+          headers,
+          body: JSON.stringify({ error: "Too many submissions. Please try again later." }),
+        };
+      }
+      recordIp(clientIp);
+    }
+
+    // ── Daily submission cap (100/day) ──────────────────────────
+    const todayTotal = checkAndIncrementDaily();
+    if (todayTotal > DAILY_CAP) {
+      if (todayTotal === DAILY_CAP + 1) {
+        await sendDailyCapAlert();
+      }
+      console.warn(`Daily cap exceeded: ${todayTotal} submissions today`);
+      return {
+        statusCode: 503,
+        headers,
+        body: JSON.stringify({ error: "We've received a high volume of inquiries today. Please try again tomorrow or email us directly at Info@ledgertc.com." }),
+      };
+    }
 
     // Validate required fields
     const required = ["firstName", "lastName", "email", "phone"];

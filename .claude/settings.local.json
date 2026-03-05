@@ -1,0 +1,12 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(git add bridge.html dscr.html fix-and-flip.html get-in-touch.html index.html netlify/functions/submit-form.js team.html thank-you.html vertical-construction-loans.html what-we-do.html)",
+      "Bash(git commit:*)",
+      "Bash(git config user.email)",
+      "Bash(git config user.name)",
+      "Bash(git add -A)",
+      "Bash(git push)"
+    ]
+  }
+}
