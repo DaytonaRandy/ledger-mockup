@@ -237,7 +237,7 @@ function buildBrokerTicketDescription(formData) {
 }
 
 // ─── Broker Partner: Create ticket ───────────────────────────────
-async function createBrokerTicket(formData, contactId, companyId) {
+async function createBrokerTicket(formData, ownerId, contactId, companyId) {
   const description = buildBrokerTicketDescription(formData);
   const ticketName = `Broker Inquiry - ${formData.firstName} ${formData.lastName} (${formData.company})`;
   const priority = formData.monthlyVolume === "10+ loans/month" ? "HIGH" : "MEDIUM";
@@ -248,9 +248,12 @@ async function createBrokerTicket(formData, contactId, companyId) {
     hs_pipeline: process.env.HUBSPOT_PIPELINE_ID,
     hs_pipeline_stage: "1",
     hs_ticket_priority: priority,
-    hs_ticket_category: "Broker Inquiry",
-    hubspot_owner_id: "67722106",
+    hs_ticket_category: "Broker_Inquiry",
   };
+
+  if (ownerId) {
+    properties.hubspot_owner_id = ownerId;
+  }
 
   const ticket = await hubspot("POST", "/crm/v3/objects/tickets", { properties });
 
@@ -368,7 +371,7 @@ async function createTicket(formData, ownerId, contactId, companyId) {
     hs_pipeline: process.env.HUBSPOT_PIPELINE_ID,
     hs_pipeline_stage: "1",  // "New" stage — update this if your stage ID differs
     hs_ticket_priority: "MEDIUM",
-    hs_ticket_category: "General Inquiry",
+    hs_ticket_category: "GENERAL_INQUIRY",
   };
 
   if (ownerId) {
@@ -535,10 +538,13 @@ exports.handler = async function (event) {
         await associateContactToCompany(contactId, companyId);
       }
 
-      // Step 4: Create broker ticket (owner always Russell — 67722106)
-      const ticket = await createBrokerTicket(formData, contactId, companyId);
+      // Step 4: Determine ticket owner
+      const ownerId = await determineTicketOwner(contactResult, companyResult);
 
-      // Step 5: Send notification email
+      // Step 5: Create broker ticket
+      const ticket = await createBrokerTicket(formData, ownerId, contactId, companyId);
+
+      // Step 6: Send notification email
       await sendBrokerNotificationEmail(formData, ticket.id);
 
       return {
