@@ -19,7 +19,12 @@
       "Bash(unzip -o \"C:/Users/bulla/Downloads/all-pages-cta-updated.zip\" -d .)",
       "Bash(unzip -l \"C:/Users/bulla/Downloads/all-pages-cta-updated.zip\")",
       "Bash(unzip -l \"C:/Users/bulla/Downloads/content-updates.zip\")",
-      "Bash(unzip -o \"C:/Users/bulla/Downloads/content-updates.zip\" -d .)"
+      "Bash(unzip -o \"C:/Users/bulla/Downloads/content-updates.zip\" -d .)",
+      "Bash(set +H)",
+      "Bash(while read f)",
+      "Bash(do sed -i 's|    <div class=\"\"footer-copy\"\" style=\"\"text-align: center;\"\">\\\\&copy; 2026 Ledger Trade \\\\&amp; Capital. All rights reserved.</div>|    <div style=\"\"color: rgba\\(255,255,255,0.4\\); font-size: 0.78rem; margin-top: 1rem; text-align: center;\"\">\\\\n      <a href=\"\"terms-and-conditions.html\"\" style=\"\"color: rgba\\(255,255,255,0.4\\); text-decoration: none;\"\">Terms of Service</a>\\\\n      <span style=\"\"margin: 0 0.5rem;\"\">\\\\|</span>\\\\n      <a href=\"\"privacy-policy.html\"\" style=\"\"color: rgba\\(255,255,255,0.4\\); text-decoration: none;\"\">Privacy Policy</a>\\\\n    </div>\\\\n    <div class=\"\"footer-copy\"\" style=\"\"text-align: center;\"\">\\\\&copy; 2026 Ledger Trade \\\\&amp; Capital. All rights reserved.</div>|' \"$f\")",
+      "Bash(echo \"Updated: $f\")",
+      "Bash(done)"
     ]
   }
 }
