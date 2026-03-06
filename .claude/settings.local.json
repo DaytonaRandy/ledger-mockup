@@ -13,7 +13,9 @@
       "Bash(python -c \":*)",
       "Bash(node -e \":*)",
       "WebFetch(domain:ledgertc.com)",
-      "WebFetch(domain:web.archive.org)"
+      "WebFetch(domain:web.archive.org)",
+      "Bash(unzip -o \"C:/Users/bulla/Downloads/state-pages-updated.zip\" \"private-lending-*.html\" -d .)",
+      "Bash(ls \"C:/Users/bulla/ClaudeCode/ledger-mockup\"/private-lending-*.html)"
     ]
   }
 }
