@@ -1,3 +1,2 @@
 User-agent: *
-Allow: /
-Sitemap: https://ledgertc.co/sitemap.xml
+Disallow: /

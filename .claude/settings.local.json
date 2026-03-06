@@ -11,7 +11,9 @@
       "Bash(git add index.html style.css team.html thank-you.html)",
       "mcp__Claude_Preview__preview_start",
       "Bash(python -c \":*)",
-      "Bash(node -e \":*)"
+      "Bash(node -e \":*)",
+      "WebFetch(domain:ledgertc.com)",
+      "WebFetch(domain:web.archive.org)"
     ]
   }
 }
