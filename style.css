@@ -28,8 +28,9 @@ body {
   color: var(--text-primary);
   font-size: clamp(1rem, 0.95rem + 0.25vw, 1.125rem);
   line-height: 1.6;
-  overflow-x: hidden;
 }
+html, body { max-width: 100%; }
+body { overflow-x: hidden; }
 
 /* ─── NAV ─── */
 .nav {

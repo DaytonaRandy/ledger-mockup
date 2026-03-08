@@ -177,6 +177,7 @@ gtag('config','AW-17993082803');
         <div class="form-group">
           <label>Phone *</label>
           <input type="tel" name="phone" placeholder="(555) 555-5555" required>
+          <div id="phoneError" style="display:none; color:#dc2626; font-size:0.8rem; margin-top:0.25rem;">Please enter a valid phone number</div>
         </div>
         <div class="form-group">
           <label>Loan Type *</label>
@@ -191,6 +192,7 @@ gtag('config','AW-17993082803');
         <div class="form-group">
           <label>Loan Amount Requested</label>
           <input type="text" name="loan_amount" placeholder="$500,000 - $5,000,000">
+          <div id="loanAmountError" style="display:none; color:#dc2626; font-size:0.8rem; margin-top:0.25rem;">Please enter a valid loan amount</div>
         </div>
         <div class="form-group">
           <label>Experience Level</label>
@@ -289,6 +291,91 @@ gtag('config','AW-17993082803');
   </div>
 </footer>
 
+<!-- Field validation -->
+<script>
+(function(){
+  var phoneInput = document.querySelector('input[name="phone"]');
+  var loanInput = document.querySelector('input[name="loan_amount"]');
+  var phoneError = document.getElementById('phoneError');
+  var loanAmountError = document.getElementById('loanAmountError');
+
+  function isValidPhone(value) {
+    var stripped = value.replace(/[^\d]/g, '');
+    return /^1?\d{10}$/.test(stripped);
+  }
+
+  function isValidLoanAmount(value) {
+    var raw = value.replace(/[$,\s]/g, '');
+    return raw === '' || (/^\d+$/.test(raw) && parseInt(raw, 10) > 0);
+  }
+
+  function validatePhone() {
+    var val = phoneInput.value.trim();
+    if (val && !isValidPhone(val)) {
+      phoneError.style.display = 'block';
+      return false;
+    }
+    phoneError.style.display = 'none';
+    return true;
+  }
+
+  function validateLoanAmount() {
+    var val = loanInput.value.trim();
+    if (val && !isValidLoanAmount(val)) {
+      loanAmountError.style.display = 'block';
+      return false;
+    }
+    loanAmountError.style.display = 'none';
+    return true;
+  }
+
+  function formatPhoneRealtime(e) {
+    var input = e.target;
+    var digits = input.value.replace(/\D/g, '').substring(0, 10);
+    var formatted = '';
+    if (digits.length > 6) {
+      formatted = '(' + digits.substring(0,3) + ') ' + digits.substring(3,6) + '-' + digits.substring(6);
+    } else if (digits.length > 3) {
+      formatted = '(' + digits.substring(0,3) + ') ' + digits.substring(3);
+    } else if (digits.length > 0) {
+      formatted = '(' + digits;
+    }
+    input.value = formatted;
+  }
+  phoneInput.addEventListener('input', formatPhoneRealtime);
+
+  phoneInput.addEventListener('blur', validatePhone);
+  loanInput.addEventListener('blur', validateLoanAmount);
+
+  loanInput.addEventListener('input', function() {
+    var raw = this.value.replace(/[^\d]/g, '');
+    if (raw === '') { this.value = ''; return; }
+    this.value = '$' + parseInt(raw, 10).toLocaleString('en-US');
+  });
+
+  function formatPhoneE164() {
+    var digits = phoneInput.value.replace(/[^\d]/g, '');
+    if (digits.length === 11 && digits[0] === '1') digits = digits.substring(1);
+    if (digits.length === 10) {
+      phoneInput.value = '+1 (' + digits.substring(0,3) + ') ' + digits.substring(3,6) + '-' + digits.substring(6);
+    }
+  }
+
+  window._ledgerValidation = {
+    validatePhone: validatePhone,
+    validateLoanAmount: validateLoanAmount,
+    formatPhone: formatPhoneE164,
+    stripLoanFormat: function() {
+      loanInput.value = loanInput.value.replace(/[$,\s]/g, '');
+    },
+    restoreLoanFormat: function() {
+      var raw = loanInput.value.replace(/[^\d]/g, '');
+      if (raw !== '') loanInput.value = '$' + parseInt(raw, 10).toLocaleString('en-US');
+    }
+  };
+})();
+</script>
+
 <!-- Form submission handler -->
 <script>
 (function(){
@@ -299,10 +386,18 @@ gtag('config','AW-17993082803');
   form.addEventListener('submit', function(e) {
     e.preventDefault();
     errorBox.style.display = 'none';
+
+    var phoneValid = window._ledgerValidation.validatePhone();
+    var loanValid = window._ledgerValidation.validateLoanAmount();
+    if (!phoneValid || !loanValid) return;
+
     submitBtn.disabled = true;
     submitBtn.textContent = 'Submitting…';
 
+    window._ledgerValidation.formatPhone();
+    window._ledgerValidation.stripLoanFormat();
     var formData = new URLSearchParams(new FormData(form));
+    window._ledgerValidation.restoreLoanFormat();
 
     fetch('/.netlify/functions/submit-form', {
       method: 'POST',
