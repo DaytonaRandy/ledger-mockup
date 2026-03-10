@@ -260,22 +260,15 @@ gtag('config','AW-17993082803');
   </div>
 </footer>
 
-<!-- Field validation -->
+<!-- Phone validation -->
 <script>
 (function(){
   var phoneInput = document.querySelector('input[name="phone"]');
-  var loanInput = document.querySelector('input[name="loan_amount"]');
   var phoneError = document.getElementById('phoneError');
-  var loanAmountError = document.getElementById('loanAmountError');
 
   function isValidPhone(value) {
     var stripped = value.replace(/[^\d]/g, '');
     return /^1?\d{10}$/.test(stripped);
-  }
-
-  function isValidLoanAmount(value) {
-    var raw = value.replace(/[$,\s]/g, '');
-    return raw === '' || (/^\d+$/.test(raw) && parseInt(raw, 10) > 0);
   }
 
   function validatePhone() {
@@ -285,16 +278,6 @@ gtag('config','AW-17993082803');
       return false;
     }
     phoneError.style.display = 'none';
-    return true;
-  }
-
-  function validateLoanAmount() {
-    var val = loanInput.value.trim();
-    if (val && !isValidLoanAmount(val)) {
-      loanAmountError.style.display = 'block';
-      return false;
-    }
-    loanAmountError.style.display = 'none';
     return true;
   }
 
@@ -312,15 +295,7 @@ gtag('config','AW-17993082803');
     input.value = formatted;
   }
   phoneInput.addEventListener('input', formatPhoneRealtime);
-
   phoneInput.addEventListener('blur', validatePhone);
-  loanInput.addEventListener('blur', validateLoanAmount);
-
-  loanInput.addEventListener('input', function() {
-    var raw = this.value.replace(/[^\d]/g, '');
-    if (raw === '') { this.value = ''; return; }
-    this.value = '$' + parseInt(raw, 10).toLocaleString('en-US');
-  });
 
   function formatPhoneE164() {
     var digits = phoneInput.value.replace(/[^\d]/g, '');
@@ -332,15 +307,7 @@ gtag('config','AW-17993082803');
 
   window._ledgerValidation = {
     validatePhone: validatePhone,
-    validateLoanAmount: validateLoanAmount,
-    formatPhone: formatPhoneE164,
-    stripLoanFormat: function() {
-      loanInput.value = loanInput.value.replace(/[$,\s]/g, '');
-    },
-    restoreLoanFormat: function() {
-      var raw = loanInput.value.replace(/[^\d]/g, '');
-      if (raw !== '') loanInput.value = '$' + parseInt(raw, 10).toLocaleString('en-US');
-    }
+    formatPhone: formatPhoneE164
   };
 })();
 </script>
@@ -356,17 +323,13 @@ gtag('config','AW-17993082803');
     e.preventDefault();
     errorBox.style.display = 'none';
 
-    var phoneValid = window._ledgerValidation.validatePhone();
-    var loanValid = window._ledgerValidation.validateLoanAmount();
-    if (!phoneValid || !loanValid) return;
+    if (!window._ledgerValidation.validatePhone()) return;
 
     submitBtn.disabled = true;
     submitBtn.textContent = 'Submitting…';
 
     window._ledgerValidation.formatPhone();
-    window._ledgerValidation.stripLoanFormat();
     var formData = new URLSearchParams(new FormData(form));
-    window._ledgerValidation.restoreLoanFormat();
 
     fetch('/.netlify/functions/submit-form', {
       method: 'POST',
