@@ -54,7 +54,8 @@
       "Bash(grep -c '>Get in Touch →</a>' *.html)",
       "Bash(grep -n 'Get in Touch' *.html)",
       "Bash(grep -c '>Apply Now &rarr;</a>' *.html)",
-      "Bash(grep -c '>Apply Now →</a>' *.html)"
+      "Bash(grep -c '>Apply Now →</a>' *.html)",
+      "Bash(grep -c '  <a href=\"\"broker-partners.html\"\">Broker Partners</a>' *.html)"
     ]
   }
 }
