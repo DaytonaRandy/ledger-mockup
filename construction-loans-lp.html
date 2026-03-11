@@ -59,8 +59,8 @@
 
     /* ── Top Bar ── */
     .top-bar {
-      background: var(--green);
-      padding: 1rem clamp(1.5rem, 3vw, 4rem);
+      background: rgba(242,239,233,0.95);
+      padding: 1.25rem clamp(1.5rem, 3vw, 4rem);
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -68,6 +68,7 @@
       top: 0;
       z-index: 100;
       backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--gray-100);
     }
     .top-bar-logo img {
       height: 38px;
@@ -80,13 +81,13 @@
       gap: 8px;
     }
     .top-bar-phone a {
-      color: var(--white);
+      color: var(--green);
       text-decoration: none;
       font-size: clamp(0.85rem, 0.82rem + 0.2vw, 0.95rem);
       font-weight: 600;
       letter-spacing: 0.02em;
     }
-    .top-bar-phone a:hover { color: var(--gold); }
+    .top-bar-phone a:hover { color: var(--gold-dark); }
     .top-bar-phone svg { color: var(--gold); }
 
     /* ── Hero Section ── */
@@ -812,7 +813,7 @@
       <!-- Right: Form -->
       <div class="form-card">
         <h3>Get Your Custom Rate</h3>
-        <p class="form-sub">60-second form. We respond within one business day.</p>
+        <p class="form-sub">We respond within one business day.</p>
 
         <form id="constructionLPForm">
           <div class="form-row">
@@ -834,6 +835,11 @@
           <div class="form-group">
             <label for="phone">Phone</label>
             <input type="tel" id="phone" name="phone" placeholder="(555) 000-0000" required>
+          </div>
+
+          <div class="form-group">
+            <label for="details">Project Details <span style="font-weight:400;text-transform:none;letter-spacing:0;color:var(--gray-500);">(optional)</span></label>
+            <textarea id="details" name="details" placeholder="Tell us about your project — e.g. $2M spec build in Raleigh" rows="2" style="resize:vertical;min-height:56px;"></textarea>
           </div>
 
           <!-- Honeypot -->
