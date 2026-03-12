@@ -15,8 +15,10 @@
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
     gtag('js', new Date());
-    gtag('config', 'G-P2E61PRS60');
-    gtag('config', 'AW-17993082803');
+    if (window.location.hostname === 'ledgertc.com') {
+      gtag('config', 'G-P2E61PRS60');
+      gtag('config', 'AW-17993082803');
+    }
   </script>
 
   <style>

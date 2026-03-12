@@ -9,8 +9,10 @@
 window.dataLayer=window.dataLayer||[];
 function gtag(){dataLayer.push(arguments);}
 gtag('js',new Date());
-gtag('config','G-P2E61PRS60');
-gtag('config','AW-17993082803');
+if (window.location.hostname === 'ledgertc.com') {
+  gtag('config','G-P2E61PRS60');
+  gtag('config','AW-17993082803');
+}
 </script>
 <link rel="icon" href="favicon.ico" type="image/x-icon">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
