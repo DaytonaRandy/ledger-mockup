@@ -470,9 +470,9 @@
     .mobile-hero-detail { display: block; }
     .mobile-toggle-btn { display: none !important; }
 
-    /* ── Mobile breadcrumb bar — always visible, shows current section ── */
+    /* ── Mobile breadcrumb bar — hidden on load, shown when scrolled ── */
     .mobile-breadcrumb {
-      display: flex !important;
+      display: none !important;
       align-items: center;
       gap: 6px;
       padding: 6px 0 2px;
@@ -498,8 +498,8 @@
     }
     .mobile-breadcrumb-chevron.expanded { transform: rotate(180deg); }
 
-    /* ── Nav: hidden by default, shown on breadcrumb tap ── */
-    .hero-nav-bar { margin-top: 0; display: none; }
+    /* ── Nav pills: visible on initial load ── */
+    .hero-nav-bar { margin-top: 0; }
     .hero-nav-inner { padding: 6px 0; gap: 5px; }
     .nav-bar-label { display: none; }
     .step-pill { padding: 5px 10px; }
@@ -510,9 +510,14 @@
     .sub-pill { padding: 4px 10px; }
     .sub-lbl { font-size: 9.5px; }
 
-    /* When nav is expanded via breadcrumb tap */
-    .hero.nav-open .hero-nav-bar { display: block; }
-    .hero.nav-open .sub-nav-bar.visible { display: block !important; }
+    /* ── Scrolled state: hide nav, show breadcrumb ── */
+    .hero.scrolled .hero-nav-bar { display: none; }
+    .hero.scrolled .mobile-hero-info { display: none !important; }
+    .hero.scrolled .mobile-breadcrumb { display: flex !important; }
+
+    /* ── Scrolled + nav-open: show pills again via breadcrumb tap ── */
+    .hero.scrolled.nav-open .hero-nav-bar { display: block; }
+    .hero.scrolled.nav-open .sub-nav-bar.visible { display: block !important; }
 
     /* ── Content area ── */
     .page-wrap { padding: 20px 16px 40px; max-width: 100%; overflow-x: hidden; }
@@ -2002,11 +2007,11 @@
       : `Section ${n === 1 ? 1 : 2} of 3`;
     footPage.innerHTML = `GUC PLAYBOOK &nbsp;|&nbsp; ${sectionNum}`;
 
-    // Close mobile nav if open, recalc hero height, scroll to top
+    // Close mobile nav if open, scroll to top
     hero.classList.remove('nav-open');
     breadcrumbChevron.classList.remove('expanded');
-    updateHeroOffset();
     window.scrollTo({ top: 0, behavior: 'smooth' });
+    updateHeroHeight();
   }
 
   // Glossary pill click — show sub-nav and default to Submission Package (sec2)
@@ -2020,23 +2025,48 @@
   function toggleMobileNav() {
     hero.classList.toggle('nav-open');
     breadcrumbChevron.classList.toggle('expanded');
-    // Recalculate hero height after nav expands/collapses
-    updateHeroOffset();
+    updateHeroHeight();
   }
 
-  // Set hero sticky offset to sit just below the sticky header (desktop)
-  // On mobile, calculate fixed hero height for margin-top on page content
+  // ── Mobile scroll detection: compact on scroll, expand at top ──
+  let isScrolled = false;
+  const SCROLL_DOWN_THRESHOLD = 60;  // px to scroll before compacting
+  const SCROLL_UP_THRESHOLD = 10;    // px from top to expand again
+
+  function handleMobileScroll() {
+    if (window.innerWidth > 800) return;
+    const y = window.scrollY;
+    if (!isScrolled && y > SCROLL_DOWN_THRESHOLD) {
+      isScrolled = true;
+      hero.classList.add('scrolled');
+      hero.classList.remove('nav-open');
+      breadcrumbChevron.classList.remove('expanded');
+      updateHeroHeight();
+    } else if (isScrolled && y < SCROLL_UP_THRESHOLD) {
+      isScrolled = false;
+      hero.classList.remove('scrolled', 'nav-open');
+      breadcrumbChevron.classList.remove('expanded');
+      updateHeroHeight();
+    }
+  }
+  window.addEventListener('scroll', handleMobileScroll, { passive: true });
+
+  // Calculate fixed hero height for page-wrap margin on mobile
+  function updateHeroHeight() {
+    if (window.innerWidth <= 800) {
+      requestAnimationFrame(() => {
+        document.documentElement.style.setProperty('--mobile-hero-h', hero.offsetHeight + 'px');
+      });
+    }
+  }
+
+  // Desktop: sticky hero below sticky header
   function updateHeroOffset() {
     const isMobile = window.innerWidth <= 800;
-    const headerEl = document.querySelector('header');
     if (isMobile) {
-      // Fixed hero on mobile — set CSS variable for page-wrap margin
-      requestAnimationFrame(() => {
-        const heroH = hero.offsetHeight;
-        document.documentElement.style.setProperty('--mobile-hero-h', heroH + 'px');
-      });
+      updateHeroHeight();
     } else {
-      // Desktop — sticky hero below sticky header
+      const headerEl = document.querySelector('header');
       if (headerEl && hero) {
         hero.style.top = headerEl.offsetHeight + 'px';
       }
@@ -2047,8 +2077,9 @@
   window.addEventListener('resize', () => {
     updateHeroOffset();
     if (window.innerWidth > 800) {
-      hero.classList.remove('nav-open');
+      hero.classList.remove('scrolled', 'nav-open');
       breadcrumbChevron.classList.remove('expanded');
+      isScrolled = false;
     }
   });
 </script>
