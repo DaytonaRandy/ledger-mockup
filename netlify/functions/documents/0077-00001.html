@@ -437,7 +437,7 @@
     }
     .card.span2, .card.span3 { grid-column: span 1; }
     .card { word-wrap: break-word; overflow-wrap: break-word; }
-    footer { padding: 14px 16px; flex-direction: column; gap: 8px; text-align: center; }
+    footer { padding: 14px 16px 40px; flex-direction: column; gap: 8px; text-align: center; }
 
     /* ── Hide decorative backgrounds ── */
     .header-brand-graphic, .hero-brand-graphic { display: none; }
@@ -505,13 +505,15 @@
     .step-pill { padding: 5px 10px; }
     .step-pill .nav-num { font-size: 7px; }
     .step-pill .nav-lbl { font-size: 10px; }
-    .sub-nav-bar { display: none !important; }
+    .sub-nav-bar { display: none; }
+    .sub-nav-bar.visible { display: block; }
     .sub-nav-inner { padding: 6px 0; gap: 4px; }
     .sub-pill { padding: 4px 10px; }
     .sub-lbl { font-size: 9.5px; }
 
-    /* ── Scrolled state: hide nav, show breadcrumb ── */
+    /* ── Scrolled state: hide nav + sub-nav, show breadcrumb ── */
     .hero.scrolled .hero-nav-bar { display: none; }
+    .hero.scrolled .sub-nav-bar { display: none !important; }
     .hero.scrolled .mobile-hero-info { display: none !important; }
     .hero.scrolled .mobile-breadcrumb { display: flex !important; }
 
