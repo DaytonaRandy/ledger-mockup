@@ -32,7 +32,8 @@
   /* ─── HEADER ─── */
   header {
     background: var(--teal-dark);
-    position: relative; overflow: hidden;
+    position: sticky; top: 0; overflow: hidden;
+    z-index: 100;
   }
   .header-brand-graphic {
     position: absolute;
@@ -71,7 +72,7 @@
   }
 
   /* ─── HERO ─── */
-  .hero { background: var(--teal-dark); padding: 16px 48px 32px; position: relative; overflow: hidden; }
+  .hero { background: var(--teal-dark); padding: 16px 48px 0; position: sticky; top: 0; overflow: hidden; z-index: 98; }
   .hero-inner {
     max-width: 1340px; margin: 0 auto;
     display: flex; align-items: center; gap: 44px;
@@ -327,67 +328,67 @@
     font-family: 'DM Mono', monospace; font-size: 10px; color: var(--gold); letter-spacing: 2px;
   }
   /* ─── HERO NAV BAR ─── */
+  .nav-bar-label {
+    display: block;
+    width: 100%;
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--gold);
+    opacity: 0.75;
+    margin-bottom: 6px;
+  }
   .hero-nav-bar {
     border-top: 1px solid rgba(217,168,66,0.15);
     margin-top: 24px;
-  }
-  .hero-nav-inner {
-    max-width: 1340px; margin: 0 auto;
-    padding: 14px 48px 0;
-    display: flex;
-    flex-direction: column;
-    gap: 0;
-  }
-
-  /* ── PRIMARY ROW: Deal Process + Credit Box ── */
-  .nav-primary-row {
-    display: flex;
-    gap: 10px;
-    padding-bottom: 10px;
-    align-items: center;
-  }
-  .nav-primary-label {
-    font-family: 'DM Mono', monospace;
-    font-size: 8px; letter-spacing: 2.5px;
-    text-transform: uppercase;
-    color: rgba(217,168,66,0.7);
-    font-weight: 600;
-    margin-right: 4px;
-    flex-shrink: 0;
-  }
-
-  /* ── SUB-ROW: steps 03–09, nested under Deal Process ── */
-  .nav-sub-row {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 6px;
-    padding: 8px 0 12px 0;
-    margin-left: 2px;
-    border-top: 1px solid rgba(217,168,66,0.10);
     position: relative;
   }
-  /* Left bracket connecting sub-items to Deal Process Overview */
-  .nav-sub-row::before {
-    content: '';
-    position: absolute;
-    left: -24px;
-    top: 0; bottom: 12px;
-    width: 2px;
-    background: linear-gradient(to bottom, rgba(217,168,66,0.4), rgba(217,168,66,0.08));
-    border-radius: 1px;
+  .sub-nav-bar {
+    background: transparent;
+    border-top: 1px solid rgba(217,168,66,0.12);
+    visibility: hidden;
+    opacity: 0;
+    transition: opacity 0.2s;
   }
-  .nav-sub-label {
-    font-family: 'DM Mono', monospace;
-    font-size: 7.5px; letter-spacing: 2px;
-    text-transform: uppercase;
-    color: rgba(217,168,66,0.7);
-    font-weight: 600;
-    align-self: center;
-    margin-right: 4px;
-    flex-shrink: 0;
+  .sub-nav-bar.visible {
+    visibility: visible;
+    opacity: 1;
   }
-
-  /* ── PRIMARY pills (Deal Process Overview & Credit Box) ── */
+  .sub-nav-inner {
+    max-width: 1340px; margin: 0 auto;
+    padding: 10px 48px;
+    display: flex; flex-wrap: wrap; gap: 6px;
+  }
+  .sub-pill {
+    display: flex; align-items: center;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(217,168,66,0.15);
+    padding: 6px 14px; border-radius: 6px;
+    cursor: pointer; transition: all 0.2s;
+    white-space: nowrap;
+  }
+  .sub-pill:hover {
+    background: rgba(217,168,66,0.1);
+    border-color: rgba(217,168,66,0.45);
+  }
+  .sub-pill.active {
+    background: rgba(217,168,66,0.15);
+    border-color: var(--gold);
+  }
+  .sub-lbl {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 11px; font-weight: 500;
+    color: var(--cream); letter-spacing: 0.3px;
+  }
+  .sub-pill.active .sub-lbl { color: var(--gold); }
+  .hero-nav-inner {
+    max-width: 1340px; margin: 0 auto;
+    padding: 16px 48px;
+    display: flex; flex-wrap: wrap; gap: 8px;
+  }
+  /* Footer nav pills */
   .step-pill {
     display: flex; align-items: center; gap: 8px;
     background: rgba(255,255,255,0.04);
@@ -418,54 +419,6 @@
   }
   .step-pill.active .nav-num { color: var(--gold); }
   .step-pill.active .nav-lbl { color: #fff; font-weight: 600; }
-
-  /* Primary pills get extra weight */
-  .step-pill--primary {
-    padding: 10px 20px;
-    border-width: 1.5px;
-  }
-  .step-pill--primary .nav-num {
-    font-size: 10px;
-  }
-  .step-pill--primary .nav-lbl {
-    font-size: 13px;
-    font-weight: 600;
-    color: rgba(221,213,197,0.8);
-  }
-  .step-pill--primary:hover .nav-lbl { color: #fff; }
-  .step-pill--primary.active .nav-lbl { font-size: 13px; }
-
-  /* Sub-step pills: smaller, more muted */
-  .step-pill--sub {
-    padding: 5px 12px;
-    border-radius: 6px;
-    background: rgba(255,255,255,0.02);
-    border-color: rgba(217,168,66,0.11);
-  }
-  .step-pill--sub .nav-num {
-    font-size: 8px; color: rgba(217,168,66,0.35);
-  }
-  .step-pill--sub .nav-lbl {
-    font-size: 10.5px; font-weight: 400;
-    color: rgba(221,213,197,0.45);
-  }
-  .step-pill--sub:hover {
-    transform: translateY(-1px);
-    box-shadow: 0 3px 8px rgba(0,0,0,0.25);
-  }
-  .step-pill--sub.active {
-    background: rgba(217,168,66,0.12);
-    border-color: rgba(217,168,66,0.6);
-    box-shadow: 0 0 0 1px rgba(217,168,66,0.2), 0 3px 10px rgba(0,0,0,0.2);
-    transform: translateY(-1px);
-  }
-  .step-pill--sub.active .nav-num { color: var(--gold); }
-  .step-pill--sub.active .nav-lbl { color: rgba(255,255,255,0.9); font-weight: 500; }
-
-  /* When Deal Process Overview is the active parent, show sub-row connector more prominently */
-  .nav-sub-row.parent-active::before {
-    background: linear-gradient(to bottom, rgba(217,168,66,0.65), rgba(217,168,66,0.12));
-  }
 
   /* ─── RESPONSIVE ─── */
   @media (max-width: 1100px) {
@@ -911,33 +864,6 @@
     min-height: 0;
   }
 
-/* ─── RESPONSIVE ADDITIONS ─── */
-@media (max-width: 768px) {
-  .header-inner { padding: 20px; flex-direction: column; align-items: flex-start; gap: 16px; }
-  .header-meta { text-align: left; }
-  .hero { padding: 16px 20px 24px; }
-  .hero-inner { flex-direction: column; gap: 20px; }
-  .hero-divider { display: none; }
-  .hero-title { font-size: 44px; }
-  .hero-nav-bar .hero-nav-inner { padding: 14px 20px 0; }
-  .nav-primary-row { flex-wrap: wrap; }
-  .nav-sub-row { margin-left: 0; }
-  .nav-sub-row::before { display: none; }
-  .page-wrap { padding: 24px 20px 48px; }
-  .card-grid { grid-template-columns: 1fr; }
-  .card-grid.two-col { grid-template-columns: 1fr; }
-  .card.span2, .card.span3 { grid-column: span 1; }
-  .closing-grid { grid-template-columns: 1fr; }
-  .two-col-grid { grid-template-columns: 1fr; }
-  .cost-grid { grid-template-columns: 1fr; }
-  .cb-tiers-grid { grid-template-columns: 1fr; }
-  .cb-geo-grid { grid-template-columns: 1fr; }
-  footer { padding: 16px 20px; flex-direction: column; gap: 8px; text-align: center; }
-}
-@media (min-width: 1600px) {
-  .page-wrap { max-width: 1500px; }
-  .header-inner, .hero-inner, .hero-nav-inner { max-width: 1500px; }
-}
 </style>
 </head>
 <body>
@@ -973,36 +899,71 @@
   </div>
   <div class="hero-nav-bar">
     <div class="hero-nav-inner">
-
-      <!-- PRIMARY ROW -->
-      <div class="nav-primary-row">
-        <span class="nav-primary-label">Sections</span>
-        <span class="step-pill step-pill--primary active" data-section="1" data-primary="true">
-          <span class="nav-num">01</span><span class="nav-lbl">Deal Process Overview</span>
-        </span>
-        <span class="step-pill step-pill--primary" data-section="9">
-          <span class="nav-num">02</span><span class="nav-lbl">Credit Box</span>
-        </span>
-      </div>
-
-      <!-- SUB-ROW: steps that belong under Deal Process Overview -->
-      <div class="nav-sub-row parent-active" id="dealSubRow">
-        <span class="nav-sub-label">Deal Process</span>
-        <span class="step-pill step-pill--sub" data-section="2"><span class="nav-num">03</span><span class="nav-lbl">Submission Package</span></span>
-        <span class="step-pill step-pill--sub" data-section="3"><span class="nav-num">04</span><span class="nav-lbl">Underwriting Diligence</span></span>
-        <span class="step-pill step-pill--sub" data-section="4"><span class="nav-num">05</span><span class="nav-lbl">Closing Deliverables</span></span>
-        <span class="step-pill step-pill--sub" data-section="5"><span class="nav-num">06</span><span class="nav-lbl">Closing Package</span></span>
-        <span class="step-pill step-pill--sub" data-section="6"><span class="nav-num">07</span><span class="nav-lbl">Loan Servicing</span></span>
-        <span class="step-pill step-pill--sub" data-section="7"><span class="nav-num">08</span><span class="nav-lbl">Draw Submissions</span></span>
-        <span class="step-pill step-pill--sub" data-section="8"><span class="nav-num">09</span><span class="nav-lbl">Cost Allocation</span></span>
-      </div>
-
+      <span class="nav-bar-label">Content Navigation</span>
+      <span class="step-pill active" data-section="1" id="pill-1"><span class="nav-num">01</span><span class="nav-lbl">Deal Process Overview</span></span>
+      <span class="step-pill" data-section="9" id="pill-9"><span class="nav-num">02</span><span class="nav-lbl">Credit Box</span></span>
+      <span class="step-pill glossary-pill" id="pill-glossary"><span class="nav-num">03</span><span class="nav-lbl">Glossary by Stage</span></span>
+    </div>
+  </div>
+  <div class="sub-nav-bar" id="subNavBar">
+    <div class="sub-nav-inner">
+      <span class="nav-bar-label">Stage Navigation</span>
+      <span class="sub-pill active" data-section="2"><span class="sub-lbl">Submission Package</span></span>
+      <span class="sub-pill" data-section="3"><span class="sub-lbl">Underwriting Diligence</span></span>
+      <span class="sub-pill" data-section="4"><span class="sub-lbl">Closing Deliverables</span></span>
+      <span class="sub-pill" data-section="5"><span class="sub-lbl">Closing Package</span></span>
+      <span class="sub-pill" data-section="6"><span class="sub-lbl">Loan Servicing</span></span>
+      <span class="sub-pill" data-section="7"><span class="sub-lbl">Draw Submissions</span></span>
+      <span class="sub-pill" data-section="8"><span class="sub-lbl">Cost Allocation</span></span>
     </div>
   </div>
 </div>
 
 <!-- ═══ MAIN ═══ -->
 <div class="page-wrap">
+
+  <!-- TOC SIDEBAR -->
+  <div>
+    <div class="toc-panel">
+      <h3>Table of Contents</h3>
+      <div class="toc-item active" data-target="1">
+        <div class="toc-idx">1</div>
+        <div class="toc-lbl">Deal Process Overview</div>
+      </div>
+      <div class="toc-item" data-target="9">
+        <div class="toc-idx">2</div>
+        <div class="toc-lbl">Credit Box</div>
+      </div>
+      <div class="toc-item" data-target="2">
+        <div class="toc-idx">3</div>
+        <div class="toc-lbl">Submission Package</div>
+      </div>
+      <div class="toc-item" data-target="3">
+        <div class="toc-idx">4</div>
+        <div class="toc-lbl">Underwriting Diligence</div>
+      </div>
+      <div class="toc-item" data-target="4">
+        <div class="toc-idx">5</div>
+        <div class="toc-lbl">Closing Deliverables</div>
+      </div>
+      <div class="toc-item" data-target="5">
+        <div class="toc-idx">6</div>
+        <div class="toc-lbl">Closing Package</div>
+      </div>
+      <div class="toc-item" data-target="6">
+        <div class="toc-idx">7</div>
+        <div class="toc-lbl">Loan Servicing</div>
+      </div>
+      <div class="toc-item" data-target="7">
+        <div class="toc-idx">8</div>
+        <div class="toc-lbl">Draw Submissions</div>
+      </div>
+      <div class="toc-item" data-target="8">
+        <div class="toc-idx">9</div>
+        <div class="toc-lbl">Cost Allocation</div>
+      </div>
+    </div>
+  </div>
 
   <!-- CONTENT -->
   <div id="contentArea">
@@ -1063,7 +1024,7 @@
         </tbody>
       </table>
       <div class="cb-footnotes">
-        <div>¹ 90% LTC requires: FICO ≥700, TLA ≤$3M, LTARV &lt;70%, 3+ mo. interest reserve, 5+ GUC exits or $10M+ volume, 1–4 units only.</div>
+        <div>¹ 90% LTC requires: TLA ≤$3M, LTARV &lt;70%, 3+ mo. interest reserve, 5+ GUC exits or $10M+ volume, 1–4 units only.</div>
         <div>² Max 60% LTAIV if not yet permitted.</div>
       </div>
 
@@ -1103,7 +1064,13 @@
 
         <div class="cb-geo-card cb-geo-card--eligible">
           <div class="cb-geo-head">Eligible</div>
-          <div class="cb-geo-body">1–4 residential units</div>
+          <ul class="cb-geo-list">
+            <li>Single family detached</li>
+            <li>Townhome</li>
+            <li>2–4 unit multifamily</li>
+            <li>Full or partial subdivisions</li>
+            <li>Infill projects</li>
+          </ul>
         </div>
 
         <div class="cb-geo-card">
@@ -1185,7 +1152,7 @@
           <div class="card-watermark">4</div>
         </div>
 
-        <div class="card span2">
+        <div class="card">
           <div class="card-num">Doc 05</div>
           <div class="card-title">SPV Operating Agreement</div>
           <div class="card-divider"></div>
@@ -1205,20 +1172,29 @@
 
         <div class="card">
           <div class="card-num">Doc 07</div>
-          <div class="card-title">Itemized Renovation Budget</div>
+          <div class="card-title">SPV Certificate of Good Standing</div>
           <div class="card-divider"></div>
-          <div class="card-body">Detailed breakdown of all projected development and operating costs. Used to evaluate financial feasibility and establish the draw schedule. Minimum 5% contingency required.</div>
-          <span class="card-tag">Min. 5% Contingency</span>
+          <div class="card-body">An active Certificate of Good Standing ("COGS") may need to be provided to evidence the entity's legal authorization to conduct business in the state.</div>
+          <span class="card-tag">If &lt;12mo Aged Entity</span>
           <div class="card-watermark">7</div>
         </div>
 
         <div class="card">
           <div class="card-num">Doc 08</div>
+          <div class="card-title">Itemized Renovation Budget</div>
+          <div class="card-divider"></div>
+          <div class="card-body">Detailed breakdown of all projected development and operating costs. Used to evaluate financial feasibility and establish the draw schedule. Minimum 5% contingency required.</div>
+          <span class="card-tag">Min. 5% Contingency</span>
+          <div class="card-watermark">8</div>
+        </div>
+
+        <div class="card">
+          <div class="card-num">Doc 09</div>
           <div class="card-title">Floor Plan</div>
           <div class="card-divider"></div>
           <div class="card-body">Verifies proposed unit layout, functionality, and approximate square footage. Must reference the property address and include SF, bedroom count, and bathroom count.</div>
           <span class="card-tag">SF + Bed/Bath Count</span>
-          <div class="card-watermark">8</div>
+          <div class="card-watermark">9</div>
         </div>
       </div>
     </div>
@@ -1308,7 +1284,7 @@
             <div class="process-divider"></div>
             <div class="process-card-body">
               <div>
-                <p class="process-desc">Ledger uploads all deals into their Loan Origination System and orders all third party reports to expedite closing.</p>
+                <p class="process-desc">Ledger coordinates and orders all required third-party reports through its Loan Origination System to streamline diligence and expedite closing. Lord Abbett will have visibility into due diligence progress through Ledger's borrower-facing LOS portal.</p>
               </div>
               <div>
                 <div class="process-list-label">Third-Party Reports &amp; Docs</div>
@@ -1318,6 +1294,8 @@
                   <li>Flood Certificate</li>
                   <li>Title</li>
                   <li>GC Contract</li>
+                  <li>CDA Secondary Valuation (if applicable)</li>
+                  <li>Commercial Appraisal Report (if applicable)</li>
                   <li>Builder Collateral Assignment Contract</li>
                   <li>Builder's Risk &amp; General Liability Insurance</li>
                 </ul>
@@ -1343,14 +1321,14 @@
             <div class="process-divider"></div>
             <div class="process-card-body">
               <div>
-                <p class="process-desc">Properties will close individually and the following documentation will need to be wet-signed at each closing.</p>
+                <p class="process-desc">Ledger coordinates each property closing individually and will schedule the required wet-signed documentation for execution at each closing.</p>
               </div>
               <div>
                 <div class="process-list-label">Closing Documents</div>
                 <ul class="process-list">
                   <li>Loan Documents</li>
                   <li>Environmental Indemnification</li>
-                  <li>Guarantee Doc</li>
+                  <li>Limited Guaranty</li>
                 </ul>
               </div>
             </div>
@@ -1374,7 +1352,7 @@
             <div class="process-divider"></div>
             <div class="process-card-body">
               <div>
-                <p class="process-desc">Ledger uploads all deals into their Asset Management System where each loan will have an individual line item budget presented alongside remaining escrows and disbursed amounts. Draw requests are submitted and completed with an on-site inspection.</p>
+                <p class="process-desc">Ledger manages each loan through its Asset Management System, where a line-item budget tracks disbursements and remaining escrow balances. Draw requests are submitted through the system and processed following an on-site inspection.</p>
               </div>
               <div>
                 <div class="process-list-label">Draw Requirements</div>
@@ -1383,7 +1361,7 @@
                   <li>Invoices on Soft Costs</li>
                 </ul>
                 <div class="process-compliance">
-                  <div class="process-compliance-label">Compliance</div>
+                  <div class="process-compliance-label">Ongoing Compliance</div>
                   <ul class="process-list">
                     <li>Entity Compliance</li>
                     <li>Liquidity Compliance</li>
@@ -1417,6 +1395,14 @@
           <tr>
             <td>Appraisal<br><span class="table-tag">Third-Party AMC</span></td>
             <td>Independent AMC appraisal ordered to support underwriting and validate the purchase price and projected ARV. Provides an objective collateral assessment and satisfies lender credit requirements.</td>
+          </tr>
+          <tr>
+            <td>Collateral Desktop Analysis (CDA)<br><span class="table-tag">Secondary Eval</span></td>
+            <td>A CDA valuation is an independent property value estimate produced using automated valuation models (AVMs) and market data rather than a full appraisal. This secondary valuation is required in addition to a standard appraisal for transactions with &gt;$3mm total loan amount.</td>
+          </tr>
+          <tr>
+            <td>Commercial Appraisal Report<br><span class="table-tag">Third-Party Eval</span></td>
+            <td>A commercial appraisal report is a more comprehensive valuation than a standard residential appraisal, prepared using detailed income, sales comparison, and cost analyses to determine market value. For transactions with 5+ units on a single loan, Ledger requires a commercial appraisal in place of a standard appraisal.</td>
           </tr>
           <tr>
             <td>Feasibility Report<br><span class="table-tag">Third-Party Eval</span></td>
@@ -1458,12 +1444,13 @@
 
         <div class="card">
           <div class="card-num">5.2</div>
-          <div class="card-title">General Contractor Contract</div>
+          <div class="card-title">General Contractor Contract &amp; License</div>
           <div class="card-divider"></div>
           <div class="card-body">Executed agreement between the borrower and GC defining scope, project cost, timeline, and responsibilities. Ledger reviews to verify construction pricing, delivery expectations, and risk allocation.</div>
           <ul class="card-list" style="margin-top:10px;">
             <li>Must identify the GC entity, borrowing entity, and property address</li>
             <li>Must be fully executed</li>
+            <li>A copy of GC's License is required for newly onboarded builders.</li>
           </ul>
         </div>
 
@@ -1539,7 +1526,7 @@
         <div class="closing-stack">
           <div class="card">
             <div class="card-num">6.5</div>
-            <div class="card-title">Guaranty Agreement</div>
+            <div class="card-title">Limited Guaranty</div>
             <div class="card-divider"></div>
             <div class="card-body">Establishes limited guarantee executed by authorized signatory on behalf of the investment fund.</div>
             <div class="card-watermark">5</div>
@@ -1592,7 +1579,7 @@
         <h2 class="section-title">Loan Servicing</h2>
         <div class="section-line"></div>
       </div>
-      <p class="section-note">Key processes and requirements for managing your loan after closing through the FCI servicing portal.</p>
+      <p class="section-note">Key processes and requirements for managing your loan after closing through the FCI servicing portal. Ledger will remain as the main point of contact and will be providing everything needed from something as complex as customized reporting to as simple as a loan pay-off.</p>
 
       <div class="two-col-grid">
         <div class="card">
@@ -1800,12 +1787,16 @@
   const stepPills  = document.querySelectorAll('.step-pill[data-section]');
   const footPage   = document.getElementById('footPage');
   const contentTop = document.getElementById('contentArea');
-  const dealSubRow = document.getElementById('dealSubRow');
+  const subNavBar  = document.getElementById('subNavBar');
+  const subPills   = document.querySelectorAll('.sub-pill[data-section]');
+  const glossaryPill = document.getElementById('pill-glossary');
 
-  // Sections that belong under "Deal Process Overview" parent
-  const dealSubSections = new Set([2, 3, 4, 5, 6, 7, 8]);
-  // The primary Deal Process Overview pill targets section 1
-  const dealProcessPill = document.querySelector('.step-pill[data-section="1"]');
+  // Glossary sub-sections
+  const glossarySections = [2, 3, 4, 5, 6, 7, 8];
+
+  function isGlossarySection(n) {
+    return glossarySections.includes(parseInt(n));
+  }
 
   function activateSection(n) {
     n = parseInt(n);
@@ -1814,34 +1805,52 @@
     document.getElementById('sec' + n).classList.add('active');
 
     tocItems.forEach(t => t.classList.remove('active'));
-    const tocTarget = document.querySelector(`.toc-item[data-target="${n}"]`);
-    if (tocTarget) tocTarget.classList.add('active');
+    const tocItem = document.querySelector(`.toc-item[data-target="${n}"]`);
+    if (tocItem) tocItem.classList.add('active');
 
+    // Handle top-nav pill states
     stepPills.forEach(p => p.classList.remove('active'));
-    const pill = document.querySelector(`.step-pill[data-section="${n}"]`);
-    if (pill) pill.classList.add('active');
+    glossaryPill.classList.remove('active');
 
-    // If a sub-section is active, also highlight the Deal Process Overview pill
-    // and keep the sub-row connector bright
-    if (dealSubSections.has(n)) {
-      dealProcessPill.classList.add('active');
-      dealSubRow.classList.add('parent-active');
-    } else if (n === 1) {
-      dealSubRow.classList.add('parent-active');
+    if (isGlossarySection(n)) {
+      // Activate glossary pill + show sub-nav
+      glossaryPill.classList.add('active');
+      subNavBar.classList.add('visible');
+      subPills.forEach(p => p.classList.remove('active'));
+      const subPill = document.querySelector(`.sub-pill[data-section="${n}"]`);
+      if (subPill) subPill.classList.add('active');
     } else {
-      dealSubRow.classList.remove('parent-active');
+      // Activate matching top pill + hide sub-nav
+      subNavBar.classList.remove('visible');
+      const pill = document.querySelector(`.step-pill[data-section="${n}"]`);
+      if (pill) pill.classList.add('active');
     }
 
-    footPage.innerHTML = `GUC PLAYBOOK &nbsp;|&nbsp; Section ${n} of 9`;
+    const sectionNum = isGlossarySection(n)
+      ? `Glossary — ${document.querySelector(`.sub-pill[data-section="${n}"] .sub-lbl`)?.textContent || ''}`
+      : `Section ${n === 1 ? 1 : 2} of 3`;
+    footPage.innerHTML = `GUC PLAYBOOK &nbsp;|&nbsp; ${sectionNum}`;
 
-    const rect = contentTop.getBoundingClientRect();
-    if (rect.top < 0 || rect.top > window.innerHeight * 0.5) {
-      contentTop.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   }
+
+  // Glossary pill click — show sub-nav and default to Submission Package (sec2)
+  glossaryPill.addEventListener('click', () => activateSection(2));
 
   tocItems.forEach(item => item.addEventListener('click', () => activateSection(item.dataset.target)));
   stepPills.forEach(pill => pill.addEventListener('click', () => activateSection(pill.dataset.section)));
+  subPills.forEach(pill => pill.addEventListener('click', () => activateSection(pill.dataset.section)));
+
+  // Set hero sticky offset to sit just below the sticky header
+  function updateHeroOffset() {
+    const headerEl = document.querySelector('header');
+    const hero = document.querySelector('.hero');
+    if (headerEl && hero) {
+      hero.style.top = headerEl.offsetHeight + 'px';
+    }
+  }
+  updateHeroOffset();
+  window.addEventListener('resize', updateHeroOffset);
 </script>
 </body>
 </html>
