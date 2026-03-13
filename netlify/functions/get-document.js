@@ -46,8 +46,15 @@ exports.handler = async function(event, context) {
   const envKey = `DOC_${orgId.padStart(4, '0')}_${docId.padStart(5, '0')}_PASSWORD`;
   const expectedPassword = process.env[envKey];
 
+  // DEBUG: temporary logging to diagnose auth issue
+  console.log('ENV_KEY:', envKey);
+  console.log('ENV_EXISTS:', !!expectedPassword);
+  console.log('ENV_LENGTH:', expectedPassword ? expectedPassword.length : 0);
+  console.log('INPUT_LENGTH:', password.length);
+  console.log('MATCH:', expectedPassword === password);
+
   if (!expectedPassword || password !== expectedPassword) {
-    return { statusCode: 401, headers, body: 'Unauthorized' };
+    return { statusCode: 401, headers, body: JSON.stringify({ envKey, envExists: !!expectedPassword, envLen: expectedPassword ? expectedPassword.length : 0, inputLen: password.length }) };
   }
 
   // Read document file
