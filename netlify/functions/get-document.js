@@ -38,12 +38,12 @@ exports.handler = async function(event, context) {
   }
 
   // Validate orgId and docId format (numeric only, max 4 chars)
-  if (!/^\d{1,4}$/.test(orgId) || !/^\d{1,4}$/.test(docId)) {
+  if (!/^\d{1,5}$/.test(orgId) || !/^\d{1,5}$/.test(docId)) {
     return { statusCode: 403, headers, body: 'Forbidden' };
   }
 
   // Check password against env var
-  const envKey = `DOC_${orgId.padStart(4, '0')}_${docId.padStart(4, '0')}_PASSWORD`;
+  const envKey = `DOC_${orgId.padStart(4, '0')}_${docId.padStart(5, '0')}_PASSWORD`;
   const expectedPassword = process.env[envKey];
 
   if (!expectedPassword || password !== expectedPassword) {
@@ -51,7 +51,7 @@ exports.handler = async function(event, context) {
   }
 
   // Read document file
-  const filePath = path.join(__dirname, 'documents', `${orgId.padStart(4, '0')}-${docId.padStart(4, '0')}.html`);
+  const filePath = path.join(__dirname, 'documents', `${orgId.padStart(4, '0')}-${docId.padStart(5, '0')}.html`);
 
   let fileContent;
   try {
