@@ -477,8 +477,34 @@
     }
     .mobile-toggle-btn:hover { opacity: 1; }
 
-    /* ── Nav: hide labels, compact pills ── */
-    .hero-nav-bar { margin-top: 6px; }
+    /* ── Mobile breadcrumb bar ── */
+    .mobile-breadcrumb {
+      display: flex !important;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 0 6px;
+      cursor: pointer;
+    }
+    .mobile-breadcrumb-text {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 11px; font-weight: 600;
+      color: var(--gold);
+      letter-spacing: 0.3px;
+    }
+    .mobile-breadcrumb-sep {
+      color: rgba(217,168,66,0.4);
+      font-size: 10px;
+    }
+    .mobile-breadcrumb-chevron {
+      margin-left: auto;
+      font-size: 10px;
+      color: rgba(217,168,66,0.5);
+      transition: transform 0.2s;
+    }
+    .mobile-breadcrumb-chevron.expanded { transform: rotate(180deg); }
+
+    /* ── Nav: collapsed by default when scrolled ── */
+    .hero-nav-bar { margin-top: 0; }
     .hero-nav-inner { padding: 6px 0; gap: 5px; }
     .nav-bar-label { display: none; }
     .step-pill { padding: 5px 10px; }
@@ -487,6 +513,17 @@
     .sub-nav-inner { padding: 6px 0; gap: 4px; }
     .sub-pill { padding: 4px 10px; }
     .sub-lbl { font-size: 9.5px; }
+
+    /* When hero is in scrolled/compact mode */
+    .hero.scrolled .mobile-hero-info { display: none !important; }
+    .hero.scrolled .mobile-toggle-btn { display: none !important; }
+    .hero.scrolled .hero-nav-bar { display: none; }
+    .hero.scrolled .sub-nav-bar { display: none !important; }
+    .hero.scrolled .mobile-breadcrumb { display: flex !important; }
+
+    /* When nav is expanded via breadcrumb tap */
+    .hero.scrolled.nav-open .hero-nav-bar { display: block; }
+    .hero.scrolled.nav-open .sub-nav-bar.visible { display: block !important; }
 
     /* ── Content area ── */
     .page-wrap { padding: 20px 16px 40px; max-width: 100%; overflow-x: hidden; }
@@ -1010,6 +1047,11 @@
       <div style="font-size:9px; color:var(--cream); opacity:0.7; letter-spacing:0.5px;">Prepared for Lord Abbett Private Real Estate Advisor, LLC</div>
     </div>
     <button class="mobile-toggle-btn" style="display:none;" onclick="this.previousElementSibling.classList.toggle('collapsed'); this.textContent = this.previousElementSibling.classList.contains('collapsed') ? '▼ SHOW DETAILS' : '▲ HIDE DETAILS';">▲ HIDE DETAILS</button>
+  </div>
+  <!-- Mobile breadcrumb (visible only when scrolled on mobile) -->
+  <div class="mobile-breadcrumb" id="mobileBreadcrumb" style="display:none;" onclick="toggleMobileNav()">
+    <span class="mobile-breadcrumb-text" id="breadcrumbText">Deal Process Overview</span>
+    <span class="mobile-breadcrumb-chevron" id="breadcrumbChevron">▼</span>
   </div>
   <div class="hero-nav-bar">
     <div class="hero-nav-inner">
@@ -1904,12 +1946,37 @@
   const subNavBar  = document.getElementById('subNavBar');
   const subPills   = document.querySelectorAll('.sub-pill[data-section]');
   const glossaryPill = document.getElementById('pill-glossary');
+  const hero       = document.querySelector('.hero');
+  const breadcrumb = document.getElementById('mobileBreadcrumb');
+  const breadcrumbText = document.getElementById('breadcrumbText');
+  const breadcrumbChevron = document.getElementById('breadcrumbChevron');
 
   // Glossary sub-sections
   const glossarySections = [2, 3, 4, 5, 6, 7, 8];
+  // Section name map
+  const sectionNames = {
+    1: 'Deal Process Overview',
+    9: 'Credit Box',
+    2: 'Submission Package',
+    3: 'Underwriting Diligence',
+    4: 'Closing Deliverables',
+    5: 'Closing Package',
+    6: 'Loan Servicing',
+    7: 'Draw Submissions',
+    8: 'Cost Allocation'
+  };
 
   function isGlossarySection(n) {
     return glossarySections.includes(parseInt(n));
+  }
+
+  function updateBreadcrumb(n) {
+    if (!breadcrumbText) return;
+    if (isGlossarySection(n)) {
+      breadcrumbText.innerHTML = '<span style="opacity:0.6">Glossary by Stage</span> <span class="mobile-breadcrumb-sep">›</span> ' + (sectionNames[n] || '');
+    } else {
+      breadcrumbText.textContent = sectionNames[n] || '';
+    }
   }
 
   function activateSection(n) {
@@ -1927,24 +1994,28 @@
     glossaryPill.classList.remove('active');
 
     if (isGlossarySection(n)) {
-      // Activate glossary pill + show sub-nav
       glossaryPill.classList.add('active');
       subNavBar.classList.add('visible');
       subPills.forEach(p => p.classList.remove('active'));
       const subPill = document.querySelector(`.sub-pill[data-section="${n}"]`);
       if (subPill) subPill.classList.add('active');
     } else {
-      // Activate matching top pill + hide sub-nav
       subNavBar.classList.remove('visible');
       const pill = document.querySelector(`.step-pill[data-section="${n}"]`);
       if (pill) pill.classList.add('active');
     }
+
+    // Update breadcrumb
+    updateBreadcrumb(n);
 
     const sectionNum = isGlossarySection(n)
       ? `Glossary — ${document.querySelector(`.sub-pill[data-section="${n}"] .sub-lbl`)?.textContent || ''}`
       : `Section ${n === 1 ? 1 : 2} of 3`;
     footPage.innerHTML = `GUC PLAYBOOK &nbsp;|&nbsp; ${sectionNum}`;
 
+    // Close mobile nav if open, scroll to top
+    hero.classList.remove('nav-open');
+    breadcrumbChevron.classList.remove('expanded');
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 
@@ -1955,16 +2026,46 @@
   stepPills.forEach(pill => pill.addEventListener('click', () => activateSection(pill.dataset.section)));
   subPills.forEach(pill => pill.addEventListener('click', () => activateSection(pill.dataset.section)));
 
-  // Set hero sticky offset to sit just below the sticky header
+  // ── Mobile: scroll detection for compact mode ──
+  let scrolled = false;
+  function isMobile() { return window.innerWidth <= 800; }
+
+  window.addEventListener('scroll', () => {
+    if (!isMobile()) return;
+    const shouldBeScrolled = window.scrollY > 80;
+    if (shouldBeScrolled !== scrolled) {
+      scrolled = shouldBeScrolled;
+      hero.classList.toggle('scrolled', scrolled);
+      if (!scrolled) {
+        hero.classList.remove('nav-open');
+        breadcrumbChevron.classList.remove('expanded');
+      }
+    }
+  }, { passive: true });
+
+  // Toggle mobile nav dropdown from breadcrumb
+  function toggleMobileNav() {
+    hero.classList.toggle('nav-open');
+    breadcrumbChevron.classList.toggle('expanded');
+  }
+
+  // Set hero sticky offset to sit just below the sticky header (desktop)
   function updateHeroOffset() {
     const headerEl = document.querySelector('header');
-    const hero = document.querySelector('.hero');
     if (headerEl && hero) {
       hero.style.top = headerEl.offsetHeight + 'px';
     }
   }
   updateHeroOffset();
-  window.addEventListener('resize', updateHeroOffset);
+  window.addEventListener('resize', () => {
+    updateHeroOffset();
+    // Reset scroll state when switching between mobile/desktop
+    if (!isMobile()) {
+      hero.classList.remove('scrolled', 'nav-open');
+      breadcrumbChevron.classList.remove('expanded');
+      scrolled = false;
+    }
+  });
 </script>
 </body>
 </html>
