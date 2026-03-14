@@ -120,6 +120,7 @@ async function findOrCreateContact(formData) {
       lastname: formData.lastName,
       phone: formData.phone,
       lifecyclestage: "lead",
+      source_website: "Yes",
     },
   });
 
@@ -155,6 +156,7 @@ async function findOrCreateCompany(companyName) {
   const created = await hubspot("POST", "/crm/v3/objects/companies", {
     properties: {
       name: companyName.trim(),
+      source_website: "Yes",
     },
   });
 
@@ -472,7 +474,7 @@ exports.handler = async function (event) {
 
     // ── Timestamp check (reject if present and under 3 seconds) ─
     const formLoadedAt = raw.form_loaded_at;
-    if (formLoadedAt && (Date.now() - Number(formLoadedAt)) < 3000) {
+    if (!formLoadedAt || isNaN(Number(formLoadedAt)) || (Date.now() - Number(formLoadedAt)) < 3000) {
       console.log("Timestamp check failed — submission too fast");
       return {
         statusCode: 400,
