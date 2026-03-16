@@ -464,6 +464,7 @@ if (window.location.hostname === 'ledgertc.com') {
     .then(function(result) {
       if (result.ok && result.data.success) {
         gtag('event', 'form_submit', { 'form_id': 'broker-partners' });
+        gtag('event', 'conversion', { 'send_to': 'AW-17993082803/hf9SCKCquoccELPP4oND' });
         window.location.href = 'thank-you.html';
       } else {
         var msg = result.data.error || 'Something went wrong. Please try again or contact us directly at Info@ledgertc.com.';
