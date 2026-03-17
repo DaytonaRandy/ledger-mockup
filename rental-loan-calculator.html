@@ -275,6 +275,22 @@ input[type="range"]::-moz-range-thumb { width: 22px; height: 22px; border-radius
   }
 }
 </script>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-P2E61PRS60"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+if (window.location.hostname === 'ledgertc.com') {
+  gtag('config', 'G-P2E61PRS60');
+  gtag('config', 'AW-17993082803');
+}
+</script>
+<script>
+gtag('config', 'AW-17993082803/k0r2CNOO-IkcELPP4oND', {
+  'phone_conversion_number': '201-749-1691'
+});
+</script>
 </head>
 <body>
 
@@ -1612,6 +1628,13 @@ function submitLead(e) {
     form.parentElement.style.display = 'none';
     const success = section.querySelector('.lead-success');
     if (success) success.style.display = 'block';
+    if (typeof gtag === 'function') {
+      gtag('event', 'form_submit', {'form_id': 'dscr-calculator'});
+      gtag('event', 'conversion', {
+        send_to: 'AW-17993082803/hf9SCKCquoccELPP4oND',
+        event_callback: function(){}
+      });
+    }
   }).catch(() => {
     form.parentElement.style.display = 'none';
     const success = section.querySelector('.lead-success');
@@ -1690,5 +1713,6 @@ function recalcFromEditDSCR() {
   }
 
 </script>
+<script type="text/javascript" id="hs-script-loader" defer src="//js.hs-scripts.com/46107229.js"></script>
 </body>
 </html>
