@@ -67,9 +67,12 @@ exports.handler = async function(event, context) {
     return { statusCode: 403, headers, body: 'Forbidden' };
   }
 
+  const host = event.headers['x-forwarded-host'] || event.headers['host'] || 'ledgertc.com';
+  fileContent = fileContent.replace(/__HOST__/g, `https://${host}`);
+
   return {
     statusCode: 200,
-    headers: { ...headers, 'Content-Type': 'text/html' },
+    headers: { ...headers, 'Content-Type': 'text/html', 'Content-Security-Policy': 'img-src * data: blob:' },
     body: fileContent
   };
 };
