@@ -1,0 +1,1718 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DSCR Rental Loan Calculator | Ledger Trade &amp; Capital</title>
+<meta name="description" content="Calculate your DSCR rental loan rate instantly. See estimated rates, monthly payments, and DSCR ratio for your investment property from Ledger Trade & Capital.">
+<link rel="canonical" href="https://ledgertc.com/rental-loan-calculator">
+<link rel="icon" href="favicon.ico" type="image/x-icon">
+<meta property="og:title" content="DSCR Rental Loan Calculator | Ledger Trade & Capital">
+<meta property="og:description" content="Calculate your DSCR rental loan rate instantly. See estimated rates, monthly payments, and DSCR ratio for your investment property.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://ledgertc.com/rental-loan-calculator">
+<meta property="og:image" content="https://ledgertc.com/og-dscr-calculator.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="DSCR Rental Loan Calculator | Ledger Trade & Capital">
+<meta name="twitter:description" content="Calculate your DSCR rental loan rate instantly. See estimated rates, monthly payments, and DSCR ratio for your investment property.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root {
+  --green: #2b4a42;
+  --gold: #c49a3c;
+  --gold-hover: #b08a34;
+  --cream: #f2efe9;
+  --white: #ffffff;
+  --text-primary: #2b4a42;
+  --text-secondary: #4b5563;
+  --gray-100: #e0ddd6;
+  --gray-300: #c5c1b8;
+  --gray-500: #6b7280;
+  --gray-600: #4b5563;
+  --gray-700: #374151;
+  --error: #dc2626;
+  --success: #16a34a;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'DM Sans', sans-serif; background: var(--cream); color: var(--text-primary); line-height: 1.6; }
+
+.nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; padding: 1.25rem clamp(1.5rem, 3vw, 4rem); display: flex; align-items: center; justify-content: space-between; background: rgba(242,239,233,0.95); backdrop-filter: blur(12px); border-bottom: 1px solid var(--gray-100); transition: background 0.3s; }
+.nav-logo { font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 800; font-size: clamp(1.15rem, 1rem + 0.25vw, 1.35rem); color: var(--green); text-decoration: none; letter-spacing: -0.02em; margin-right: auto; }
+.nav-logo span { color: var(--gold); }
+.nav-logo-img { height: 38px; width: auto; display: block; }
+.nav-links { display: flex; align-items: center; gap: clamp(1.5rem, 2vw, 2.5rem); list-style: none; margin-right: 2rem; }
+.nav-links a { color: var(--gray-600); text-decoration: none; font-size: clamp(0.82rem, 0.78rem + 0.2vw, 0.9rem); font-weight: 500; transition: color 0.2s; }
+.nav-links a:hover { color: var(--green); }
+.nav-cta { background: var(--gold); color: var(--white) !important; padding: 0.6rem 1.5rem; border-radius: 6px; font-weight: 700; font-size: clamp(0.8rem, 0.76rem + 0.15vw, 0.85rem); text-decoration: none; transition: background 0.2s, transform 0.2s; letter-spacing: 0.02em; }
+.nav-cta:hover { background: var(--gold-hover); transform: translateY(-1px); }
+
+.hero { background: var(--green); padding: 60px 40px; padding-top: 120px; text-align: center; color: var(--white); }
+.hero h1 { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 40px; font-weight: 800; margin-bottom: 12px; }
+.hero p { font-size: 18px; opacity: 0.85; max-width: 600px; margin: 0 auto; }
+
+.calc-container { max-width: 720px; margin: -30px auto 60px; padding: 0 20px; position: relative; z-index: 10; }
+
+.progress-bar { display: flex; align-items: center; justify-content: center; gap: 8px; margin-bottom: 32px; background: var(--white); padding: 20px 32px; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.06); }
+.progress-step { width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 14px; font-weight: 700; border: 2px solid var(--gray-300); color: var(--gray-500); transition: all 0.3s; flex-shrink: 0; }
+.progress-step.active { border-color: var(--gold); background: var(--gold); color: var(--white); }
+.progress-step.completed { border-color: var(--green); background: var(--green); color: var(--white); }
+.progress-line { height: 2px; width: 60px; background: var(--gray-300); transition: background 0.3s; }
+.progress-line.active { background: var(--green); }
+
+.step-card { background: var(--white); border-radius: 12px; padding: 36px 32px; box-shadow: 0 2px 12px rgba(0,0,0,0.06); display: none; }
+.step-card.active { display: block; }
+.step-card h2 { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 24px; font-weight: 700; margin-bottom: 6px; }
+.step-card .step-subtitle { font-size: 15px; color: var(--text-secondary); margin-bottom: 28px; }
+
+.field-group { margin-bottom: 20px; }
+.field-group label { display: block; font-size: 13px; font-weight: 600; color: var(--text-primary); margin-bottom: 6px; text-transform: uppercase; letter-spacing: 0.5px; }
+.field-group .field-hint { font-size: 12px; color: var(--gray-500); font-weight: 400; text-transform: none; letter-spacing: 0; margin-top: -2px; margin-bottom: 6px; }
+.field-group input, .field-group select { width: 100%; padding: 12px 14px; border: 1.5px solid var(--gray-100); border-radius: 8px; font-size: 15px; font-family: 'DM Sans', sans-serif; color: var(--text-primary); background: var(--cream); transition: border-color 0.2s; -webkit-appearance: none; }
+.field-group select { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%234b5563' d='M6 8L1 3h10z'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 14px center; padding-right: 36px; }
+.field-group input:focus, .field-group select:focus { outline: none; border-color: var(--gold); }
+.field-group input.error { border-color: var(--error); }
+.field-error { font-size: 12px; color: var(--error); margin-top: 4px; display: none; }
+.field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.currency-wrap { position: relative; }
+.currency-wrap::before { content: '$'; position: absolute; left: 14px; top: 50%; transform: translateY(-50%); color: var(--gray-500); font-size: 15px; pointer-events: none; }
+.currency-wrap input { padding-left: 28px; }
+
+.toggle-group { display: flex; gap: 8px; }
+.toggle-btn { flex: 1; padding: 10px 16px; border: 1.5px solid var(--gray-100); border-radius: 8px; background: var(--cream); font-family: 'DM Sans', sans-serif; font-size: 14px; font-weight: 500; color: var(--text-secondary); cursor: pointer; text-align: center; transition: all 0.2s; }
+.toggle-btn.selected { border-color: var(--green); background: var(--green); color: var(--white); }
+
+.btn-row { display: flex; justify-content: space-between; margin-top: 32px; gap: 12px; }
+.btn { padding: 14px 32px; border-radius: 8px; font-family: 'DM Sans', sans-serif; font-size: 15px; font-weight: 600; cursor: pointer; transition: all 0.2s; border: none; }
+.btn-primary { background: var(--gold); color: var(--white); }
+.btn-primary:hover { background: var(--gold-hover); }
+.btn-secondary { background: transparent; color: var(--text-secondary); border: 1.5px solid var(--gray-300); }
+.btn-secondary:hover { border-color: var(--text-primary); color: var(--text-primary); }
+
+.results-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 24px; }
+.result-card { background: var(--cream); border-radius: 10px; padding: 20px; }
+.result-card.highlight { background: var(--green); color: var(--white); grid-column: 1 / -1; }
+.result-card .result-label { font-size: 12px; text-transform: uppercase; letter-spacing: 0.5px; opacity: 0.7; margin-bottom: 4px; }
+.result-card .result-value { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 28px; font-weight: 700; }
+.result-card.highlight .result-value { font-size: 36px; }
+.result-card .result-detail { font-size: 13px; opacity: 0.7; margin-top: 4px; }
+
+.results-breakdown { background: var(--cream); border-radius: 10px; padding: 20px; margin-bottom: 24px; }
+.results-breakdown h3 { font-size: 14px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 12px; color: var(--green); }
+.breakdown-row { display: flex; justify-content: space-between; padding: 8px 0; font-size: 14px; border-bottom: 1px solid var(--gray-100); }
+.breakdown-row:last-child { border-bottom: none; }
+.breakdown-row .label { color: var(--text-secondary); }
+.breakdown-row .value { font-weight: 600; }
+
+.results-note { font-size: 13px; color: var(--gray-500); margin-bottom: 24px; padding: 12px 16px; background: #fefce8; border-radius: 8px; border: 1px solid #fef08a; }
+
+/* ─── Edit Inputs ─── */
+.edit-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 20px; }
+.edit-item { background: var(--cream); border-radius: 8px; padding: 12px 14px; }
+.edit-item .edit-label { font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px; color: var(--gray-500); margin-bottom: 2px; }
+.edit-item select, .edit-item input {
+  width: 100%; padding: 8px 10px; border: 1.5px solid var(--gray-100); border-radius: 6px;
+  font-size: 14px; font-family: 'DM Sans', sans-serif; color: var(--text-primary); background: var(--white);
+  margin-top: 4px;
+}
+.edit-item .currency-wrap input { padding-left: 24px; }
+.edit-item .currency-wrap::before { left: 10px; font-size: 14px; }
+
+/* ─── Slider Section ─── */
+.slider-section { background: var(--cream); border-radius: 10px; padding: 20px; margin-bottom: 24px; }
+.slider-section h3 { font-size: 14px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 16px; color: var(--green); }
+.slider-row { margin-bottom: 18px; }
+.slider-row:last-child { margin-bottom: 0; }
+.slider-label { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; font-size: 14px; }
+.slider-label .label { color: var(--text-secondary); }
+.slider-label .value { font-weight: 700; color: var(--green); }
+input[type="range"] { -webkit-appearance: none; width: 100%; height: 6px; border-radius: 3px; background: var(--gray-100); outline: none; }
+input[type="range"]::-webkit-slider-thumb { -webkit-appearance: none; width: 22px; height: 22px; border-radius: 50%; background: var(--gold); cursor: pointer; border: 3px solid var(--white); box-shadow: 0 1px 4px rgba(0,0,0,0.2); }
+input[type="range"]::-moz-range-thumb { width: 22px; height: 22px; border-radius: 50%; background: var(--gold); cursor: pointer; border: 3px solid var(--white); box-shadow: 0 1px 4px rgba(0,0,0,0.2); }
+.prepay-toggle-group { display: flex; gap: 8px; }
+.prepay-toggle-btn { flex: 1; padding: 10px 12px; border: 1.5px solid var(--gray-100); border-radius: 8px; background: var(--white); font-family: 'DM Sans', sans-serif; font-size: 13px; font-weight: 500; color: var(--text-secondary); cursor: pointer; text-align: center; transition: all 0.2s; }
+.prepay-toggle-btn.selected { border-color: var(--green); background: var(--green); color: var(--white); }
+
+.lead-form-section { background: var(--green); border-radius: 12px; padding: 32px; margin-top: 32px; color: var(--white); }
+.lead-form-section h3 { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 22px; font-weight: 700; margin-bottom: 6px; }
+.lead-form-section .lead-subtitle { font-size: 14px; opacity: 0.75; margin-bottom: 24px; }
+.lead-form-section input, .lead-form-section textarea { width: 100%; padding: 12px 14px; border: 1.5px solid rgba(255,255,255,0.2); border-radius: 8px; font-size: 15px; font-family: 'DM Sans', sans-serif; color: var(--white); background: rgba(255,255,255,0.1); margin-bottom: 12px; }
+.lead-form-section input::placeholder, .lead-form-section textarea::placeholder { color: rgba(255,255,255,0.5); }
+.lead-form-section input:focus, .lead-form-section textarea:focus { outline: none; border-color: var(--gold); }
+.lead-form-section textarea { resize: vertical; min-height: 80px; }
+.lead-form-section .btn-primary { width: 100%; margin-top: 8px; padding: 14px; font-size: 16px; }
+.lead-success { text-align: center; padding: 20px; display: none; }
+.lead-success .checkmark { font-size: 48px; margin-bottom: 12px; }
+.lead-success p { font-size: 16px; opacity: 0.9; }
+
+.program-badge { display: inline-block; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; padding: 3px 10px; border-radius: 4px; background: var(--gold); color: var(--white); margin-top: 6px; }
+
+@media (min-width: 769px) and (max-width: 1100px) {
+  .nav-links { gap: 1rem; } .nav-links a { font-size: 0.75rem; }
+  .nav-cta { font-size: 0.75rem; padding: 0.5rem 1rem; }
+  .nav-logo-img { height: 30px; } .nav { padding: 1rem 1.25rem; }
+}
+@media (max-width: 640px) {
+  .hero { padding: 40px 20px; } .hero h1 { font-size: 28px; }
+  .calc-container { padding: 0 12px; } .step-card { padding: 24px 20px; }
+  .field-row { grid-template-columns: 1fr; }
+  .results-grid { grid-template-columns: 1fr; }
+  .result-card .result-value { font-size: 24px; }
+  .result-card.highlight .result-value { font-size: 28px; }
+  .progress-line { width: 30px; }
+  .lead-form-section { padding: 24px 20px; }
+  .prepay-toggle-group { flex-direction: column; }
+}
+
+/* ─── Dropdown Nav ─── */
+.nav-links { list-style: none; }
+.nav-links .dropdown { position: relative; }
+.nav-links .dropdown > a { cursor: pointer; }
+.nav-links .dropdown-menu {
+  display: none; position: absolute; top: 100%; left: -1rem; padding-top: 0.75rem; min-width: 220px;
+}
+.nav-links .dropdown:hover .dropdown-menu { display: block; }
+.nav-links .dropdown-menu ul {
+  background: var(--white); border: 1px solid var(--gray-100); border-radius: 10px;
+  padding: 0.5rem 0; list-style: none; box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+}
+.nav-links .dropdown-menu li a {
+  display: block; padding: 0.6rem 1.25rem; font-size: 14px; color: var(--gray-600);
+  transition: background 0.15s, color 0.15s;
+}
+.nav-links .dropdown-menu li a:hover { background: var(--cream); color: var(--green); }
+
+/* ─── Hamburger / Mobile Nav ─── */
+.nav-hamburger {
+  display: none; background: none; border: none; cursor: pointer;
+  font-size: 1.6rem; color: var(--green); padding: 0.25rem; line-height: 1;
+}
+.mobile-menu {
+  display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(242,239,233,0.98); backdrop-filter: blur(12px);
+  z-index: 101; flex-direction: column; align-items: center; justify-content: flex-start;
+  gap: 0; padding: 3.5rem 2rem 2rem; overflow-y: auto;
+}
+.mobile-menu.open { display: flex; }
+.mobile-menu a {
+  color: var(--gray-700); text-decoration: none; font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 0.95rem; font-weight: 600; padding: 0.5rem 1.25rem; border-radius: 8px;
+  transition: color 0.2s, background 0.2s; width: 100%; max-width: 320px; text-align: center;
+}
+.mobile-menu a:hover { color: var(--green); background: rgba(196,154,60,0.06); }
+.mobile-menu .mobile-section-label {
+  font-family: 'Plus Jakarta Sans', sans-serif; font-size: 0.95rem; font-weight: 700;
+  color: var(--gray-700);
+  padding: 0.5rem 1.25rem 0.1rem; width: 100%; max-width: 320px; text-align: center;
+  border-top: 1px solid var(--gray-100); margin-top: 0.35rem;
+}
+.mobile-menu .mobile-sub {
+  display: flex; flex-direction: column; align-items: center; width: 100%; max-width: 320px;
+}
+.mobile-menu .mobile-sub a { font-size: 0.88rem; font-weight: 500; color: var(--gray-500); padding: 0.35rem 1.25rem; }
+.mobile-menu .mobile-cta {
+  margin-top: 1.25rem; background: var(--gold); color: var(--white) !important;
+  padding: 0.85rem 2rem; border-radius: 8px; font-weight: 700; font-size: 0.95rem;
+  text-align: center; transition: background 0.2s; border-top: none;
+}
+.mobile-menu .mobile-cta:hover { background: var(--gold-hover); color: var(--white) !important; }
+.mobile-menu .mobile-close {
+  position: absolute; top: 1rem; right: 1.25rem; background: none; border: none;
+  font-size: 2rem; color: var(--green); cursor: pointer; line-height: 1; padding: 0.25rem;
+  z-index: 102;
+}
+@media (max-width: 768px) {
+  .nav-links { display: none !important; }
+  .nav-cta { display: none; }
+  .nav-hamburger { display: block; }
+}
+
+/* ─── Footer ─── */
+.footer { background: var(--green); padding: clamp(2rem, 3vw, 4rem) clamp(1.5rem, 3vw, 4rem); position: relative; }
+.footer::before { content: ''; position: absolute; top: 0; left: 20%; right: 20%; height: 1px; background: rgba(255,255,255,0.12); }
+.footer-inner { max-width: 1400px; margin: 0 auto; display: grid; grid-template-columns: 1fr auto 1fr; grid-template-areas: "logo center contact"; align-items: center; gap: 2rem; }
+.footer-contact { grid-area: contact; text-align: right; color: rgba(255,255,255,0.6); font-size: clamp(0.78rem, 0.75rem + 0.15vw, 0.85rem); line-height: 1.8; }
+.footer-contact a { color: rgba(255,255,255,0.6); text-decoration: none; transition: color 0.2s; }
+.footer-contact a:hover { color: var(--white); }
+.footer-sep { margin: 0 0.5rem; color: rgba(255,255,255,0.25); }
+.footer-center { grid-area: center; text-align: center; }
+.footer-copy { color: rgba(255,255,255,0.4); font-size: clamp(0.72rem, 0.7rem + 0.15vw, 0.8rem); margin-bottom: 0.35rem; white-space: nowrap; }
+.footer-legal { font-size: clamp(0.72rem, 0.7rem + 0.15vw, 0.8rem); }
+.footer-legal a { color: rgba(255,255,255,0.4); text-decoration: none; transition: color 0.2s; }
+.footer-legal a:hover { color: var(--white); }
+.footer-logo-wrap { grid-area: logo; display: flex; justify-content: flex-start; align-items: center; }
+.footer-logo-wrap img { height: 42px; width: auto; display: block; }
+@media (max-width: 1100px) {
+  .footer-inner { grid-template-columns: 1fr; grid-template-areas: "logo" "contact" "center"; text-align: center; gap: 1.25rem; }
+  .footer-logo-wrap { justify-content: center; }
+  .footer-contact { text-align: center; }
+  .footer-copy { white-space: normal; }
+}
+@media (max-width: 640px) {
+  .footer-contact { font-size: 0.8rem; }
+}
+
+</style>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "DSCR Rental Loan Calculator",
+  "description": "Calculate your DSCR rental loan rate instantly. See estimated rates, monthly payments, and DSCR ratio for your investment property from Ledger Trade & Capital.",
+  "url": "https://ledgertc.com/dscr-calculator",
+  "applicationCategory": "FinanceApplication",
+  "operatingSystem": "All",
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "USD"
+  },
+  "provider": {
+    "@type": "Organization",
+    "name": "Ledger Trade & Capital",
+    "url": "https://ledgertc.com"
+  }
+}
+</script>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-P2E61PRS60"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+if (window.location.hostname === 'ledgertc.com') {
+  gtag('config', 'G-P2E61PRS60');
+  gtag('config', 'AW-17993082803');
+}
+</script>
+<script>
+gtag('config', 'AW-17993082803/k0r2CNOO-IkcELPP4oND', {
+  'phone_conversion_number': '201-749-1691'
+});
+</script>
+</head>
+<body>
+
+<nav class="nav">
+  <a href="index.html" class="nav-logo"><img src="logo-color.png" alt="Ledger Trade &amp; Capital" class="nav-logo-img" width="269" height="67"></a>
+  <ul class="nav-links">
+    <li class="dropdown">
+      <a href="#">Loan Products ▾</a>
+      <div class="dropdown-menu"><ul>
+        <li><a href="vertical-construction-loans.html">New Construction</a></li>
+        <li><a href="dscr.html">DSCR Rental</a></li>
+        <li><a href="bridge.html">Bridge</a></li>
+        <li><a href="fix-and-flip.html">Fix & Flip</a></li>
+        <li><a href="build-to-rent.html">Build to Rent</a></li>
+      </ul></div>
+    </li>
+    <li class="dropdown">
+      <a href="#">Who We Are ▾</a>
+      <div class="dropdown-menu"><ul>
+        <li><a href="what-we-do.html">What We Do</a></li>
+        <li><a href="team.html">Meet the Team</a></li>
+        <li><a href="where-we-lend.html">Where We Lend</a></li>
+      </ul></div>
+    </li>
+    <li><a href="broker-partners.html">Broker Partners</a></li>
+    <li class="dropdown">
+      <a href="#">Pricing Tools ▾</a>
+      <div class="dropdown-menu"><ul>
+        <li><a href="construction-loan-calculator.html">Construction</a></li>
+        <li><a href="rental-loan-calculator.html">DSCR Rental</a></li>
+      </ul></div>
+    </li>
+    <li class="dropdown">
+      <a href="#">Client Portal ▾</a>
+      <div class="dropdown-menu"><ul>
+        <li><a href="https://partner.trustpoint.ai/login" target="_blank">Submit Draws</a></li>
+        <li><a href="https://ledgertc-pos.elphimortgage.com/login" target="_blank">Loan Diligence</a></li>
+      </ul></div>
+    </li>
+  </ul>
+  <a href="get-in-touch.html" class="nav-cta">Apply Now</a>
+  <button class="nav-hamburger" aria-label="Open menu">&#9776;</button>
+</nav>
+
+<!-- MOBILE MENU -->
+<div class="mobile-menu" id="mobileMenu">
+  <button class="mobile-close" aria-label="Close menu">&times;</button>
+  <a href="index.html">Home</a>
+  <div class="mobile-section-label">Loan Products</div>
+  <div class="mobile-sub">
+    <a href="vertical-construction-loans.html">New Construction</a>
+    <a href="dscr.html">DSCR Rental</a>
+    <a href="bridge.html">Bridge</a>
+    <a href="fix-and-flip.html">Fix &amp; Flip</a>
+    <a href="build-to-rent.html">Build to Rent</a>
+  </div>
+  <div class="mobile-section-label">Who We Are</div>
+  <div class="mobile-sub">
+    <a href="what-we-do.html">What We Do</a>
+    <a href="team.html">Meet the Team</a>
+    <a href="where-we-lend.html">Where We Lend</a>
+  </div>
+  <a href="broker-partners.html" class="mobile-section-label" style="text-decoration: none;">Broker Partners</a>
+  <div class="mobile-section-label">Loan Calculators</div>
+  <div class="mobile-sub">
+    <a href="construction-loan-calculator.html">Construction</a>
+    <a href="rental-loan-calculator.html">DSCR Rental</a>
+  </div>
+  <div class="mobile-section-label">Client Portal</div>
+  <div class="mobile-sub">
+    <a href="https://partner.trustpoint.ai/login" target="_blank">Submit Draws</a>
+    <a href="https://ledgertc-pos.elphimortgage.com/login" target="_blank">Loan Diligence</a>
+  </div>
+  <a href="get-in-touch.html" class="mobile-cta">Apply Now</a>
+</div>
+<script>
+(function(){
+  var btn=document.querySelector('.nav-hamburger'),menu=document.getElementById('mobileMenu'),close=menu.querySelector('.mobile-close');
+  btn.addEventListener('click',function(){menu.classList.add('open');document.body.style.overflow='hidden';});
+  close.addEventListener('click',function(){menu.classList.remove('open');document.body.style.overflow='';});
+  menu.querySelectorAll('a').forEach(function(a){a.addEventListener('click',function(){menu.classList.remove('open');document.body.style.overflow='';});});
+})();
+</script>
+
+<main>
+<div class="hero">
+  <h1>DSCR Rental Loan Calculator</h1>
+  <p>Estimate your rate and monthly payment for a 30-year rental loan based on property cash flow.</p>
+</div>
+
+<div class="calc-container">
+  <div class="progress-bar" role="progressbar" aria-label="Calculator progress">
+    <div class="progress-step active" id="prog-1" aria-label="Step 1: About You">1</div>
+    <div class="progress-line" id="line-1"></div>
+    <div class="progress-step" id="prog-2" aria-label="Step 2: Property Details">2</div>
+    <div class="progress-line" id="line-2"></div>
+    <div class="progress-step" id="prog-3" aria-label="Step 3: Loan Preferences">3</div>
+    <div class="progress-line" id="line-3"></div>
+    <div class="progress-step" id="prog-4" aria-label="Step 4: Results">4</div>
+  </div>
+
+  <!-- STEP 1: Borrower -->
+  <div class="step-card active" id="step-1">
+    <h2>About You</h2>
+    <p class="step-subtitle">Basic borrower information for rate pricing.</p>
+
+    <div class="field-group">
+      <label>Credit Score Range</label>
+      <select id="fico" aria-required="true">
+        <option value="">Select...</option>
+        <option value="780">780+</option>
+        <option value="760">760 – 779</option>
+        <option value="740">740 – 759</option>
+        <option value="720">720 – 739</option>
+        <option value="700">700 – 719</option>
+        <option value="680">680 – 699</option>
+        <option value="660">660 – 679</option>
+        <option value="640">Below 660</option>
+      </select>
+      <div class="field-error" id="err-fico">Please select your credit score range.</div>
+    </div>
+
+    <div class="field-group">
+      <label>Foreign National?</label>
+      <div class="toggle-group" role="radiogroup">
+        <button type="button" class="toggle-btn" role="radio" aria-checked="false" data-field="foreignNational" data-value="No" onclick="toggleSelect(this)">No</button>
+        <button type="button" class="toggle-btn" role="radio" aria-checked="false" data-field="foreignNational" data-value="Yes" onclick="toggleSelect(this)">Yes</button>
+      </div>
+      <div class="field-error" id="err-foreignNational">Please select an option.</div>
+    </div>
+
+    <div class="btn-row">
+      <div></div>
+      <button class="btn btn-primary" onclick="nextStep(1)">Continue &rarr;</button>
+    </div>
+  </div>
+
+  <!-- STEP 2: Property -->
+  <div class="step-card" id="step-2">
+    <h2>Property Details</h2>
+    <p class="step-subtitle">Tell us about the rental property.</p>
+
+    <div class="field-group">
+      <label>Property Type</label>
+      <select id="propertyType" aria-required="true">
+        <option value="">Select...</option>
+        <option value="Single Family">Single Family</option>
+        <option value="Condo">Condominium</option>
+        <option value="Townhome">Townhome</option>
+        <option value="2-4 Unit">2-4 Unit</option>
+        <option value="Short Term Rental">Short Term Rental</option>
+      </select>
+      <div class="field-error" id="err-propertyType">Please select a property type.</div>
+    </div>
+
+    <div class="field-group">
+      <label>State</label>
+      <select id="state" aria-required="true">
+        <option value="">Select...</option>
+        <option value="AL">Alabama</option><option value="AK">Alaska</option><option value="AZ">Arizona</option>
+        <option value="AR">Arkansas</option><option value="CA">California</option><option value="CO">Colorado</option>
+        <option value="CT">Connecticut</option><option value="DE">Delaware</option><option value="DC">District of Columbia</option>
+        <option value="FL">Florida</option><option value="GA">Georgia</option><option value="HI">Hawaii</option>
+        <option value="ID">Idaho</option><option value="IL">Illinois</option><option value="IN">Indiana</option>
+        <option value="IA">Iowa</option><option value="KS">Kansas</option><option value="KY">Kentucky</option>
+        <option value="LA">Louisiana</option><option value="ME">Maine</option><option value="MD">Maryland</option>
+        <option value="MA">Massachusetts</option><option value="MI">Michigan</option><option value="MN">Minnesota</option>
+        <option value="MS">Mississippi</option><option value="MO">Missouri</option><option value="MT">Montana</option>
+        <option value="NE">Nebraska</option><option value="NV">Nevada</option><option value="NH">New Hampshire</option>
+        <option value="NJ">New Jersey</option><option value="NM">New Mexico</option><option value="NY">New York</option>
+        <option value="NC">North Carolina</option><option value="ND">North Dakota</option><option value="OH">Ohio</option>
+        <option value="OK">Oklahoma</option><option value="OR">Oregon</option><option value="PA">Pennsylvania</option>
+        <option value="RI">Rhode Island</option><option value="SC">South Carolina</option><option value="SD">South Dakota</option>
+        <option value="TN">Tennessee</option><option value="TX">Texas</option><option value="UT">Utah</option>
+        <option value="VT">Vermont</option><option value="VA">Virginia</option><option value="WA">Washington</option>
+        <option value="WV">West Virginia</option><option value="WI">Wisconsin</option><option value="WY">Wyoming</option>
+      </select>
+      <div class="field-error" id="err-state">Please select a state.</div>
+    </div>
+
+    <div class="field-group">
+      <label>Appraised / After-Repair Value (ARV)</label>
+      <div class="currency-wrap"><input type="text" id="arv" placeholder="500,000" oninput="formatCurrency(this)"></div>
+      <div class="field-error" id="err-arv">Please enter the property value.</div>
+    </div>
+
+    <div class="field-row">
+      <div class="field-group">
+        <label>Monthly Rent</label>
+        <div class="currency-wrap"><input type="text" id="rent" placeholder="3,200" oninput="formatCurrency(this)"></div>
+        <div class="field-error" id="err-rent">Please enter the monthly rent.</div>
+      </div>
+      <div class="field-group">
+        <label>Annual Taxes</label>
+        <div class="currency-wrap"><input type="text" id="taxes" placeholder="6,000" oninput="formatCurrency(this)"></div>
+        <div class="field-error" id="err-taxes">Please enter annual taxes.</div>
+      </div>
+    </div>
+
+    <div class="field-row">
+      <div class="field-group">
+        <label>Annual Insurance</label>
+        <div class="currency-wrap"><input type="text" id="insurance" placeholder="2,400" oninput="formatCurrency(this)"></div>
+        <div class="field-error" id="err-insurance">Please enter annual insurance.</div>
+      </div>
+      <div class="field-group">
+        <label>Annual HOA (if any)</label>
+        <div class="currency-wrap"><input type="text" id="hoa" placeholder="0" oninput="formatCurrency(this)"></div>
+      </div>
+    </div>
+
+    <div class="btn-row">
+      <button class="btn btn-secondary" onclick="prevStep(2)">&larr; Back</button>
+      <button class="btn btn-primary" onclick="nextStep(2)">Continue &rarr;</button>
+    </div>
+  </div>
+
+  <!-- STEP 3: Loan Details -->
+  <div class="step-card" id="step-3">
+    <h2>Loan Preferences</h2>
+    <p class="step-subtitle">Choose your loan structure.</p>
+
+    <div class="field-group">
+      <label>Desired LTV (%)</label>
+      <p class="field-hint">Maximum 80%. Lower LTV = better rate.</p>
+      <select id="ltv">
+        <option value="0.50">50%</option>
+        <option value="0.55">55%</option>
+        <option value="0.60">60%</option>
+        <option value="0.65">65%</option>
+        <option value="0.70">70%</option>
+        <option value="0.75" selected>75%</option>
+        <option value="0.80">80%</option>
+      </select>
+    </div>
+
+    <div class="field-group">
+      <label>Loan Purpose</label>
+      <select id="loanPurpose" onchange="showPurchaseRecencyDSCR()">
+        <option value="Purchase">Purchase</option>
+        <option value="R/T Refinance">Rate/Term Refinance</option>
+        <option value="C/O Refinance">Cash-Out Refinance</option>
+      </select>
+    </div>
+
+    <div class="field-group" id="purchaseDateGroup-dscr" style="display:none;">
+      <label>When was the property originally purchased?</label>
+      <select id="purchaseRecency" onchange="updateDelayedPurchaseDSCR()">
+        <option value="">Select...</option>
+        <option value="over5">More than 5 months ago</option>
+        <option value="within5">Within the last 5 months</option>
+      </select>
+      <p class="field-hint" id="delayed-purchase-note-dscr" style="display:none; color:#b45309;">
+        Loans refinanced within 5 months of purchase are treated as delayed purchases and sized off the original purchase price.
+      </p>
+    </div>
+
+    <div class="field-group">
+      <label>Interest Only?</label>
+      <div class="toggle-group" role="radiogroup">
+        <button type="button" class="toggle-btn" role="radio" aria-checked="false" data-field="interestOnly" data-value="No" onclick="toggleSelect(this)">No (Fully Amortizing)</button>
+        <button type="button" class="toggle-btn selected" role="radio" aria-checked="true" data-field="interestOnly" data-value="Yes" onclick="toggleSelect(this)">Yes (IO)</button>
+      </div>
+    </div>
+
+
+
+    <div class="field-group">
+      <label>Prepayment Penalty</label>
+      <select id="prepay">
+        <option value="36" selected>3-Year Stepdown (3% / 2% / 1%)</option>
+        <option value="60">5-Year Stepdown (5% / 4% / 3% / 2% / 1%)</option>
+      </select>
+    </div>
+
+    <div class="btn-row">
+      <button class="btn btn-secondary" onclick="prevStep(3)">&larr; Back</button>
+      <button class="btn btn-primary" id="btn-calculate" onclick="calculateDSCR()">Get My Rate &rarr;</button>
+    </div>
+  </div>
+
+  <!-- STEP 4: Results -->
+  <div class="step-card" id="step-4">
+    <h2>Your Estimated Loan Terms</h2>
+    <p class="step-subtitle">Best available rate across our DSCR programs.</p>
+
+    <div id="dscr-warning-banner" style="display:none; background:#fff3cd; border:1px solid #ffc107; border-radius:8px; padding:16px; margin-bottom:20px; text-align:center;">
+      <div style="font-weight:700; color:#856404; font-size:15px; margin-bottom:4px;" id="dscr-warning-title"></div>
+      <div style="font-size:13px; color:#856404;" id="dscr-warning-msg"></div>
+    </div>
+
+    <div class="results-grid">
+      <div class="result-card highlight">
+        <div class="result-label">Estimated Rate (30yr Fixed)</div>
+        <div class="result-value" id="res-rate">--</div>
+        <div class="result-detail" id="res-rate-detail"></div>
+      </div>
+      <div class="result-card">
+        <div class="result-label">Loan Amount</div>
+        <div class="result-value" id="res-loanamt">--</div>
+        <div class="result-detail" id="res-loanamt-detail"></div>
+      </div>
+      <div class="result-card">
+        <div class="result-label">Est. Monthly Payment</div>
+        <div class="result-value" id="res-payment">--</div>
+        <div class="result-detail" id="res-payment-detail"></div>
+      </div>
+      <div class="result-card">
+        <div class="result-label">DSCR Ratio</div>
+        <div class="result-value" id="res-dscr">--</div>
+        <div class="result-detail" id="res-dscr-detail"></div>
+      </div>
+
+    </div>
+
+    <!-- Sliders: LTV and Prepay -->
+    <div class="slider-section" id="dscr-slider-section" style="display:none;">
+      <h3>Adjust Your Terms</h3>
+      <div class="slider-row">
+        <div class="slider-label">
+          <span class="label">Loan-to-Value (LTV)</span>
+          <span class="value" id="slider-ltv-val">75%</span>
+        </div>
+        <input type="range" id="slider-ltv" min="50" max="80" step="5" value="75" oninput="onSliderChange()">
+      </div>
+      <div class="slider-row">
+        <div class="slider-label">
+          <span class="label">Prepayment Penalty</span>
+          <span class="value" id="slider-prepay-val">3-Year Stepdown</span>
+        </div>
+        <div class="prepay-toggle-group">
+          <button type="button" class="prepay-toggle-btn selected" data-prepay="36" onclick="selectPrepay(this)">3-Year Stepdown (3%/2%/1%)</button>
+          <button type="button" class="prepay-toggle-btn" data-prepay="60" onclick="selectPrepay(this)">5-Year Stepdown (5%/4%/3%/2%/1%)</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="results-breakdown">
+      <h3>Monthly Cash Flow Breakdown</h3>
+      <div class="breakdown-row">
+        <span class="label">Monthly P&amp;I / Interest</span>
+        <span class="value" id="res-pi">--</span>
+      </div>
+      <div class="breakdown-row">
+        <span class="label">Monthly Taxes</span>
+        <span class="value" id="res-taxes">--</span>
+      </div>
+      <div class="breakdown-row">
+        <span class="label">Monthly Insurance</span>
+        <span class="value" id="res-ins">--</span>
+      </div>
+      <div class="breakdown-row" id="hoa-row">
+        <span class="label">Monthly HOA</span>
+        <span class="value" id="res-hoa">--</span>
+      </div>
+      <div class="breakdown-row" style="font-weight:700; border-top: 2px solid var(--gray-300); margin-top:4px; padding-top:12px;">
+        <span class="label" style="color:var(--text-primary);">Total PITIA</span>
+        <span class="value" id="res-pitia">--</span>
+      </div>
+      <div class="breakdown-row" style="margin-top:12px;">
+        <span class="label">Monthly Rent</span>
+        <span class="value" id="res-rent">--</span>
+      </div>
+      <div class="breakdown-row" style="font-weight:700; border-top: 2px solid var(--green); margin-top:4px; padding-top:12px; color:var(--green);">
+        <span class="label" style="color:var(--green);">Net Cash Flow <span style="font-size:11px; font-style:italic; color:var(--gray-500);">(Rent less PITIA)</span></span>
+        <span class="value" id="res-net-cashflow" style="color:var(--green);">--</span>
+      </div>
+      <div class="breakdown-row" style="margin-top:8px;">
+        <span class="label">DSCR Ratio <span style="font-size:11px; font-style:italic; color:var(--gray-500);">(Rent &divide; PITIA)</span></span>
+        <span class="value" id="res-dscr-ratio">--</span>
+      </div>
+    </div>
+
+    <div class="results-note">
+      This is an estimate based on the information provided. Final rate determined by full underwriting, appraisal, and program eligibility. DSCR calculated using the lower of market or in-place rent. Multi-property portfolios may qualify for crossed collateral pricing.
+    </div>
+
+    <div class="btn-row">
+      <button class="btn btn-primary" onclick="showEditInputsDSCR()" style="display:block; margin:0 auto;">Edit Inputs</button>
+    </div>
+
+    <div class="lead-form-section" id="lead-section">
+      <div id="lead-form-content">
+        <h3>Want a Formal Quote?</h3>
+        <p class="lead-subtitle">Enter your details and a loan officer will reach out within one business day.</p>
+        <form name="dscr-calculator-lead" method="POST" data-netlify="true" netlify-honeypot="bot-field" id="leadForm" onsubmit="return submitLead(event)">
+          <input type="hidden" name="form-name" value="dscr-calculator-lead">
+          <input type="hidden" name="bot-field">
+          <input type="hidden" name="calculator-results" id="hidden-results">
+          <div class="field-row" style="gap:12px;">
+            <input type="text" name="first-name" placeholder="First name" required>
+            <input type="text" name="last-name" placeholder="Last name" required>
+          </div>
+          <input type="email" name="email" placeholder="Email address" id="lead-email">
+          <input type="tel" name="phone" placeholder="Phone number" id="lead-phone">
+          <p style="font-size:12px; opacity:0.6; margin:-8px 0 8px;">Email or phone required (at least one).</p>
+          <textarea name="notes" placeholder="Anything else we should know? (optional)"></textarea>
+          <button type="submit" class="btn btn-primary">Submit Request &rarr;</button>
+        </form>
+      </div>
+      <div class="lead-success" id="lead-success">
+        <div class="checkmark">&#10003;</div>
+        <p>Thanks! A loan officer will be in touch within one business day.</p>
+      </div>
+    </div>
+  </div>
+  <!-- STEP 5: Edit Inputs -->
+  <div class="step-card" id="step-5">
+    <h2>Edit Your Inputs</h2>
+    <p class="step-subtitle">Change any value below and recalculate.</p>
+
+    <div class="edit-grid">
+      <div class="edit-item">
+        <div class="edit-label">Credit Score</div>
+        <select id="edit-fico"></select>
+      </div>
+      <div class="edit-item">
+        <div class="edit-label">Foreign National</div>
+        <select id="edit-foreignNational">
+          <option value="No">No</option>
+          <option value="Yes">Yes</option>
+        </select>
+      </div>
+      <div class="edit-item">
+        <div class="edit-label">Property Type</div>
+        <select id="edit-propertyType"></select>
+      </div>
+      <div class="edit-item">
+        <div class="edit-label">State</div>
+        <select id="edit-state"></select>
+      </div>
+      <div class="edit-item">
+        <div class="edit-label">Property Value</div>
+        <div class="currency-wrap"><input type="text" id="edit-arv" oninput="formatCurrency(this)"></div>
+      </div>
+      <div class="edit-item">
+        <div class="edit-label">Monthly Rent</div>
+        <div class="currency-wrap"><input type="text" id="edit-rent" oninput="formatCurrency(this)"></div>
+      </div>
+      <div class="edit-item">
+        <div class="edit-label">Annual Taxes</div>
+        <div class="currency-wrap"><input type="text" id="edit-taxes" oninput="formatCurrency(this)"></div>
+      </div>
+      <div class="edit-item">
+        <div class="edit-label">Annual Insurance</div>
+        <div class="currency-wrap"><input type="text" id="edit-insurance" oninput="formatCurrency(this)"></div>
+      </div>
+      <div class="edit-item">
+        <div class="edit-label">Annual HOA</div>
+        <div class="currency-wrap"><input type="text" id="edit-hoa" oninput="formatCurrency(this)"></div>
+      </div>
+      <div class="edit-item">
+        <div class="edit-label">Desired LTV</div>
+        <select id="edit-ltv">
+          <option value="0.50">50%</option><option value="0.55">55%</option>
+          <option value="0.60">60%</option><option value="0.65">65%</option>
+          <option value="0.70">70%</option><option value="0.75">75%</option>
+          <option value="0.80">80%</option>
+        </select>
+      </div>
+      <div class="edit-item">
+        <div class="edit-label">Loan Purpose</div>
+        <select id="edit-loanPurpose">
+          <option value="Purchase">Purchase</option>
+          <option value="R/T Refinance">Rate/Term Refinance</option>
+          <option value="C/O Refinance">Cash-Out Refinance</option>
+        </select>
+      </div>
+      <div class="edit-item" id="editPurchaseRecencyGroup" style="display:none;">
+        <div class="edit-label">Purchase Timing</div>
+        <select id="edit-purchaseRecency">
+          <option value="">Select...</option>
+          <option value="over5">More than 5 months ago</option>
+          <option value="within5">Within last 5 months</option>
+        </select>
+      </div>
+      <div class="edit-item">
+        <div class="edit-label">Interest Only</div>
+        <select id="edit-io">
+          <option value="Yes">Yes</option>
+          <option value="No">No (Fully Amortizing)</option>
+        </select>
+      </div>
+      <div class="edit-item">
+        <div class="edit-label">Prepay Penalty</div>
+        <select id="edit-prepay">
+          <option value="36">3-Year Stepdown</option>
+          <option value="60">5-Year Stepdown</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="btn-row">
+      <button class="btn btn-secondary" onclick="goToStep(4)">&larr; Back to Results</button>
+      <button class="btn btn-primary" onclick="recalcFromEditDSCR()">Recalculate &rarr;</button>
+    </div>
+
+    <div class="lead-form-section">
+      <div>
+        <h3>Want a Formal Quote?</h3>
+        <p class="lead-subtitle">Enter your details and a loan officer will reach out within one business day.</p>
+        <form name="dscr-calculator-lead-edit" method="POST" data-netlify="true" netlify-honeypot="bot-field" onsubmit="return submitLead(event)">
+          <input type="hidden" name="form-name" value="dscr-calculator-lead">
+          <input type="hidden" name="bot-field">
+          <input type="hidden" name="calculator-results" id="hidden-results-edit">
+          <div class="field-row" style="gap:12px;">
+            <input type="text" name="first-name" placeholder="First name" required>
+            <input type="text" name="last-name" placeholder="Last name" required>
+          </div>
+          <input type="email" name="email" placeholder="Email address">
+          <input type="tel" name="phone" placeholder="Phone number">
+          <p style="font-size:12px; opacity:0.6; margin:-8px 0 8px;">Email or phone required.</p>
+          <textarea name="notes" placeholder="Anything else? (optional)"></textarea>
+          <button type="submit" class="btn btn-primary">Submit Request &rarr;</button>
+        </form>
+      </div>
+      <div class="lead-success" style="display:none;">
+        <div class="checkmark">&#10003;</div>
+        <p>Thanks! A loan officer will be in touch within one business day.</p>
+      </div>
+    </div>
+  </div>
+
+</div>
+</main>
+
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-contact">
+      60 Broad Street, Suite 2428, New York, NY 10004<br>
+      <a href="tel:201-749-1691">201-749-1691</a><span class="footer-sep">|</span><a href="mailto:Info@ledgertc.com">Info@ledgertc.com</a><span class="footer-sep">|</span><a href="https://www.linkedin.com/company/ledger-trade-capital/" target="_blank">LinkedIn</a>
+    </div>
+    <div class="footer-center">
+      <div class="footer-copy">&copy; 2026 Ledger Trade &amp; Capital. All rights reserved.</div>
+      <div class="footer-legal"><a href="terms-and-conditions.html">Terms of Service</a><span class="footer-sep">|</span><a href="privacy-policy.html">Privacy Policy</a></div>
+    </div>
+    <div class="footer-logo-wrap">
+      <img src="logo-inverse.png" alt="Ledger Trade &amp; Capital" width="269" height="67">
+    </div>
+  </div>
+</footer>
+
+
+<script>
+let currentStep = 1;
+const toggleValues = { interestOnly: 'Yes', cashOut: 'No' };
+
+// State-to-tier mapping for Incentive program pricing
+const STATE_TIERS = {
+  TX:'tier1', FL:'tier1', GA:'tier1', SC:'tier1', LA:'tier1',
+  MN:'tier1', CO:'tier1', OR:'tier1', UT:'tier1', AZ:'tier1'
+};
+function getStateTier(stateCode) {
+  return STATE_TIERS[stateCode] || 'tier2';
+}
+
+// Stored state for slider recalculation
+let dscrState = null;
+
+function goToStep(step) {
+  document.querySelectorAll('.step-card').forEach(c => c.classList.remove('active'));
+  document.getElementById('step-' + step).classList.add('active');
+  for (let i = 1; i <= 4; i++) {
+    const el = document.getElementById('prog-' + i);
+    el.classList.remove('active','completed');
+    if (i < step) el.classList.add('completed');
+    else if (i === step) el.classList.add('active');
+    if (i < 4) document.getElementById('line-' + i).classList.toggle('active', i < step);
+  }
+  currentStep = step;
+  window.scrollTo({ top: 200, behavior: 'smooth' });
+}
+function nextStep(from) { if (validateStep(from)) goToStep(from + 1); }
+function prevStep(from) { goToStep(from - 1); }
+
+function toggleSelect(btn) {
+  const field = btn.dataset.field;
+  toggleValues[field] = btn.dataset.value;
+  btn.parentElement.querySelectorAll('.toggle-btn').forEach(b => {
+    b.classList.remove('selected');
+    b.setAttribute('aria-checked', 'false');
+  });
+  btn.classList.add('selected');
+  btn.setAttribute('aria-checked', 'true');
+}
+
+function formatCurrency(input) {
+  let val = input.value.replace(/[^0-9]/g, '');
+  if (val === '') { input.value = ''; return; }
+  input.value = parseInt(val).toLocaleString('en-US');
+}
+function parseCurrency(id) {
+  const val = document.getElementById(id).value.replace(/[^0-9]/g, '');
+  return val === '' ? 0 : parseInt(val);
+}
+function validateStep(step) {
+  let v = true;
+  if (step === 1) {
+    v = vf('fico') && v;
+    if (!toggleValues.foreignNational) { document.getElementById('err-foreignNational').style.display='block'; v=false; }
+    else document.getElementById('err-foreignNational').style.display='none';
+  }
+  if (step === 2) {
+    v = vf('propertyType') && v;
+    v = vf('state') && v;
+    v = vc('arv') && v;
+    v = vc('rent') && v;
+    v = vc('taxes') && v;
+    v = vc('insurance') && v;
+  }
+  return v;
+}
+function vf(id) {
+  const el = document.getElementById(id), err = document.getElementById('err-'+id);
+  if (!el.value) { el.classList.add('error'); if(err) err.style.display='block'; return false; }
+  el.classList.remove('error'); if(err) err.style.display='none'; return true;
+}
+function vc(id) {
+  const val = parseCurrency(id), el = document.getElementById(id), err = document.getElementById('err-'+id);
+  if (val <= 0) { el.classList.add('error'); if(err) err.style.display='block'; return false; }
+  el.classList.remove('error'); if(err) err.style.display='none'; return true;
+}
+
+// ─── Round rate UP to nearest eighth ───
+function ceilEighth(rate) {
+  return Math.ceil(rate / 0.125) * 0.125;
+}
+
+// ─── DSCR LLPA TABLES ───
+// BASE program (crossed collateral)
+const BASE_FICO = {
+  // Single property FICO x LTV adjustments
+  single: {
+    '760+':    { 0.50:1.0, 0.55:1.0, 0.60:1.0, 0.65:1.0, 0.70:0.75, 0.75:0.125, 0.80:-0.625 },
+    '740-759': { 0.50:1.0, 0.55:1.0, 0.60:0.875, 0.65:0.875, 0.70:0.375, 0.75:-0.125, 0.80:-1.375 },
+    '720-739': { 0.50:0.75, 0.55:0.75, 0.60:0.625, 0.65:0.5, 0.70:0.0, 0.75:-0.75, 0.80:-2.625 },
+    '700-719': { 0.50:0.125, 0.55:0.0, 0.60:-0.375, 0.65:-0.625, 0.70:-1.125, 0.75:-1.25, 0.80:-3.5 },
+    '680-699': { 0.50:-0.25, 0.55:-0.375, 0.60:-0.875, 0.65:-1.375, 0.70:-2.125, 0.75:-3.25, 0.80:-5.5 },
+    '660-679': { 0.50:-0.875, 0.55:-1.25, 0.60:-2.0, 0.65:-2.625, 0.70:-3.0, 0.75:-4.25, 0.80:'N/A' },
+    'FN':      { 0.50:0.125, 0.55:0.0, 0.60:-0.375, 0.65:-0.625, 0.70:'N/A', 0.75:'N/A', 0.80:'N/A' },
+  },
+  crossed: {
+    '760+':    { 0.50:0.875, 0.55:0.875, 0.60:0.875, 0.65:0.875, 0.70:0.625, 0.75:0.0, 0.80:'N/A' },
+    '740-759': { 0.50:0.875, 0.55:0.875, 0.60:0.75, 0.65:0.75, 0.70:0.25, 0.75:-0.25, 0.80:'N/A' },
+    '720-739': { 0.50:0.625, 0.55:0.625, 0.60:0.5, 0.65:0.375, 0.70:-0.125, 0.75:-0.875, 0.80:'N/A' },
+    '700-719': { 0.50:0.0, 0.55:-0.125, 0.60:-0.5, 0.65:-0.75, 0.70:-1.25, 0.75:'N/A', 0.80:'N/A' },
+    '680-699': { 0.50:-0.375, 0.55:-0.5, 0.60:-1.0, 0.65:-1.5, 0.70:-2.25, 0.75:'N/A', 0.80:'N/A' },
+    'FN':      { 0.50:0.0, 0.55:-0.125, 0.60:-0.5, 0.65:'N/A', 0.70:'N/A', 0.75:'N/A', 0.80:'N/A' },
+  },
+  propType: {
+    'Single Family':    { 0.50:0, 0.55:0, 0.60:0, 0.65:0, 0.70:0, 0.75:0, 0.80:0 },
+    'Condo':            { 0.50:-0.25, 0.55:-0.25, 0.60:-0.25, 0.65:-0.25, 0.70:-0.5, 0.75:-0.5, 0.80:-0.5 },
+    'Townhome':         { 0.50:0, 0.55:0, 0.60:0, 0.65:0, 0.70:0, 0.75:0, 0.80:0 },
+    '2-4 Unit':         { 0.50:-0.125, 0.55:-0.125, 0.60:-0.125, 0.65:-0.375, 0.70:-0.75, 0.75:-1.0, 0.80:-2.0 },
+    'Short Term Rental': { 0.50:-1.25, 0.55:-1.25, 0.60:-1.5, 0.65:-1.75, 0.70:-2.0, 0.75:-2.5, 0.80:'N/O' },
+  },
+  loanAmt: {
+    'lt150':  { 0.50:-1.0, 0.55:-1.0, 0.60:-1.0, 0.65:-1.5, 0.70:-1.5, 0.75:-1.5, 0.80:-1.75 },
+    'gt1m':   { 0.50:0, 0.55:0, 0.60:0, 0.65:0, 0.70:-0.125, 0.75:-0.125, 0.80:-0.125 },
+    'gt1.5m': { 0.50:-0.125, 0.55:-0.125, 0.60:-0.25, 0.65:-0.25, 0.70:-0.375, 0.75:-0.5, 0.80:-1.5 },
+    'gt2m':   { 0.50:-0.125, 0.55:-0.125, 0.60:-0.25, 0.65:-0.375, 0.70:-0.5, 0.75:-1.5, 0.80:-2.5 },
+    'gt2.5m': { 0.50:-0.375, 0.55:-0.375, 0.60:-0.375, 0.65:-0.5, 0.70:-0.75, 0.75:'N/O', 0.80:'N/O' },
+    'default':{ 0.50:0, 0.55:0, 0.60:0, 0.65:0, 0.70:0, 0.75:0, 0.80:0 },
+  },
+  io:    { 0.50:-0.25, 0.55:-0.25, 0.60:-0.25, 0.65:-0.25, 0.70:-0.25, 0.75:-0.5, 0.80:'N/O' },
+  refiRT:{ 0.50:0, 0.55:0, 0.60:-0.25, 0.65:-0.625, 0.70:-1.0, 0.75:-1.625, 0.80:-2.125 },
+  refiCO:{ 0.50:0, 0.55:0, 0.60:-0.25, 0.65:-0.625, 0.70:-1.0, 0.75:-1.625, 0.80:'N/O' },
+  fn:    { 0.50:-1.25, 0.55:-1.25, 0.60:-1.25, 0.65:-1.25, 0.70:-1.75, 0.75:-2.0, 0.80:'N/O' },
+  dscr: {
+    'lt1':     { 0.50:-1.0, 0.55:-1.0, 0.60:-1.25, 0.65:-1.5, 0.70:-1.75, 0.75:-2.0, 0.80:'N/O' },
+    '1to1.24': { 0.50:-0.5, 0.55:-0.5, 0.60:-0.5, 0.65:-0.5, 0.70:-0.5, 0.75:-0.5, 0.80:-0.5 },
+    'gte1.25': { 0.50:0.25, 0.55:0.25, 0.60:0.25, 0.65:0.25, 0.70:0.25, 0.75:0.375, 0.80:0.5 },
+  },
+  prepay: {
+    'none': { 0.50:-1.5, 0.55:-1.5, 0.60:-1.5, 0.65:-1.5, 0.70:-1.5, 0.75:-1.5, 0.80:-1.5 },
+    '12':   { 0.50:-1.0, 0.55:-1.0, 0.60:-1.0, 0.65:-1.0, 0.70:-1.0, 0.75:-1.0, 0.80:-1.0 },
+    '24':   { 0.50:-0.5, 0.55:-0.5, 0.60:-0.5, 0.65:-0.5, 0.70:-0.5, 0.75:-0.5, 0.80:-0.5 },
+    '36':   { 0.50:0, 0.55:0, 0.60:0, 0.65:0, 0.70:0, 0.75:0, 0.80:0 },
+    '48':   { 0.50:0.25, 0.55:0.25, 0.60:0.25, 0.65:0.25, 0.70:0.25, 0.75:0.25, 0.80:0.25 },
+    '60':   { 0.50:0.5, 0.55:0.5, 0.60:0.5, 0.65:0.5, 0.70:0.5, 0.75:0.5, 0.80:0.5 },
+  },
+  // Rate table: rate -> 30yr par price
+  rateTable: [
+    [8.875, 107.75], [8.75, 107.5], [8.625, 107.25], [8.5, 107.0], [8.375, 106.75],
+    [8.25, 106.5], [8.125, 106.25], [8.0, 106.0], [7.875, 105.75], [7.75, 105.5],
+    [7.625, 105.25], [7.5, 105.0], [7.375, 104.75], [7.25, 104.375], [7.125, 104.0],
+    [7.0, 103.625], [6.875, 103.063], [6.75, 102.5], [6.625, 101.75], [6.5, 101.0],
+    [6.375, 100.25], [6.25, 99.5], [6.125, 98.75], [6.0, 98.0], [5.875, 97.25], [5.75, 96.5],
+  ],
+  targetPar: 101.0,
+};
+
+// ADVANTAGE program (single property)
+const ADVANTAGE = {
+  purchase: {
+    '780+':    { 0.50:1.0, 0.55:1.0, 0.60:0.75, 0.65:0.75, 0.70:0.25, 0.75:0.0, 0.80:-0.75 },
+    '760-779': { 0.50:0.75, 0.55:0.75, 0.60:0.5, 0.65:0.25, 0.70:0.0, 0.75:-0.5, 0.80:-1.25 },
+    '740-759': { 0.50:0.75, 0.55:0.75, 0.60:0.25, 0.65:0.0, 0.70:-0.25, 0.75:-1.0, 0.80:-1.75 },
+    '720-739': { 0.50:0.5, 0.55:0.5, 0.60:0.0, 0.65:-0.25, 0.70:-0.75, 0.75:-1.5, 0.80:-2.5 },
+    '700-719': { 0.50:0.25, 0.55:0.25, 0.60:-0.25, 0.65:-0.75, 0.70:-1.25, 0.75:-2.25, 0.80:-3.25 },
+    '680-699': { 0.50:0.0, 0.55:0.0, 0.60:-0.5, 0.65:-1.25, 0.70:-1.75, 0.75:-2.75, 0.80:'N/O' },
+    '660-679': { 0.50:-0.25, 0.55:-0.25, 0.60:-1.0, 0.65:-1.75, 0.70:-2.5, 0.75:'N/O', 0.80:'N/O' },
+  },
+  refiRT: {
+    '780+':    { 0.50:1.0, 0.55:1.0, 0.60:0.75, 0.65:0.75, 0.70:0.25, 0.75:0.0, 0.80:-0.75 },
+    '760-779': { 0.50:0.75, 0.55:0.75, 0.60:0.5, 0.65:0.25, 0.70:0.0, 0.75:-0.5, 0.80:-1.25 },
+    '740-759': { 0.50:0.75, 0.55:0.75, 0.60:0.25, 0.65:0.0, 0.70:-0.25, 0.75:-1.0, 0.80:-1.82 },
+    '720-739': { 0.50:0.5, 0.55:0.5, 0.60:0.0, 0.65:-0.25, 0.70:-0.75, 0.75:-1.5, 0.80:-2.61 },
+    '700-719': { 0.50:0.25, 0.55:0.25, 0.60:-0.25, 0.65:-0.75, 0.70:-1.25, 0.75:-2.25, 0.80:-3.41 },
+    '680-699': { 0.50:0.0, 0.55:0.0, 0.60:-0.5, 0.65:-1.25, 0.70:-1.75, 0.75:-2.75, 0.80:'N/O' },
+    '660-679': { 0.50:-0.25, 0.55:-0.25, 0.60:-1.0, 0.65:-1.75, 0.70:-2.5, 0.75:'N/O', 0.80:'N/O' },
+  },
+  refiCO: {
+    '780+':    { 0.50:0.75, 0.55:0.75, 0.60:0.5, 0.65:0.25, 0.70:-0.5, 0.75:-1.5, 0.80:'N/O' },
+    '760-779': { 0.50:0.5, 0.55:0.5, 0.60:0.25, 0.65:-0.25, 0.70:-0.75, 0.75:-2.0, 0.80:'N/O' },
+    '740-759': { 0.50:0.5, 0.55:0.5, 0.60:0.0, 0.65:-0.5, 0.70:-1.0, 0.75:-2.5, 0.80:'N/O' },
+    '720-739': { 0.50:0.25, 0.55:0.25, 0.60:-0.25, 0.65:-0.75, 0.70:-1.5, 0.75:-3.0, 0.80:'N/O' },
+    '700-719': { 0.50:0.0, 0.55:0.0, 0.60:-0.5, 0.65:-1.25, 0.70:-2.0, 0.75:-3.75, 0.80:'N/O' },
+    '680-699': { 0.50:-0.25, 0.55:-0.25, 0.60:-0.75, 0.65:-1.75, 0.70:-2.5, 0.75:'N/O', 0.80:'N/O' },
+    '660-679': { 0.50:-0.25, 0.55:-0.25, 0.60:-1.0, 0.65:-1.75, 0.70:-2.5, 0.75:'N/O', 0.80:'N/O' },
+  },
+  propType: {
+    'Single Family':    { 0.50:0, 0.55:0, 0.60:0, 0.65:0, 0.70:0, 0.75:0, 0.80:0 },
+    'Condo':            { 0.50:0, 0.55:0, 0.60:0, 0.65:0, 0.70:0, 0.75:0, 0.80:0 },
+    'Townhome':         { 0.50:0, 0.55:0, 0.60:0, 0.65:0, 0.70:0, 0.75:0, 0.80:0 },
+    '2-4 Unit':         { 0.50:-0.5, 0.55:-0.5, 0.60:-0.75, 0.65:-1.0, 0.70:-1.25, 0.75:-1.5, 0.80:-2.0 },
+    'Short Term Rental': { 0.50:0, 0.55:0, 0.60:0, 0.65:0, 0.70:0, 0.75:0, 0.80:0 },
+  },
+  io: { 0.50:-0.25, 0.55:-0.25, 0.60:-0.25, 0.65:-0.5, 0.70:-0.5, 0.75:-0.5, 0.80:'N/O' },
+  loanAmt: {
+    'lte150':  { 0.50:-1.0, 0.55:-1.0, 0.60:-1.0, 0.65:-1.0, 0.70:-1.0, 0.75:-1.0, 0.80:-1.0 },
+    'lte1m':   { 0.50:-0.5, 0.55:-0.5, 0.60:-0.5, 0.65:-0.5, 0.70:-0.5, 0.75:-0.5, 0.80:-0.5 },
+    'lte1.5m': { 0.50:-0.5, 0.55:-0.5, 0.60:-0.5, 0.65:-0.5, 0.70:-0.5, 0.75:-0.5, 0.80:-0.5 },
+    'lte2m':   { 0.50:-1.5, 0.55:-1.5, 0.60:-1.5, 0.65:-1.5, 0.70:-1.5, 0.75:-1.5, 0.80:-1.5 },
+    'lte2.5m': { 0.50:-1.5, 0.55:-1.5, 0.60:-1.5, 0.65:-1.5, 0.70:-1.5, 0.75:-1.5, 0.80:-1.5 },
+    'lte3m':   { 0.50:'N/O', 0.55:'N/O', 0.60:'N/O', 0.65:'N/O', 0.70:'N/O', 0.75:'N/O', 0.80:'N/O' },
+    'default': { 0.50:0, 0.55:0, 0.60:0, 0.65:0, 0.70:0, 0.75:0, 0.80:0 },
+  },
+  dscr: {
+    'lt1.15':    { 0.50:0, 0.55:0, 0.60:-0.25, 0.65:-0.25, 0.70:-0.25, 0.75:-0.5, 0.80:-0.75 },
+    '1.15to1.3': { 0.50:0, 0.55:0, 0.60:0, 0.65:0, 0.70:0, 0.75:0, 0.80:0 },
+    'gt1.3':     { 0.50:0.25, 0.55:0.25, 0.60:0.25, 0.65:0.25, 0.70:0.25, 0.75:0.25, 0.80:0.25 },
+  },
+  prepay: {
+    'none': { 0.50:-2.0, 0.55:-2.0, 0.60:-2.0, 0.65:-2.0, 0.70:-2.0, 0.75:-2.0, 0.80:-2.0 },
+    '12':   { 0.50:-1.5, 0.55:-1.5, 0.60:-1.5, 0.65:-1.5, 0.70:-1.5, 0.75:-1.5, 0.80:-1.5 },
+    '24':   { 0.50:0, 0.55:0, 0.60:0, 0.65:0, 0.70:0, 0.75:0, 0.80:0 },
+    '36':   { 0.50:1.0, 0.55:1.0, 0.60:1.0, 0.65:1.0, 0.70:1.0, 0.75:1.0, 0.80:1.0 },
+    '48':   { 0.50:1.0, 0.55:1.0, 0.60:1.0, 0.65:1.0, 0.70:1.0, 0.75:1.0, 0.80:1.0 },
+    '60':   { 0.50:1.5, 0.55:1.5, 0.60:1.5, 0.65:1.5, 0.70:1.5, 0.75:1.5, 0.80:1.5 },
+  },
+  rateTable: [
+    [8.625,107.595],[8.5,107.347],[8.375,107.077],[8.25,106.804],[8.125,106.528],
+    [8.0,106.231],[7.875,105.927],[7.75,105.596],[7.625,105.259],[7.5,104.895],
+    [7.375,104.513],[7.25,104.103],[7.125,103.655],[7.0,103.191],[6.875,102.68],
+    [6.75,102.144],[6.625,101.559],[6.5,100.944],[6.375,100.299],[6.25,99.624],
+    [6.125,98.908],[6.0,98.172],[5.875,97.25],
+  ],
+  targetPar: 101.0,
+};
+
+// INCENTIVE program
+const INCENTIVE = {
+  single: {
+    '780+':    { 0.50:0.875, 0.55:0.625, 0.60:0.5, 0.65:0.375, 0.70:-0.125, 0.75:-0.625, 0.80:-1.5 },
+    '760-779': { 0.50:0.875, 0.55:0.625, 0.60:0.375, 0.65:0.0, 0.70:-0.375, 0.75:-0.875, 0.80:-1.75 },
+    '740-759': { 0.50:0.75, 0.55:0.5, 0.60:0.25, 0.65:-0.125, 0.70:-0.5, 0.75:-1.0, 0.80:-1.875 },
+    '720-739': { 0.50:0.625, 0.55:0.375, 0.60:0.125, 0.65:-0.25, 0.70:-0.75, 0.75:-1.125, 0.80:-2.125 },
+    '700-719': { 0.50:0.5, 0.55:0.125, 0.60:-0.125, 0.65:-0.625, 0.70:-1.25, 0.75:-2.5, 0.80:'N/O' },
+    '680-699': { 0.50:0.125, 0.55:-0.25, 0.60:-0.75, 0.65:-2.0, 0.70:-3.125, 0.75:-3.5, 0.80:'N/O' },
+    '660-679': { 0.50:-0.125, 0.55:-0.5, 0.60:-1.0, 0.65:-2.25, 0.70:-3.375, 0.75:'N/O', 0.80:'N/O' },
+    'FN':      { 0.50:-1.375, 0.55:-1.375, 0.60:-1.625, 0.65:-1.875, 0.70:'N/O', 0.75:'N/O', 0.80:'N/O' },
+  },
+  crossed: {
+    '780+':    { 0.50:0.875, 0.55:0.625, 0.60:0.5, 0.65:0.125, 0.70:-0.375, 0.75:-0.875, 0.80:'N/O' },
+    '760-779': { 0.50:0.875, 0.55:0.625, 0.60:0.375, 0.65:-0.125, 0.70:-0.5, 0.75:-1.0, 0.80:'N/O' },
+    '740-759': { 0.50:0.75, 0.55:0.5, 0.60:0.25, 0.65:-0.125, 0.70:-0.5, 0.75:-1.0, 0.80:'N/O' },
+    '720-739': { 0.50:0.625, 0.55:0.375, 0.60:0.125, 0.65:-0.25, 0.70:-0.75, 0.75:-1.125, 0.80:'N/O' },
+    '700-719': { 0.50:0.5, 0.55:0.125, 0.60:-0.125, 0.65:-0.625, 0.70:-1.25, 0.75:-2.5, 0.80:'N/O' },
+    '680-699': { 0.50:0.25, 0.55:-0.125, 0.60:-0.5, 0.65:-1.75, 0.70:-2.75, 0.75:-3.125, 0.80:'N/O' },
+  },
+  stateTier: {
+    'tier1': { 0.50:0, 0.55:0, 0.60:0, 0.65:0, 0.70:0, 0.75:0, 0.80:0 },
+    'tier2': { 0.50:0.25, 0.55:0.25, 0.60:0.25, 0.65:0.25, 0.70:0.25, 0.75:0.25, 0.80:0.25 },
+  },
+  propType: {
+    'Single Family':    { 0.50:0, 0.55:0, 0.60:0, 0.65:0, 0.70:0, 0.75:0, 0.80:0 },
+    'Condo':            { 0.50:-0.125, 0.55:-0.125, 0.60:-0.25, 0.65:-0.25, 0.70:-0.375, 0.75:-0.5, 0.80:-0.75 },
+    'Townhome':         { 0.50:0, 0.55:0, 0.60:0, 0.65:0, 0.70:0, 0.75:0, 0.80:0 },
+    '2-4 Unit':         { 0.50:-0.25, 0.55:-0.25, 0.60:-0.5, 0.65:-0.5, 0.70:-0.5, 0.75:-0.625, 0.80:-0.875 },
+    'Short Term Rental': { 0.50:0, 0.55:0, 0.60:0, 0.65:0, 0.70:0, 0.75:0, 0.80:0 },
+  },
+  loanAmt: {
+    'lt250':   { 0.50:0, 0.55:0, 0.60:0, 0.65:0, 0.70:0, 0.75:-0.375, 0.80:-0.5 },
+    'lte2m':   { 0.50:-0.125, 0.55:-0.125, 0.60:-0.125, 0.65:-0.25, 0.70:-0.25, 0.75:-0.375, 0.80:-0.375 },
+    'lte2.5m': { 0.50:-0.125, 0.55:-0.125, 0.60:-0.125, 0.65:-0.25, 0.70:-0.25, 0.75:-0.375, 0.80:'N/O' },
+    'lte3m':   { 0.50:-0.25, 0.55:-0.25, 0.60:-0.25, 0.65:-0.375, 0.70:-0.375, 0.75:-0.5, 0.80:'N/O' },
+    'default': { 0.50:0, 0.55:0, 0.60:0, 0.65:0, 0.70:0, 0.75:0, 0.80:0 },
+  },
+  io:    { 0.50:-0.125, 0.55:-0.125, 0.60:-0.25, 0.65:-0.25, 0.70:-0.5, 0.75:-0.625, 0.80:'N/O' },
+  refiCO:{ 0.50:-0.5, 0.55:-0.5, 0.60:-0.5, 0.65:-0.75, 0.70:-1.125, 0.75:-1.5, 0.80:'N/O' },
+  dscr: {
+    'lt1':     { 0.50:-0.625, 0.55:-0.75, 0.60:-0.75, 0.65:-0.75, 0.70:-0.875, 0.75:-1.0, 0.80:'N/O' },
+    '1to1.24': { 0.50:0, 0.55:0, 0.60:0, 0.65:0, 0.70:0, 0.75:0, 0.80:0 },
+    'gte1.25': { 0.50:0.375, 0.55:0.375, 0.60:0.375, 0.65:0.375, 0.70:0.375, 0.75:0.375, 0.80:0.375 },
+  },
+  prepay: {
+    'none': { 0.50:-1.125, 0.55:-1.125, 0.60:-1.125, 0.65:-1.125, 0.70:-1.125, 0.75:-1.125, 0.80:-1.125 },
+    '12':   { 0.50:-0.75, 0.55:-0.75, 0.60:-0.75, 0.65:-0.75, 0.70:-0.75, 0.75:-0.75, 0.80:-0.75 },
+    '24':   { 0.50:-0.375, 0.55:-0.375, 0.60:-0.375, 0.65:-0.375, 0.70:-0.375, 0.75:-0.375, 0.80:-0.375 },
+    '36':   { 0.50:0, 0.55:0, 0.60:0, 0.65:0, 0.70:0, 0.75:0, 0.80:0 },
+    '48':   { 0.50:0.5, 0.55:0.5, 0.60:0.5, 0.65:0.5, 0.70:0.5, 0.75:0.5, 0.80:0.5 },
+    '60':   { 0.50:1.0, 0.55:1.0, 0.60:1.0, 0.65:1.0, 0.70:1.0, 0.75:1.0, 0.80:1.0 },
+  },
+  rateTable: [
+    [8.75,105.785],[8.625,105.535],[8.5,105.285],[8.375,105.035],[8.25,104.785],
+    [8.125,104.504],[8.0,104.191],[7.875,103.879],[7.75,103.566],[7.625,103.254],
+    [7.5,102.879],[7.375,102.504],[7.25,102.066],[7.125,101.629],[7.0,101.129],
+    [6.875,100.629],[6.75,100.066],[6.625,99.504],[6.5,98.879],[6.375,98.254],
+    [6.25,97.566],[6.125,96.878],[6.0,96.191],[5.875,95.441],
+  ],
+  targetPar: 101.0,
+};
+
+// ─── HELPER: get LLPA value, return null if N/A or N/O ───
+function llpa(table, ltv) {
+  if (!table) return null;
+  const val = table[ltv];
+  if (val === undefined || val === 'N/A' || val === 'N/O') return null;
+  return val;
+}
+
+// ─── FICO BUCKET MAPPING ───
+function ficoBucketBase(fico, isFN) {
+  if (isFN) return 'FN';
+  if (fico >= 760) return '760+';
+  if (fico >= 740) return '740-759';
+  if (fico >= 720) return '720-739';
+  if (fico >= 700) return '700-719';
+  if (fico >= 680) return '680-699';
+  if (fico >= 660) return '660-679';
+  return 'FN';
+}
+
+function ficoBucketAdv(fico) {
+  if (fico >= 780) return '780+';
+  if (fico >= 760) return '760-779';
+  if (fico >= 740) return '740-759';
+  if (fico >= 720) return '720-739';
+  if (fico >= 700) return '700-719';
+  if (fico >= 680) return '680-699';
+  if (fico >= 660) return '660-679';
+  return null; // ineligible
+}
+
+function ficoBucketInc(fico, isFN) {
+  if (isFN) return 'FN';
+  if (fico >= 780) return '780+';
+  if (fico >= 760) return '760-779';
+  if (fico >= 740) return '740-759';
+  if (fico >= 720) return '720-739';
+  if (fico >= 700) return '700-719';
+  if (fico >= 680) return '680-699';
+  if (fico >= 660) return '660-679';
+  return null;
+}
+
+// ─── LOAN AMT BUCKET ───
+function loanAmtBucketBase(amt) {
+  if (amt < 150000) return 'lt150';
+  if (amt > 2500000) return 'gt2.5m';
+  if (amt > 2000000) return 'gt2m';
+  if (amt > 1500000) return 'gt1.5m';
+  if (amt > 1000000) return 'gt1m';
+  return 'default';
+}
+function loanAmtBucketAdv(amt) {
+  if (amt <= 150000) return 'lte150';
+  if (amt <= 1000000) return 'lte1m';
+  if (amt <= 1500000) return 'lte1.5m';
+  if (amt <= 2000000) return 'lte2m';
+  if (amt <= 2500000) return 'lte2.5m';
+  if (amt <= 3000000) return 'lte3m';
+  return 'default';
+}
+function loanAmtBucketInc(amt) {
+  if (amt < 250000) return 'lt250';
+  if (amt <= 2000000) return 'lte2m';
+  if (amt <= 2500000) return 'lte2.5m';
+  if (amt <= 3000000) return 'lte3m';
+  return 'default';
+}
+
+// ─── DSCR BUCKET ───
+function dscrBucketBase(dscr) {
+  if (dscr < 1.0) return 'lt1';
+  if (dscr < 1.25) return '1to1.24';
+  return 'gte1.25';
+}
+function dscrBucketAdv(dscr) {
+  if (dscr < 1.15) return 'lt1.15';
+  if (dscr <= 1.3) return '1.15to1.3';
+  return 'gt1.3';
+}
+function dscrBucketInc(dscr) {
+  if (dscr < 1.0) return 'lt1';
+  if (dscr < 1.25) return '1to1.24';
+  return 'gte1.25';
+}
+
+// ─── RATE FROM PAR ───
+function rateFromPar(netPar, rateTable) {
+  for (let i = 0; i < rateTable.length; i++) {
+    if (rateTable[i][1] <= netPar) {
+      if (i === 0) return rateTable[0][0];
+      const r1 = rateTable[i-1][0], p1 = rateTable[i-1][1];
+      const r2 = rateTable[i][0], p2 = rateTable[i][1];
+      const frac = (netPar - p2) / (p1 - p2);
+      return r2 + (r1 - r2) * frac;
+    }
+  }
+  return rateTable[rateTable.length - 1][0];
+}
+
+// ─── CALCULATE BASE PROGRAM ───
+function calcBase(inputs) {
+  const { fico, isFN, ltv, propType, loanAmt, io, loanPurpose, cashOut, prepay, dscrRatio, isCrossed } = inputs;
+  const fb = ficoBucketBase(fico, isFN);
+  const ficoTable = isCrossed ? BASE_FICO.crossed[fb] : BASE_FICO.single[fb];
+  if (!ficoTable) return null;
+
+  let adj = 0;
+  const ficoAdj = llpa(ficoTable, ltv); if (ficoAdj === null) return null; adj += ficoAdj;
+  const ptAdj = llpa(BASE_FICO.propType[propType], ltv); if (ptAdj === null) return null; adj += ptAdj;
+  const laAdj = llpa(BASE_FICO.loanAmt[loanAmtBucketBase(loanAmt)] || BASE_FICO.loanAmt['default'], ltv); if (laAdj === null) return null; adj += laAdj;
+  if (io) { const ioAdj = llpa(BASE_FICO.io, ltv); if (ioAdj === null) return null; adj += ioAdj; }
+  if (loanPurpose === 'R/T Refinance') { const rtAdj = llpa(BASE_FICO.refiRT, ltv); if (rtAdj === null) return null; adj += rtAdj; }
+  if (loanPurpose === 'C/O Refinance' || cashOut) { const coAdj = llpa(BASE_FICO.refiCO, ltv); if (coAdj === null) return null; adj += coAdj; }
+  if (isFN) { const fnAdj = llpa(BASE_FICO.fn, ltv); if (fnAdj === null) return null; adj += fnAdj; }
+  const db = dscrBucketBase(dscrRatio);
+  const dAdj = llpa(BASE_FICO.dscr[db], ltv); if (dAdj === null) return null; adj += dAdj;
+  const ppAdj = llpa(BASE_FICO.prepay[prepay], ltv); if (ppAdj === null) return null; adj += ppAdj;
+
+  const netPar = BASE_FICO.targetPar || 101.0;
+  const targetPrice = netPar - adj;
+  const rate = rateFromPar(targetPrice, BASE_FICO.rateTable);
+  return { rate, adj, program: 'Base' };
+}
+
+// ─── CALCULATE ADVANTAGE PROGRAM ───
+function calcAdvantage(inputs) {
+  const { fico, ltv, propType, loanAmt, io, loanPurpose, cashOut, prepay, dscrRatio, isCrossed } = inputs;
+  if (isCrossed) return null; // Advantage is single property only
+
+  const fb = ficoBucketAdv(fico);
+  if (!fb) return null;
+
+  let ficoTable;
+  if (loanPurpose === 'C/O Refinance' || cashOut) ficoTable = ADVANTAGE.refiCO[fb];
+  else if (loanPurpose === 'R/T Refinance') ficoTable = ADVANTAGE.refiRT[fb];
+  else ficoTable = ADVANTAGE.purchase[fb];
+  if (!ficoTable) return null;
+
+  let adj = 0;
+  const ficoAdj = llpa(ficoTable, ltv); if (ficoAdj === null) return null; adj += ficoAdj;
+  const ptAdj = llpa(ADVANTAGE.propType[propType], ltv); if (ptAdj === null) return null; adj += ptAdj;
+  if (io) { const ioAdj = llpa(ADVANTAGE.io, ltv); if (ioAdj === null) return null; adj += ioAdj; }
+  const laAdj = llpa(ADVANTAGE.loanAmt[loanAmtBucketAdv(loanAmt)] || ADVANTAGE.loanAmt['default'], ltv); if (laAdj === null) return null; adj += laAdj;
+  const db = dscrBucketAdv(dscrRatio);
+  const dAdj = llpa(ADVANTAGE.dscr[db], ltv); if (dAdj === null) return null; adj += dAdj;
+  const ppAdj = llpa(ADVANTAGE.prepay[prepay], ltv); if (ppAdj === null) return null; adj += ppAdj;
+
+  const targetPrice = ADVANTAGE.targetPar - adj;
+  const rate = rateFromPar(targetPrice, ADVANTAGE.rateTable);
+  return { rate, adj, program: 'Advantage' };
+}
+
+// ─── CALCULATE INCENTIVE PROGRAM ───
+function calcIncentive(inputs) {
+  const { fico, isFN, ltv, propType, loanAmt, io, loanPurpose, cashOut, prepay, dscrRatio, isCrossed, stateTier } = inputs;
+  const fb = ficoBucketInc(fico, isFN);
+  if (!fb) return null;
+
+  const ficoTable = isCrossed ? INCENTIVE.crossed[fb] : INCENTIVE.single[fb];
+  if (!ficoTable) return null;
+
+  let adj = 0;
+  const ficoAdj = llpa(ficoTable, ltv); if (ficoAdj === null) return null; adj += ficoAdj;
+  const stAdj = llpa(INCENTIVE.stateTier[stateTier || 'tier2'], ltv); if (stAdj === null) return null; adj += stAdj;
+  const ptAdj = llpa(INCENTIVE.propType[propType], ltv); if (ptAdj === null) return null; adj += ptAdj;
+  const laAdj = llpa(INCENTIVE.loanAmt[loanAmtBucketInc(loanAmt)] || INCENTIVE.loanAmt['default'], ltv); if (laAdj === null) return null; adj += laAdj;
+  if (io) { const ioAdj = llpa(INCENTIVE.io, ltv); if (ioAdj === null) return null; adj += ioAdj; }
+  if (loanPurpose === 'C/O Refinance' || cashOut) { const coAdj = llpa(INCENTIVE.refiCO, ltv); if (coAdj === null) return null; adj += coAdj; }
+  const db = dscrBucketInc(dscrRatio);
+  const dAdj = llpa(INCENTIVE.dscr[db], ltv); if (dAdj === null) return null; adj += dAdj;
+  const ppAdj = llpa(INCENTIVE.prepay[prepay], ltv); if (ppAdj === null) return null; adj += ppAdj;
+
+  const targetPrice = INCENTIVE.targetPar - adj;
+  const rate = rateFromPar(targetPrice, INCENTIVE.rateTable);
+  return { rate, adj, program: 'Incentive' };
+}
+
+// ─── PMT FUNCTION ───
+function pmt(rate, nper, pv) {
+  if (rate === 0) return pv / nper;
+  const r = rate / 12;
+  return (pv * r * Math.pow(1+r, nper)) / (Math.pow(1+r, nper) - 1);
+}
+
+// ─── CORE RATE ENGINE (shared by initial calc and slider recalc) ───
+function computeDSCR(fico, isFN, propType, stateTier, arv, monthlyRent, annualTaxes, annualInsurance, annualHOA, ltv, loanPurpose, io, cashOut, prepay) {
+  const loanAmt = Math.round(arv * ltv);
+  const annualRent = monthlyRent * 12;
+
+  let estimatedRate = 0.08;
+  let annualPI, pitia, dscrRatio;
+
+  for (let iter = 0; iter < 3; iter++) {
+    if (io) {
+      annualPI = loanAmt * estimatedRate;
+    } else {
+      annualPI = pmt(estimatedRate, 360, loanAmt) * 12;
+    }
+    pitia = annualPI + annualTaxes + annualInsurance + annualHOA;
+    dscrRatio = annualRent / pitia;
+
+    const inputs = { fico, isFN, ltv, propType, loanAmt, io, loanPurpose, cashOut, prepay, dscrRatio, isCrossed: false, stateTier };
+    const results = [
+      calcBase(inputs),
+      calcAdvantage(inputs),
+      calcIncentive(inputs),
+    ].filter(r => r !== null);
+
+    const crossedInputs = { ...inputs, isCrossed: true };
+    const baseCrossed = calcBase(crossedInputs);
+    if (baseCrossed) results.push(baseCrossed);
+    const incCrossed = calcIncentive(crossedInputs);
+    if (incCrossed) results.push(incCrossed);
+
+    if (results.length === 0) {
+      estimatedRate = 0.10;
+      continue;
+    }
+
+    results.sort((a, b) => a.rate - b.rate);
+    estimatedRate = results[0].rate / 100;
+  }
+
+  // Final calc with converged rate
+  if (io) {
+    annualPI = loanAmt * estimatedRate;
+  } else {
+    annualPI = pmt(estimatedRate, 360, loanAmt) * 12;
+  }
+  pitia = annualPI + annualTaxes + annualInsurance + annualHOA;
+  dscrRatio = annualRent / pitia;
+
+  const inputs = { fico, isFN, ltv, propType, loanAmt, io, loanPurpose, cashOut, prepay, dscrRatio, isCrossed: false, stateTier };
+  const allResults = [
+    calcBase(inputs),
+    calcAdvantage(inputs),
+    calcIncentive(inputs),
+    calcBase({ ...inputs, isCrossed: true }),
+    calcIncentive({ ...inputs, isCrossed: true }),
+  ].filter(r => r !== null);
+
+  // If no results with current settings, try without IO at high LTV
+  if (allResults.length === 0 && io && ltv >= 0.80) {
+    const nonIOInputs = { ...inputs, io: false };
+    const fallbackResults = [
+      calcBase(nonIOInputs),
+      calcAdvantage(nonIOInputs),
+      calcIncentive(nonIOInputs),
+      calcBase({ ...nonIOInputs, isCrossed: true }),
+      calcIncentive({ ...nonIOInputs, isCrossed: true }),
+    ].filter(r => r !== null);
+    if (fallbackResults.length > 0) {
+      fallbackResults.sort((a, b) => a.rate - b.rate);
+      const fb = fallbackResults[0];
+      const fbRate = ceilEighth(fb.rate) / 100;
+      const fbMonthlyPI = pmt(fbRate, 360, loanAmt);
+      const fbMonthlyPITIA = fbMonthlyPI + annualTaxes/12 + annualInsurance/12 + annualHOA/12;
+      return {
+        rate: ceilEighth(fb.rate),
+        loanAmt,
+        monthlyPI: fbMonthlyPI,
+        monthlyPITIA: fbMonthlyPITIA,
+        finalDSCR: monthlyRent / fbMonthlyPITIA,
+        program: fb.program,
+        io: false,
+        ioFallback: true,
+        monthlyRent, monthlyTaxes: annualTaxes/12, monthlyIns: annualInsurance/12,
+        monthlyHOA: annualHOA/12, ltv, prepay, loanPurpose, cashOut,
+        dscrWarning: (monthlyRent / fbMonthlyPITIA) < 1.0 ? 'sub1' : null,
+      };
+    }
+  }
+  if (allResults.length === 0) return null;
+
+  allResults.sort((a, b) => a.rate - b.rate);
+  const best = allResults[0];
+
+  // Apply ceilEighth rounding
+  const roundedRate = ceilEighth(best.rate);
+  const bestRate = roundedRate / 100;
+
+  let monthlyPI;
+  if (io) {
+    monthlyPI = loanAmt * bestRate / 12;
+  } else {
+    monthlyPI = pmt(bestRate, 360, loanAmt);
+  }
+  const monthlyTaxes = annualTaxes / 12;
+  const monthlyIns = annualInsurance / 12;
+  const monthlyHOA = annualHOA / 12;
+  const monthlyPITIA = monthlyPI + monthlyTaxes + monthlyIns + monthlyHOA;
+  const finalDSCR = monthlyRent / monthlyPITIA;
+
+  return {
+    rate: roundedRate,
+    loanAmt,
+    monthlyPI,
+    monthlyPITIA,
+    finalDSCR,
+    program: best.program,
+    io,
+    monthlyRent,
+    monthlyTaxes,
+    monthlyIns,
+    monthlyHOA,
+    ltv,
+    prepay,
+    loanPurpose,
+    cashOut,
+    dscrWarning: finalDSCR < 1.0 ? 'sub1' : null,
+  };
+}
+
+// ─── RENDER RESULTS ───
+function renderResults(r) {
+  const banner = document.getElementById('dscr-warning-banner');
+  const bannerTitle = document.getElementById('dscr-warning-title');
+  const bannerMsg = document.getElementById('dscr-warning-msg');
+
+  if (!r) {
+    banner.style.display = 'none';
+    document.getElementById('res-rate').textContent = 'N/A';
+    // Build specific reasons
+    const reasons = [];
+    const fico = parseInt(document.getElementById('fico').value);
+    const ltv = parseFloat(document.getElementById('ltv').value);
+    const io = toggleValues.interestOnly === 'Yes';
+    if (io && ltv >= 0.80) reasons.push('Interest-only is not available at 80% LTV');
+    if (fico < 660) reasons.push('Minimum FICO is 660');
+    if (ltv >= 0.80 && fico < 680) reasons.push('80% LTV requires FICO 680+');
+    const msg = reasons.length > 0 ? reasons.join('. ') + '.' : 'This combination is not eligible. Try adjusting LTV, credit score, or prepayment terms.';
+    document.getElementById('res-rate-detail').textContent = msg;
+    document.getElementById('res-loanamt').textContent = '--';
+    document.getElementById('res-loanamt-detail').textContent = '';
+    document.getElementById('res-payment').textContent = 'N/A';
+    document.getElementById('res-payment-detail').textContent = '';
+    document.getElementById('res-dscr').textContent = 'N/A';
+    document.getElementById('res-dscr-detail').textContent = '';
+    return;
+  }
+
+  // DSCR floor checks
+  if (r.finalDSCR < 0.75) {
+    banner.style.display = 'block';
+    banner.style.background = '#f8d7da';
+    banner.style.borderColor = '#f5c6cb';
+    bannerTitle.style.color = '#721c24';
+    bannerMsg.style.color = '#721c24';
+    bannerTitle.textContent = 'Ineligible — DSCR Too Low (' + r.finalDSCR.toFixed(2) + 'x)';
+    bannerMsg.textContent = 'Minimum DSCR is 0.75x. This property\'s income does not support the requested loan amount. Try reducing LTV or increasing rental income.';
+    document.getElementById('res-rate').textContent = 'N/A';
+    document.getElementById('res-rate-detail').textContent = 'DSCR below minimum threshold';
+    document.getElementById('res-loanamt').textContent = '$' + r.loanAmt.toLocaleString();
+    document.getElementById('res-loanamt-detail').textContent = (r.ltv * 100).toFixed(0) + '% LTV';
+    document.getElementById('res-payment').textContent = 'N/A';
+    document.getElementById('res-payment-detail').textContent = '';
+    document.getElementById('res-dscr').textContent = r.finalDSCR.toFixed(2) + 'x';
+    document.getElementById('res-dscr-detail').textContent = 'Below 0.75x minimum';
+    return;
+  }
+
+  if (r.dscrWarning === 'sub1') {
+    banner.style.display = 'block';
+    banner.style.background = '#fff3cd';
+    banner.style.borderColor = '#ffc107';
+    bannerTitle.style.color = '#856404';
+    bannerMsg.style.color = '#856404';
+    bannerTitle.textContent = 'Low DSCR Warning (' + r.finalDSCR.toFixed(2) + 'x)';
+    bannerMsg.textContent = 'DSCR below 1.0x requires additional reserves and underwriter approval. Rate reflects a no-ratio pricing adjustment. Not all deals at this DSCR will be approved.';
+  } else {
+    banner.style.display = 'none';
+  }
+
+  const rateLow = r.rate.toFixed(3) + '%';
+  const rateHigh = (r.rate + 0.250).toFixed(3) + '%';
+
+  document.getElementById('res-rate').textContent = rateLow;
+  document.getElementById('res-rate-detail').textContent = 'Range: ' + rateLow + ' \u2013 ' + rateHigh;
+  document.getElementById('res-loanamt').textContent = '$' + r.loanAmt.toLocaleString();
+  document.getElementById('res-loanamt-detail').textContent = (r.ltv * 100).toFixed(0) + '% LTV';
+  document.getElementById('res-payment').textContent = '$' + Math.round(r.monthlyPITIA).toLocaleString();
+  document.getElementById('res-payment-detail').textContent = r.ioFallback ? 'Fully amortizing (IO not available at this LTV)' : r.io ? 'Interest only' : 'Fully amortizing (P&I + TIA)';
+  document.getElementById('res-dscr').textContent = r.finalDSCR.toFixed(2) + 'x';
+  document.getElementById('res-dscr-detail').textContent = r.finalDSCR >= 1.25 ? 'Strong coverage' : r.finalDSCR >= 1.0 ? 'Meets minimum' : 'Below 1.0x — requires exception approval';
+
+  document.getElementById('res-rent').textContent = '$' + r.monthlyRent.toLocaleString();
+  document.getElementById('res-pi').textContent = '-$' + Math.round(r.monthlyPI).toLocaleString();
+  document.getElementById('res-taxes').textContent = '-$' + Math.round(r.monthlyTaxes).toLocaleString();
+  document.getElementById('res-ins').textContent = '-$' + Math.round(r.monthlyIns).toLocaleString();
+  // HOA: hide row if zero
+  const hoaRow = document.getElementById('hoa-row');
+  if (r.monthlyHOA > 0) {
+    hoaRow.style.display = 'flex';
+    document.getElementById('res-hoa').textContent = '-$' + Math.round(r.monthlyHOA).toLocaleString();
+  } else {
+    hoaRow.style.display = 'none';
+  }
+  document.getElementById('res-pitia').textContent = '-$' + Math.round(r.monthlyPITIA).toLocaleString();
+
+  // DSCR ratio in breakdown
+  document.getElementById('res-dscr-ratio').textContent = r.finalDSCR.toFixed(2) + 'x';
+
+  // Net Cash Flow
+  const netCashFlow = r.monthlyRent - r.monthlyPITIA;
+  const ncfEl = document.getElementById('res-net-cashflow');
+  if (netCashFlow >= 0) {
+    ncfEl.textContent = '+$' + Math.round(netCashFlow).toLocaleString();
+    ncfEl.style.color = 'var(--green)';
+  } else {
+    ncfEl.textContent = '-$' + Math.round(Math.abs(netCashFlow)).toLocaleString();
+    ncfEl.style.color = 'var(--error)';
+  }
+  document.getElementById('res-net-cashflow').parentElement.querySelector('.label').style.color = netCashFlow >= 0 ? 'var(--green)' : 'var(--error)';
+
+  const stateEl = document.getElementById('state');
+  const stateName = stateEl.options[stateEl.selectedIndex] ? stateEl.options[stateEl.selectedIndex].text : '';
+  document.getElementById('hidden-results').value = JSON.stringify({
+    program: r.program, rate: rateLow, loanAmt: r.loanAmt, monthlyPayment: Math.round(r.monthlyPITIA),
+    dscr: r.finalDSCR.toFixed(2), ltv: (r.ltv*100)+'%', loanPurpose: r.loanPurpose, io: r.io, prepay: r.prepay,
+    state: stateEl.value, stateName: stateName,
+    propertyType: document.getElementById('propertyType').value,
+    propertyValue: parseCurrency('arv')
+  });
+  const editHidden = document.getElementById('hidden-results-edit');
+  if (editHidden) editHidden.value = document.getElementById('hidden-results').value;
+}
+
+// ─── MAIN CALCULATION (called from Step 3 button) ───
+function calculateDSCR() {
+  const fico = parseInt(document.getElementById('fico').value);
+  const isFN = toggleValues.foreignNational === 'Yes';
+  const propType = document.getElementById('propertyType').value;
+  const stateTier = getStateTier(document.getElementById('state').value);
+  const arv = parseCurrency('arv');
+  const monthlyRent = parseCurrency('rent');
+  const annualTaxes = parseCurrency('taxes');
+  const annualInsurance = parseCurrency('insurance');
+  const annualHOA = parseCurrency('hoa') || 0;
+  const ltv = parseFloat(document.getElementById('ltv').value);
+  const loanPurpose = document.getElementById('loanPurpose').value;
+  const io = toggleValues.interestOnly === 'Yes';
+  const cashOut = loanPurpose === 'C/O Refinance';
+  const prepay = document.getElementById('prepay').value;
+
+  // Store state for slider recalculation
+  dscrState = { fico, isFN, propType, stateTier, arv, monthlyRent, annualTaxes, annualInsurance, annualHOA, loanPurpose, io, cashOut };
+
+  const result = computeDSCR(fico, isFN, propType, stateTier, arv, monthlyRent, annualTaxes, annualInsurance, annualHOA, ltv, loanPurpose, io, cashOut, prepay);
+
+  goToStep(4);
+
+  // Set up sliders to match initial values
+  const sliderLtv = document.getElementById('slider-ltv');
+  sliderLtv.value = Math.round(ltv * 100);
+  document.getElementById('slider-ltv-val').textContent = Math.round(ltv * 100) + '%';
+
+  // Set prepay toggle to match
+  document.querySelectorAll('.prepay-toggle-btn').forEach(b => {
+    b.classList.toggle('selected', b.dataset.prepay === prepay);
+  });
+  document.getElementById('slider-prepay-val').textContent = prepay === '60' ? '5-Year Stepdown' : '3-Year Stepdown';
+
+  document.getElementById('dscr-slider-section').style.display = 'block';
+
+  renderResults(result);
+}
+
+// ─── SLIDER / TOGGLE CHANGE HANDLERS ───
+function onSliderChange() {
+  const ltvPct = parseInt(document.getElementById('slider-ltv').value);
+  document.getElementById('slider-ltv-val').textContent = ltvPct + '%';
+  recalcDSCR();
+}
+
+function selectPrepay(btn) {
+  document.querySelectorAll('.prepay-toggle-btn').forEach(b => b.classList.remove('selected'));
+  btn.classList.add('selected');
+  const pp = btn.dataset.prepay;
+  document.getElementById('slider-prepay-val').textContent = pp === '60' ? '5-Year Stepdown' : '3-Year Stepdown';
+  recalcDSCR();
+}
+
+function recalcDSCR() {
+  if (!dscrState) return;
+  const s = dscrState;
+  const ltv = parseInt(document.getElementById('slider-ltv').value) / 100;
+  const selectedPrepay = document.querySelector('.prepay-toggle-btn.selected');
+  const prepay = selectedPrepay ? selectedPrepay.dataset.prepay : '36';
+
+  const result = computeDSCR(s.fico, s.isFN, s.propType, s.stateTier, s.arv, s.monthlyRent, s.annualTaxes, s.annualInsurance, s.annualHOA, ltv, s.loanPurpose, s.io, s.cashOut, prepay);
+  renderResults(result);
+}
+
+function submitLead(e) {
+  e.preventDefault();
+  const form = e.target;
+  const email = (form.querySelector('input[name="email"]') || {}).value?.trim() || '';
+  const phone = (form.querySelector('input[name="phone"]') || {}).value?.trim() || '';
+  if (!email && !phone) {
+    alert('Please provide either an email address or phone number.');
+    return false;
+  }
+  const formData = new FormData(form);
+  const section = form.closest('.lead-form-section');
+  fetch('/', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+    body: new URLSearchParams(formData).toString()
+  }).then(() => {
+    form.parentElement.style.display = 'none';
+    const success = section.querySelector('.lead-success');
+    if (success) success.style.display = 'block';
+    if (typeof gtag === 'function') {
+      gtag('event', 'form_submit', {'form_id': 'dscr-calculator'});
+      gtag('event', 'conversion', {
+        send_to: 'AW-17993082803/hf9SCKCquoccELPP4oND',
+        event_callback: function(){}
+      });
+    }
+  }).catch(() => {
+    form.parentElement.style.display = 'none';
+    const success = section.querySelector('.lead-success');
+    if (success) success.style.display = 'block';
+  });
+  return false;
+}
+// ─── EDIT INPUTS PAGE (DSCR) ───
+function showEditInputsDSCR() {
+  ['fico','propertyType','state'].forEach(id => {
+    const src = document.getElementById(id);
+    const dst = document.getElementById('edit-' + id);
+    dst.innerHTML = src.innerHTML;
+    dst.value = src.value;
+  });
+  document.getElementById('edit-foreignNational').value = toggleValues.foreignNational || 'No';
+  document.getElementById('edit-arv').value = document.getElementById('arv').value;
+  document.getElementById('edit-rent').value = document.getElementById('rent').value;
+  document.getElementById('edit-taxes').value = document.getElementById('taxes').value;
+  document.getElementById('edit-insurance').value = document.getElementById('insurance').value;
+  document.getElementById('edit-hoa').value = document.getElementById('hoa').value;
+  document.getElementById('edit-ltv').value = document.getElementById('ltv').value;
+  document.getElementById('edit-loanPurpose').value = document.getElementById('loanPurpose').value;
+    const eLpVal = document.getElementById('edit-loanPurpose').value;
+    if (eLpVal === 'R/T Refinance' || eLpVal === 'C/O Refinance') {
+      document.getElementById('editPurchaseRecencyGroup').style.display = 'block';
+      document.getElementById('edit-purchaseRecency').value = document.getElementById('purchaseRecency').value;
+    } else {
+      document.getElementById('editPurchaseRecencyGroup').style.display = 'none';
+    }
+  document.getElementById('edit-io').value = toggleValues.interestOnly || 'Yes';
+  document.getElementById('edit-prepay').value = document.getElementById('prepay').value;
+
+  document.querySelectorAll('.step-card').forEach(c => c.classList.remove('active'));
+  document.getElementById('step-5').classList.add('active');
+  window.scrollTo({ top: 200, behavior: 'smooth' });
+}
+
+function recalcFromEditDSCR() {
+  document.getElementById('fico').value = document.getElementById('edit-fico').value;
+  toggleValues.foreignNational = document.getElementById('edit-foreignNational').value;
+  document.getElementById('propertyType').value = document.getElementById('edit-propertyType').value;
+  document.getElementById('state').value = document.getElementById('edit-state').value;
+  document.getElementById('arv').value = document.getElementById('edit-arv').value;
+  document.getElementById('rent').value = document.getElementById('edit-rent').value;
+  document.getElementById('taxes').value = document.getElementById('edit-taxes').value;
+  document.getElementById('insurance').value = document.getElementById('edit-insurance').value;
+  document.getElementById('hoa').value = document.getElementById('edit-hoa').value;
+  document.getElementById('ltv').value = document.getElementById('edit-ltv').value;
+  document.getElementById('loanPurpose').value = document.getElementById('edit-loanPurpose').value;
+    document.getElementById('purchaseRecency').value = document.getElementById('edit-purchaseRecency').value || '';
+    showPurchaseRecencyDSCR();
+    updateDelayedPurchaseDSCR();
+  toggleValues.interestOnly = document.getElementById('edit-io').value;
+  document.getElementById('prepay').value = document.getElementById('edit-prepay').value;
+  calculateDSCR();
+}
+
+
+  function showPurchaseRecencyDSCR() {
+    const lp = document.getElementById('loanPurpose').value;
+    const grp = document.getElementById('purchaseDateGroup-dscr');
+    if (lp === 'R/T Refinance' || lp === 'C/O Refinance') {
+      grp.style.display = 'block';
+    } else {
+      grp.style.display = 'none';
+      document.getElementById('purchaseRecency').value = '';
+      document.getElementById('delayed-purchase-note-dscr').style.display = 'none';
+    }
+  }
+
+  function updateDelayedPurchaseDSCR() {
+    const val = document.getElementById('purchaseRecency').value;
+    const note = document.getElementById('delayed-purchase-note-dscr');
+    note.style.display = val === 'within5' ? 'block' : 'none';
+  }
+
+</script>
+<script type="text/javascript" id="hs-script-loader" defer src="//js.hs-scripts.com/46107229.js"></script>
+</body>
+</html>
