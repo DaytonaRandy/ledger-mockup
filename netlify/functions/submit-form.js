@@ -599,6 +599,7 @@ exports.handler = async function (event) {
         "construction-landing-page-google-ads": "Campaign",
         "first-time-builder-landing-page-google-ads": "First Time Campaign",
         "dscr-landing-page-google-ads": "DSCR Campaign",
+        "fix-and-flip-landing-page-google-ads": "Fix & Flip Campaign",
       };
       const ticketCategory = ticketCategoryMap[raw.form_source] || "GENERAL_INQUIRY";
       const ticket = await createTicket(formData, ownerId, contactId, companyId, ticketCategory);
