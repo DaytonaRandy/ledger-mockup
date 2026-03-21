@@ -353,6 +353,11 @@ gtag('config', 'AW-17993082803/k0r2CNOO-IkcELPP4oND', {
     window._ledgerValidation.formatPhone();
     var formData = new URLSearchParams(new FormData(form));
     formData.set('page_url', window.location.href);
+    var lp = new URLSearchParams(window.location.search);
+    ['gclid','gbraid','wbraid','gad_source','gad_campaignid','utm_source','utm_medium','utm_campaign','utm_term','utm_content'].forEach(function(k) {
+      var v = lp.get(k);
+      if (v) formData.set(k, v);
+    });
 
     fetch('/.netlify/functions/submit-form', {
       method: 'POST',

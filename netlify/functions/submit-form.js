@@ -121,6 +121,12 @@ async function findOrCreateContact(formData) {
       phone: formData.phone,
       lifecyclestage: "lead",
       source_website: "Yes",
+      ...(formData.gclid && { hs_google_click_id: formData.gclid }),
+      ...(formData.utmSource && { utm_source: formData.utmSource }),
+      ...(formData.utmMedium && { utm_medium: formData.utmMedium }),
+      ...(formData.utmCampaign && { utm_campaign: formData.utmCampaign }),
+      ...(formData.utmTerm && { utm_term: formData.utmTerm }),
+      ...(formData.utmContent && { utm_content: formData.utmContent }),
     },
   });
 
@@ -485,6 +491,14 @@ exports.handler = async function (event) {
       projectOverview: raw.project_overview || raw.details || "",
       website: raw.website || "",
       pageUrl: raw.page_url || "",
+      gclid: raw.gclid || "",
+      gbraid: raw.gbraid || "",
+      wbraid: raw.wbraid || "",
+      utmSource: raw.utm_source || "",
+      utmMedium: raw.utm_medium || "",
+      utmCampaign: raw.utm_campaign || "",
+      utmTerm: raw.utm_term || "",
+      utmContent: raw.utm_content || "",
     };
 
     // ── Honeypot check ──────────────────────────────────────────
