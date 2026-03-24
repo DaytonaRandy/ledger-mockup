@@ -18,9 +18,27 @@ if (window.location.hostname === 'ledgertc.com') {
   });
 }
 </script>
+<script>
+/* Click-to-call tracking: fires GA4 event + Ads conversion on tel: link clicks */
+document.addEventListener("click", function(e) {
+  var link = e.target.closest && e.target.closest('a[href^="tel:"]');
+  if (!link) return;
+  if (window.location.hostname !== 'ledgertc.com') return;
+  gtag('event', 'phone_call_click', {
+    event_category: 'engagement',
+    event_label: link.href,
+    value: 1
+  });
+  gtag('event', 'conversion', {
+    send_to: 'AW-17993082803/hf9SCKCquoccELPP4oND'
+  });
+});
+</script>
 <link rel="icon" href="favicon.ico" type="image/x-icon">
-<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
 <link rel="icon" type="image/png" sizes="192x192" href="favicon-192.png">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
 <title>Ledger Trade & Capital | Residential Lending Solutions</title>
 <meta name="description" content="Institutional quality lending programs for home builders and residential investors. New Construction, Bridge, Fix & Flip and DSCR Rental loans for projects up to $20M.">
 <meta property="og:type" content="website">

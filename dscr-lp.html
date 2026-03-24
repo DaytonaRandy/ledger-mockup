@@ -23,6 +23,22 @@ gtag('config', 'AW-17993082803/VHvmCLv2y4wcELPP4oND', {
 });
 }
 </script>
+<script>
+/* Click-to-call tracking: fires GA4 event + Ads conversion on tel: link clicks */
+document.addEventListener("click", function(e) {
+  var link = e.target.closest && e.target.closest('a[href^="tel:"]');
+  if (!link) return;
+  if (window.location.hostname !== 'ledgertc.com') return;
+  gtag('event', 'phone_call_click', {
+    event_category: 'engagement',
+    event_label: link.href,
+    value: 1
+  });
+  gtag('event', 'conversion', {
+    send_to: 'AW-17993082803/hf9SCKCquoccELPP4oND'
+  });
+});
+</script>
 <title>DSCR Rental Loans from 5.875% | No Tax Returns | Ledger Trade &amp; Capital</title>
 <meta name="description" content="DSCR rental loans from 5.875%. Qualify on property cash flow, not personal income. No tax returns. 30-year fixed for rental investors. Up to $3M.">
 <meta name="keywords" content="DSCR loan, DSCR rental loan, DSCR lender, no tax return rental loan, investment property loan, rental property financing">

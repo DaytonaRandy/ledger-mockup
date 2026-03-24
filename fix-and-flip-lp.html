@@ -23,6 +23,22 @@ gtag('config', 'AW-17993082803/VHvmCLv2y4wcELPP4oND', {
 });
 }
 </script>
+<script>
+/* Click-to-call tracking: fires GA4 event + Ads conversion on tel: link clicks */
+document.addEventListener("click", function(e) {
+  var link = e.target.closest && e.target.closest('a[href^="tel:"]');
+  if (!link) return;
+  if (window.location.hostname !== 'ledgertc.com') return;
+  gtag('event', 'phone_call_click', {
+    event_category: 'engagement',
+    event_label: link.href,
+    value: 1
+  });
+  gtag('event', 'conversion', {
+    send_to: 'AW-17993082803/hf9SCKCquoccELPP4oND'
+  });
+});
+</script>
 <title>Fix &amp; Flip Loans from 8.875% | Up to 95% LTC | Ledger Trade &amp; Capital</title>
 <meta name="description" content="Fix and flip loans up to $5M. Up to 90% purchase, 95% LTC, 75% LTARV. Close in as fast as 2 weeks. No prepayment penalty. National private lender.">
 <meta name="keywords" content="fix and flip loan, fix and flip financing, fix and flip lender, house flipping loan, rehab loan, hard money loan, private lender">
