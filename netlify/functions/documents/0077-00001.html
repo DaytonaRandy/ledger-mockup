@@ -4,8 +4,15 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>GUC Playbook — Ledger Trade & Capital</title>
-<!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-P2E61PRS60"></script>
+<!-- Google tag (gtag.js) – production only -->
+<script>
+if (window.location.hostname === 'ledgertc.com') {
+  var s = document.createElement('script');
+  s.async = true;
+  s.src = 'https://www.googletagmanager.com/gtag/js?id=G-P2E61PRS60';
+  document.head.appendChild(s);
+}
+</script>
 <script>
 window.dataLayer=window.dataLayer||[];
 function gtag(){dataLayer.push(arguments);}
@@ -2292,6 +2299,14 @@ if ('__HOST__'.indexOf('ledgertc.com') !== -1) {
     }
   });
 </script>
-<script type="text/javascript" src="//cdn.callrail.com/companies/260483659/40e1476c9c9954310f9a/12/swap.js"></script>
+<!-- CallRail – production only -->
+<script>
+if (window.location.hostname === 'ledgertc.com') {
+  var cr = document.createElement('script');
+  cr.type = 'text/javascript';
+  cr.src = '//cdn.callrail.com/companies/260483659/40e1476c9c9954310f9a/12/swap.js';
+  document.body.appendChild(cr);
+}
+</script>
 </body>
 </html>

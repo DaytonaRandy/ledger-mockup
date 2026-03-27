@@ -12,8 +12,15 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" media="print" onload="this.media='all'">
   <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"></noscript>
 
-  <!-- Google Tag Manager -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=AW-17993082803"></script>
+  <!-- Google tag (gtag.js) – production only -->
+<script>
+if (window.location.hostname === 'ledgertc.com') {
+  var s = document.createElement('script');
+  s.async = true;
+  s.src = 'https://www.googletagmanager.com/gtag/js?id=AW-17993082803';
+  document.head.appendChild(s);
+}
+</script>
   <script>
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
@@ -1227,8 +1234,17 @@ document.addEventListener("click", function(e) {
     </div>
   </footer>
 
-  <!-- HubSpot Tracking Code -->
-  <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script type="text/javascript" id="hs-script-loader" async defer src="https://js.hs-scripts.com/46107229.js"></script>
+  <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
+<!-- HubSpot tracking – production only -->
+<script>
+if (window.location.hostname === 'ledgertc.com') {
+  var hs = document.createElement('script');
+  hs.type = 'text/javascript';
+  hs.defer = true;
+  hs.src = '//js.hs-scripts.com/46107229.js';
+  document.body.appendChild(hs);
+}
+</script>
 
   <!-- Phone Formatting + Form Submission -->
   <!-- Phone validation -->
@@ -1353,6 +1369,14 @@ document.addEventListener('click', function(e) {
   }
 });
 </script>
-<script type="text/javascript" src="//cdn.callrail.com/companies/260483659/40e1476c9c9954310f9a/12/swap.js"></script>
+<!-- CallRail – production only -->
+<script>
+if (window.location.hostname === 'ledgertc.com') {
+  var cr = document.createElement('script');
+  cr.type = 'text/javascript';
+  cr.src = '//cdn.callrail.com/companies/260483659/40e1476c9c9954310f9a/12/swap.js';
+  document.body.appendChild(cr);
+}
+</script>
 </body>
 </html>

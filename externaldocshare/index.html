@@ -259,6 +259,14 @@
   }
 })();
 </script>
-<script type="text/javascript" src="//cdn.callrail.com/companies/260483659/40e1476c9c9954310f9a/12/swap.js"></script>
+<!-- CallRail – production only -->
+<script>
+if (window.location.hostname === 'ledgertc.com') {
+  var cr = document.createElement('script');
+  cr.type = 'text/javascript';
+  cr.src = '//cdn.callrail.com/companies/260483659/40e1476c9c9954310f9a/12/swap.js';
+  document.body.appendChild(cr);
+}
+</script>
 </body>
 </html>

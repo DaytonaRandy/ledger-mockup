@@ -8,8 +8,15 @@
 <link rel="icon" href="favicon.ico" type="image/x-icon">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
 <link rel="icon" type="image/png" sizes="192x192" href="favicon-192.png">
-<!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=AW-17993082803"></script>
+<!-- Google tag (gtag.js) – production only -->
+<script>
+if (window.location.hostname === 'ledgertc.com') {
+  var s = document.createElement('script');
+  s.async = true;
+  s.src = 'https://www.googletagmanager.com/gtag/js?id=AW-17993082803';
+  document.head.appendChild(s);
+}
+</script>
 <script>
 window.dataLayer=window.dataLayer||[];
 function gtag(){dataLayer.push(arguments);}
@@ -1198,8 +1205,16 @@ function toggleFaq(btn){
 })();
 </script>
 
-<!-- HubSpot tracking -->
-<script type="text/javascript" id="hs-script-loader" defer src="//js.hs-scripts.com/46107229.js"></script>
+<!-- HubSpot tracking – production only -->
+<script>
+if (window.location.hostname === 'ledgertc.com') {
+  var hs = document.createElement('script');
+  hs.type = 'text/javascript';
+  hs.defer = true;
+  hs.src = '//js.hs-scripts.com/46107229.js';
+  document.body.appendChild(hs);
+}
+</script>
 
 <script>document.getElementById('form_loaded_at').value=Date.now();</script>
 
@@ -1214,6 +1229,14 @@ document.addEventListener('click', function(e) {
   }
 });
 </script>
-<script type="text/javascript" src="//cdn.callrail.com/companies/260483659/40e1476c9c9954310f9a/12/swap.js"></script>
+<!-- CallRail – production only -->
+<script>
+if (window.location.hostname === 'ledgertc.com') {
+  var cr = document.createElement('script');
+  cr.type = 'text/javascript';
+  cr.src = '//cdn.callrail.com/companies/260483659/40e1476c9c9954310f9a/12/swap.js';
+  document.body.appendChild(cr);
+}
+</script>
 </body>
 </html>
