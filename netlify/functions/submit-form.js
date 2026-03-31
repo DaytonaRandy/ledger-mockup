@@ -129,12 +129,30 @@ async function findOrCreateContact(formData) {
     filterGroups: [{
       filters: [{ propertyName: "email", operator: "EQ", value: formData.email }]
     }],
-    properties: ["email", "firstname", "lastname", "hubspot_owner_id"],
+    properties: ["email", "firstname", "lastname", "hubspot_owner_id", "hs_google_click_id"],
   });
 
   if (search.total > 0) {
     const existing = search.results[0];
     console.log(`Contact found: ${existing.id} (${formData.email})`);
+
+    // Backfill gclid on existing contacts that don't have one yet
+    if (formData.googleClickId && !existing.properties.hs_google_click_id) {
+      const updateProps = { hs_google_click_id: formData.googleClickId };
+      if (formData.isGoogleAds) {
+        updateProps.hs_analytics_source = "PAID_SEARCH";
+        updateProps.hs_analytics_source_data_1 = "Auto-tagged PPC";
+      }
+      const updated = await hubspot("PATCH", `/crm/v3/objects/contacts/${existing.id}`, {
+        properties: updateProps,
+      });
+      if (!updated.error) {
+        console.log(`Backfilled gclid on existing contact ${existing.id}`);
+      } else {
+        console.error(`Failed to backfill gclid on ${existing.id}:`, updated.data);
+      }
+    }
+
     return { contact: existing, isNew: false };
   }
 
