@@ -16,6 +16,12 @@ if (window.location.hostname === 'ledgertc.com') {
 window.dataLayer=window.dataLayer||[];
 function gtag(){dataLayer.push(arguments);}
 gtag('js',new Date());
+gtag('consent','default',{
+  'ad_storage':'granted',
+  'ad_user_data':'granted',
+  'ad_personalization':'granted',
+  'analytics_storage':'granted'
+});
 if (window.location.hostname === 'ledgertc.com') {
   gtag('config','G-P2E61PRS60');
   gtag('config','AW-17993082803');
@@ -82,7 +88,7 @@ if (window.location.hostname === 'ledgertc.com') {
 </script>
 <style>
   .loan-app-hero {
-    padding: 3.5rem 2rem 1.5rem;
+    padding: clamp(7rem, 8vw, 10rem) 2rem 1.5rem;
     text-align: center;
     background: var(--green);
     color: var(--white);
@@ -105,38 +111,6 @@ if (window.location.hostname === 'ledgertc.com') {
     max-width: 960px;
     margin: 0 auto;
     padding: 2rem 1.5rem 3rem;
-  }
-  .loan-app-info {
-    display: flex;
-    gap: 1.5rem;
-    margin-bottom: 1.5rem;
-    flex-wrap: wrap;
-  }
-  .loan-app-info-card {
-    flex: 1;
-    min-width: 180px;
-    background: var(--white);
-    border: 1px solid var(--gray-100);
-    border-radius: 10px;
-    padding: 1.25rem;
-    text-align: center;
-  }
-  .loan-app-info-card .info-icon {
-    font-size: 1.5rem;
-    margin-bottom: 0.4rem;
-  }
-  .loan-app-info-card h3 {
-    font-family: 'Plus Jakarta Sans', sans-serif;
-    font-size: 0.85rem;
-    font-weight: 700;
-    color: var(--green);
-    margin-bottom: 0.25rem;
-  }
-  .loan-app-info-card p {
-    font-size: 0.8rem;
-    color: var(--text-secondary);
-    line-height: 1.4;
-    margin: 0;
   }
   .loan-app-embed {
     background: var(--white);
@@ -256,30 +230,13 @@ if (window.location.hostname === 'ledgertc.com') {
 
 <div class="loan-app-wrap">
 
-  <div class="loan-app-info">
-    <div class="loan-app-info-card">
-      <div class="info-icon">&#128196;</div>
-      <h3>Step-by-Step</h3>
-      <p>Fill out each section at your own pace</p>
-    </div>
-    <div class="loan-app-info-card">
-      <div class="info-icon">&#9997;</div>
-      <h3>E-Sign</h3>
-      <p>Sign electronically, no printing needed</p>
-    </div>
-    <div class="loan-app-info-card">
-      <div class="info-icon">&#128241;</div>
-      <h3>Any Device</h3>
-      <p>Desktop, tablet, or phone</p>
-    </div>
-  </div>
-
   <div class="loan-app-embed">
     <script src="https://cdn.docuseal.com/js/form.js"></script>
     <docuseal-form
-      data-src="https://docuseal.com/d/JDAiyfq18AHoJR"
+      data-src="https://docuseal.com/d/h6ggGbLDF5pZdg"
       data-expand="true"
       data-with-title="false"
+      data-with-field-placeholder="true"
       data-logo="https://ledgertc.com/logo-color.png"
       data-background-color="#ffffff"
       data-custom-css="
@@ -287,7 +244,7 @@ if (window.location.hostname === 'ledgertc.com') {
         #submit_form_button { background-color: #c49a3c !important; font-weight: 700 !important; font-size: 1.05rem !important; padding: 0.75rem 2rem !important; border-radius: 6px !important; }
         #submit_form_button:hover { background-color: #b08832 !important; }
 
-        /* Input fields - more visible */
+        /* Input fields */
         .base-input, .input, input[type=text], input[type=email], input[type=tel], input[type=date], textarea, .base-textarea {
           border: 2px solid #2b4a42 !important;
           border-radius: 6px !important;
@@ -300,37 +257,8 @@ if (window.location.hostname === 'ledgertc.com') {
           outline: none !important;
         }
 
-        /* Labels - bold green */
+        /* Labels */
         .label, label { font-weight: 600 !important; color: #2b4a42 !important; }
-
-        /* Bottom input panel - green background, sticky, prominent */
-        .sticky.bottom-0, div[class*='sticky'][class*='bottom'] {
-          background: #2b4a42 !important;
-          border-top: 3px solid #c49a3c !important;
-          box-shadow: 0 -4px 20px rgba(0,0,0,0.15) !important;
-          padding: 16px 20px !important;
-          z-index: 50 !important;
-        }
-        .sticky.bottom-0 .label, div[class*='sticky'][class*='bottom'] .label,
-        .sticky.bottom-0 label, div[class*='sticky'][class*='bottom'] label {
-          color: #fff !important;
-          font-weight: 700 !important;
-          font-size: 0.95rem !important;
-        }
-        .sticky.bottom-0 .base-input, div[class*='sticky'][class*='bottom'] .base-input,
-        .sticky.bottom-0 input, div[class*='sticky'][class*='bottom'] input,
-        .sticky.bottom-0 textarea, div[class*='sticky'][class*='bottom'] textarea {
-          background: #fff !important;
-          border: 2px solid #c49a3c !important;
-          font-size: 16px !important;
-        }
-        .sticky.bottom-0 .base-button, .sticky.bottom-0 button[type=submit],
-        div[class*='sticky'][class*='bottom'] .base-button {
-          background: #c49a3c !important;
-          color: #fff !important;
-          font-weight: 700 !important;
-          border-radius: 6px !important;
-        }
 
         /* White button style override */
         .white-button { background: #c49a3c !important; color: #fff !important; font-weight: 700 !important; border-radius: 6px !important; border: none !important; }
