@@ -430,6 +430,23 @@ if (window.location.hostname === 'ledgertc.com') {
 }
 </script>
 
+<!-- Capture tracking params to sessionStorage on page load -->
+<script>
+(function() {
+  var TRACKING_KEYS = ['gclid','gbraid','wbraid','gad_source','gad_campaignid',
+    'utm_source','utm_medium','utm_campaign','utm_term','utm_content'];
+  var lp = new URLSearchParams(window.location.search);
+  var found = {};
+  TRACKING_KEYS.forEach(function(k) {
+    var v = lp.get(k);
+    if (v) found[k] = v;
+  });
+  if (Object.keys(found).length > 0) {
+    try { sessionStorage.setItem('ltc_tracking', JSON.stringify(found)); } catch(e) {}
+  }
+})();
+</script>
+
 <script>
 (function () {
   var form = document.getElementById('constructionApplyForm');
@@ -456,9 +473,11 @@ if (window.location.hostname === 'ledgertc.com') {
 
     var formData = new URLSearchParams(new FormData(form));
     formData.set('page_url', window.location.href);
+    var stored = {};
+    try { stored = JSON.parse(sessionStorage.getItem('ltc_tracking') || '{}'); } catch(e) {}
     var lp = new URLSearchParams(window.location.search);
     ['gclid','gbraid','wbraid','gad_source','gad_campaignid','utm_source','utm_medium','utm_campaign','utm_term','utm_content'].forEach(function(k) {
-      var v = lp.get(k);
+      var v = lp.get(k) || stored[k];
       if (v) formData.set(k, v);
     });
 
@@ -482,7 +501,10 @@ if (window.location.hostname === 'ledgertc.com') {
       if (result.ok && result.data.success) {
         form.style.display = 'none';
         document.getElementById('constructionFormSuccess').classList.add('show');
-        gtag('event', 'form_submit', { 'form_id': 'construction-apply' });
+        if (typeof gtag === 'function') {
+          gtag('event', 'form_submit', { 'form_id': 'construction-apply' });
+          gtag('event', 'conversion', { 'send_to': 'AW-17993082803/blWFCO2I8ZUcELPP4oND' });
+        }
       } else {
         var msg = result.data.error || 'Something went wrong. Please try again or contact us directly at Info@ledgertc.com.';
         alert(msg);

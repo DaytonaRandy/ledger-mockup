@@ -1668,6 +1668,21 @@ function recalcDSCR() {
   renderResults(result);
 }
 
+// ─── Capture tracking params to sessionStorage on page load ───
+(function() {
+  var TRACKING_KEYS = ['gclid','gbraid','wbraid','gad_source','gad_campaignid',
+    'utm_source','utm_medium','utm_campaign','utm_term','utm_content'];
+  var lp = new URLSearchParams(window.location.search);
+  var found = {};
+  TRACKING_KEYS.forEach(function(k) {
+    var v = lp.get(k);
+    if (v) found[k] = v;
+  });
+  if (Object.keys(found).length > 0) {
+    try { sessionStorage.setItem('ltc_tracking', JSON.stringify(found)); } catch(e) {}
+  }
+})();
+
 function submitLead(e) {
   e.preventDefault();
   const form = e.target;
@@ -1683,9 +1698,11 @@ function submitLead(e) {
   params.set('page_name', document.title);
   var hutkMatch = document.cookie.match(/hubspotutk=([^;]+)/);
   params.set('hutk', hutkMatch ? hutkMatch[1] : '');
+  var stored = {};
+  try { stored = JSON.parse(sessionStorage.getItem('ltc_tracking') || '{}'); } catch(e) {}
   var lp = new URLSearchParams(window.location.search);
   ['gclid','gbraid','wbraid','gad_source','gad_campaignid','utm_source','utm_medium','utm_campaign','utm_term','utm_content'].forEach(function(k) {
-    var v = lp.get(k); if (v) params.set(k, v);
+    var v = lp.get(k) || stored[k]; if (v) params.set(k, v);
   });
   fetch('/.netlify/functions/submit-form', {
     method: 'POST',
@@ -1697,6 +1714,7 @@ function submitLead(e) {
     if (success) success.style.display = 'block';
     if (typeof gtag === 'function') {
       gtag('event', 'form_submit', {'form_id': 'dscr-calculator'});
+      gtag('event', 'conversion', {'send_to': 'AW-17993082803/blWFCO2I8ZUcELPP4oND'});
     }
   }).catch(() => {
     form.parentElement.style.display = 'none';
