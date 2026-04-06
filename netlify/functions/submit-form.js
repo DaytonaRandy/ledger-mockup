@@ -18,6 +18,24 @@
 
 const HUBSPOT_API = "https://api.hubapi.com";
 
+// ─── Campaign attribution: map form_source to clean campaign name ──
+const FORM_SOURCE_TO_CAMPAIGN = {
+  "construction-landing-page-google-ads": "GUC",
+  "first-time-builder-landing-page-google-ads": "GUC",
+  "dscr-landing-page-google-ads": "DSCR",
+  "fix-and-flip-landing-page-google-ads": "FnF",
+  "broker-partner": "Broker",
+  "get-in-touch": "Website",
+};
+
+function deriveAdCampaign(formSource, utmCampaign) {
+  if (formSource && FORM_SOURCE_TO_CAMPAIGN[formSource]) {
+    return FORM_SOURCE_TO_CAMPAIGN[formSource];
+  }
+  if (utmCampaign) return utmCampaign;
+  return "";
+}
+
 // ─── Rate-limiting & daily-cap stores (in-memory, per instance) ──
 const ipSubmissions = new Map();   // ip -> [timestamp, …]
 const IP_MAX = 5;
@@ -157,7 +175,7 @@ async function findOrCreateContact(formData) {
     filterGroups: [{
       filters: [{ propertyName: "email", operator: "EQ", value: formData.email }]
     }],
-    properties: ["email", "firstname", "lastname", "hubspot_owner_id", "hs_google_click_id", "gad_campaignid", "source_website"],
+    properties: ["email", "firstname", "lastname", "hubspot_owner_id", "hs_google_click_id", "gad_campaignid", "source_website", "form_source", "ad_campaign", "utm_campaign"],
   });
 
   if (search.total > 0) {
@@ -177,6 +195,9 @@ async function findOrCreateContact(formData) {
     source_website: "Yes",
     ...(formData.googleClickId && { hs_google_click_id: formData.googleClickId }),
     ...(formData.gadCampaignId && { gad_campaignid: formData.gadCampaignId }),
+    ...(formData.formSource && { form_source: formData.formSource }),
+    ...(formData.adCampaign && { ad_campaign: formData.adCampaign }),
+    ...(formData.utmCampaign && { utm_campaign: formData.utmCampaign }),
   };
 
   // Set source attribution for Google Ads contacts
@@ -198,7 +219,7 @@ async function findOrCreateContact(formData) {
         filterGroups: [{
           filters: [{ propertyName: "email", operator: "EQ", value: formData.email }]
         }],
-        properties: ["email", "firstname", "lastname", "hubspot_owner_id", "hs_google_click_id", "gad_campaignid", "source_website"],
+        properties: ["email", "firstname", "lastname", "hubspot_owner_id", "hs_google_click_id", "gad_campaignid", "source_website", "form_source", "ad_campaign", "utm_campaign"],
       });
       if (retry.total > 0) {
         const existing = retry.results[0];
@@ -225,6 +246,15 @@ async function backfillTracking(existing, formData) {
   }
   if (!existing.properties.source_website) {
     updateProps.source_website = "Yes";
+  }
+  if (formData.formSource && !existing.properties.form_source) {
+    updateProps.form_source = formData.formSource;
+  }
+  if (formData.adCampaign && !existing.properties.ad_campaign) {
+    updateProps.ad_campaign = formData.adCampaign;
+  }
+  if (formData.utmCampaign && !existing.properties.utm_campaign) {
+    updateProps.utm_campaign = formData.utmCampaign;
   }
   if (formData.isGoogleAds) {
     updateProps.hs_analytics_source = "PAID_SEARCH";
@@ -634,6 +664,10 @@ exports.handler = async function (event) {
     // Resolve Google click ID: gclid > gbraid > wbraid
     formData.googleClickId = formData.gclid || formData.gbraid || formData.wbraid || "";
     formData.isGoogleAds = !!(formData.googleClickId || formData.gadSource || formData.gadCampaignId);
+
+    // Campaign attribution from form_source and/or UTMs
+    formData.formSource = raw.form_source || "";
+    formData.adCampaign = deriveAdCampaign(formData.formSource, formData.utmCampaign);
 
     // ── Honeypot check ──────────────────────────────────────────
     if (formData.website) {
