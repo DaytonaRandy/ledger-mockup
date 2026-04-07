@@ -62,6 +62,18 @@
 /private-lending-west-virginia.html    /private-lending-west-virginia    301!
 /private-lending-wisconsin.html    /private-lending-wisconsin    301!
 /private-lending-wyoming.html    /private-lending-wyoming    301!
+# Educational page .html redirects
+/what-is-dscr.html    /what-is-dscr    301!
+/construction-loan-draws.html    /construction-loan-draws    301!
+/ltc-vs-ltv.html    /ltc-vs-ltv    301!
+/brrrr-strategy.html    /brrrr-strategy    301!
+# City page .html redirects
+/private-lending-charlotte.html    /private-lending-charlotte    301!
+/private-lending-raleigh.html    /private-lending-raleigh    301!
+/private-lending-tampa.html    /private-lending-tampa    301!
+/private-lending-dallas.html    /private-lending-dallas    301!
+/private-lending-columbus.html    /private-lending-columbus    301!
+/private-lending-richmond.html    /private-lending-richmond    301!
 
 /externaldocshare/admin /externaldocshare/admin/index.html 200
 /externaldocshare/:orgId/:docId /externaldocshare/index.html 200

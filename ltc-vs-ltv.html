@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- Google tag (gtag.js) – production only -->
+<script>
+if (window.location.hostname === 'ledgertc.com') {
+  var s = document.createElement('script');
+  s.async = true;
+  s.src = 'https://www.googletagmanager.com/gtag/js?id=AW-17993082803';
+  document.head.appendChild(s);
+}
+</script>
+<script>
+window.dataLayer=window.dataLayer||[];
+function gtag(){dataLayer.push(arguments);}
+gtag('js',new Date());
+gtag('consent','default',{
+  'ad_storage':'granted',
+  'ad_user_data':'granted',
+  'ad_personalization':'granted',
+  'analytics_storage':'granted'
+});
+if (window.location.hostname === 'ledgertc.com') {
+  gtag('config','G-P2E61PRS60');
+  gtag('config','AW-17993082803');
+}
+</script>
+<script>
+/* Click-to-call tracking: fires GA4 event on tel: link clicks */
+document.addEventListener("click", function(e) {
+  var link = e.target.closest && e.target.closest('a[href^="tel:"]');
+  if (!link) return;
+  if (window.location.hostname !== 'ledgertc.com') return;
+  gtag('event', 'phone_call_click', {
+    event_category: 'engagement',
+    event_label: link.href,
+    value: 1
+  });
+});
+</script>
+<link rel="icon" href="favicon.ico" type="image/x-icon">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="192x192" href="favicon-192.png">
+<title>LTC vs LTV: Loan-to-Cost vs Loan-to-Value Explained | Ledger Trade &amp; Capital</title>
+<meta name="description" content="Understand the difference between LTC, LTV, and LTARV. Learn when each leverage metric matters for construction loans, bridge loans, and investment property financing.">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Ledger Trade & Capital">
+<meta property="og:title" content="LTC vs LTV: Loan-to-Cost vs Loan-to-Value Explained | Ledger Trade & Capital">
+<meta property="og:description" content="Understand the difference between LTC, LTV, and LTARV. Learn when each leverage metric matters for construction loans, bridge loans, and investment property financing.">
+<meta property="og:url" content="https://ledgertc.com/ltc-vs-ltv">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="LTC vs LTV: Loan-to-Cost vs Loan-to-Value Explained | Ledger Trade & Capital">
+<meta name="twitter:description" content="Understand the difference between LTC, LTV, and LTARV. Learn when each leverage metric matters for construction and investment property financing.">
+<meta name="twitter:image" content="https://ledgertc.com/icon-color.png">
+<meta property="og:image" content="https://ledgertc.com/icon-color.png">
+<meta property="og:image:width" content="900">
+<meta property="og:image:height" content="900">
+<link rel="canonical" href="https://ledgertc.com/ltc-vs-ltv">
+<link rel="stylesheet" href="style.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" media="print" onload="this.media='all'">
+<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"></noscript>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "LTC vs LTV: Loan-to-Cost vs Loan-to-Value Explained",
+  "description": "Understand the difference between LTC, LTV, and LTARV and when each leverage metric matters for construction, bridge, and investment property financing.",
+  "publisher": {
+    "@id": "https://ledgertc.com/#organization"
+  },
+  "url": "https://ledgertc.com/ltc-vs-ltv",
+  "datePublished": "2026-04-06",
+  "dateModified": "2026-04-06"
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "https://ledgertc.com/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Resources",
+      "item": "https://ledgertc.com/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "LTC vs LTV",
+      "item": "https://ledgertc.com/ltc-vs-ltv"
+    }
+  ]
+}
+</script>
+</head>
+<body>
+
+<nav class="nav">
+  <a href="index.html" class="nav-logo"><img src="logo-color.png" alt="Ledger Trade &amp; Capital" class="nav-logo-img" width="269" height="67"></a>
+  <ul class="nav-links">
+    <li class="dropdown">
+      <a href="#">Loan Products ▾</a>
+      <div class="dropdown-menu"><ul>
+        <li><a href="vertical-construction-loans.html">New Construction</a></li>
+        <li><a href="dscr.html">DSCR Rental</a></li>
+        <li><a href="bridge.html">Bridge</a></li>
+        <li><a href="fix-and-flip.html">Fix & Flip</a></li>
+        <li><a href="build-to-rent.html">Build to Rent</a></li>
+      </ul></div>
+    </li>
+    <li class="dropdown">
+      <a href="#">Who We Are ▾</a>
+      <div class="dropdown-menu"><ul>
+        <li><a href="what-we-do.html">What We Do</a></li>
+        <li><a href="team.html">Meet the Team</a></li>
+        <li><a href="where-we-lend.html">Where We Lend</a></li>
+      </ul></div>
+    </li>
+    <li><a href="broker-partners.html">Broker Partners</a></li>
+    <li class="dropdown">
+      <a href="#">Pricing Tools ▾</a>
+      <div class="dropdown-menu"><ul>
+        <li><a href="construction-loan-calculator.html">Construction</a></li>
+        <li><a href="rental-loan-calculator.html">DSCR Rental</a></li>
+      </ul></div>
+    </li>
+    <li class="dropdown">
+      <a href="#">Client Portal ▾</a>
+      <div class="dropdown-menu"><ul>
+        <li><a href="https://partner.trustpoint.ai/login" target="_blank">Submit Draws</a></li>
+        <li><a href="https://ledgertc-pos.elphimortgage.com/login" target="_blank">Loan Diligence</a></li>
+      </ul></div>
+    </li>
+  </ul>
+  <a href="get-in-touch.html" class="nav-cta">Apply Now</a>
+  <button class="nav-hamburger" aria-label="Open menu">&#9776;</button>
+</nav>
+
+<!-- MOBILE MENU -->
+<div class="mobile-menu" id="mobileMenu">
+  <button class="mobile-close" aria-label="Close menu">&times;</button>
+  <a href="index.html">Home</a>
+  <div class="mobile-section-label">Loan Products</div>
+  <div class="mobile-sub">
+    <a href="vertical-construction-loans.html">New Construction</a>
+    <a href="dscr.html">DSCR Rental</a>
+    <a href="bridge.html">Bridge</a>
+    <a href="fix-and-flip.html">Fix &amp; Flip</a>
+    <a href="build-to-rent.html">Build to Rent</a>
+  </div>
+  <div class="mobile-section-label">Who We Are</div>
+  <div class="mobile-sub">
+    <a href="what-we-do.html">What We Do</a>
+    <a href="team.html">Meet the Team</a>
+    <a href="where-we-lend.html">Where We Lend</a>
+  </div>
+  <a href="broker-partners.html" class="mobile-section-label" style="text-decoration: none;">Broker Partners</a>
+  <div class="mobile-section-label">Loan Calculators</div>
+  <div class="mobile-sub">
+    <a href="construction-loan-calculator.html">Construction</a>
+    <a href="rental-loan-calculator.html">DSCR Rental</a>
+  </div>
+  <div class="mobile-section-label">Client Portal</div>
+  <div class="mobile-sub">
+    <a href="https://partner.trustpoint.ai/login" target="_blank">Submit Draws</a>
+    <a href="https://ledgertc-pos.elphimortgage.com/login" target="_blank">Loan Diligence</a>
+  </div>
+  <a href="get-in-touch.html" class="mobile-cta">Apply Now</a>
+</div>
+<script>
+(function(){
+  var btn=document.querySelector('.nav-hamburger'),menu=document.getElementById('mobileMenu'),close=menu.querySelector('.mobile-close');
+  btn.addEventListener('click',function(){menu.classList.add('open');document.body.style.overflow='hidden';});
+  close.addEventListener('click',function(){menu.classList.remove('open');document.body.style.overflow='';});
+  menu.querySelectorAll('a').forEach(function(a){a.addEventListener('click',function(){menu.classList.remove('open');document.body.style.overflow='';});});
+})();
+</script>
+
+<section class="page-hero">
+  <h1>LTC vs LTV: What's the Difference?</h1>
+  <p>Understanding the three leverage metrics that lenders use to size construction, bridge, and investment property loans.</p>
+</section>
+
+<style>
+.article-body { max-width: 820px; margin: 0 auto; padding: clamp(2rem, 4vw, 4rem) 1.5rem; }
+.article-body h2 { font-family: 'Plus Jakarta Sans', sans-serif; color: var(--green); font-size: clamp(1.3rem, 1.1rem + 0.8vw, 1.75rem); margin: 2.5rem 0 1rem; }
+.article-body h3 { font-family: 'Plus Jakarta Sans', sans-serif; color: var(--green-dark); font-size: clamp(1.1rem, 1rem + 0.4vw, 1.35rem); margin: 2rem 0 0.75rem; }
+.article-body p { color: var(--text-secondary); font-size: 1.05rem; line-height: 1.8; margin-bottom: 1.25rem; }
+.article-body ul, .article-body ol { color: var(--text-secondary); font-size: 1.05rem; line-height: 1.8; margin-bottom: 1.25rem; padding-left: 1.5rem; }
+.article-body li { margin-bottom: 0.5rem; }
+.formula-box { background: var(--cream); border-left: 4px solid var(--gold); padding: 1.5rem 2rem; border-radius: 8px; margin: 1.5rem 0; font-size: 1.1rem; }
+.formula-box strong { color: var(--green); }
+.comparison-table { width: 100%; border-collapse: collapse; margin: 1.5rem 0; font-size: 1rem; }
+.comparison-table th { background: var(--green); color: var(--white); padding: 0.875rem 1rem; text-align: left; font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 600; }
+.comparison-table th:first-child { border-radius: 8px 0 0 0; }
+.comparison-table th:last-child { border-radius: 0 8px 0 0; }
+.comparison-table td { padding: 0.75rem 1rem; border-bottom: 1px solid var(--gray-100); color: var(--text-secondary); }
+.comparison-table tr:last-child td:first-child { border-radius: 0 0 0 8px; }
+.comparison-table tr:last-child td:last-child { border-radius: 0 0 8px 0; }
+.comparison-table tr:nth-child(even) { background: var(--cream); }
+.example-box { background: var(--white); border: 1px solid var(--gray-100); border-radius: 12px; padding: 1.75rem 2rem; margin: 1.5rem 0; }
+.example-box h4 { font-family: 'Plus Jakarta Sans', sans-serif; color: var(--green); margin: 0 0 1rem; font-size: 1.1rem; }
+.example-box table { width: 100%; border-collapse: collapse; font-size: 1rem; }
+.example-box td { padding: 0.5rem 0; color: var(--text-secondary); }
+.example-box td:last-child { text-align: right; font-weight: 600; color: var(--green); }
+.example-box .divider td { border-top: 1px solid var(--gray-100); padding-top: 0.75rem; }
+.example-box .result-row td { border-top: 2px solid var(--gold); padding-top: 0.75rem; font-size: 1.05rem; }
+.article-cta { background: var(--cream); border-radius: 12px; padding: 2rem; text-align: center; margin-top: 2.5rem; }
+.article-cta h3 { color: var(--green); margin-bottom: 0.75rem; }
+.article-cta p { color: var(--text-secondary); margin-bottom: 1.25rem; }
+.article-cta .btn-primary { display: inline-block; background: var(--gold); color: var(--white); padding: 0.875rem 2rem; border-radius: 8px; font-weight: 700; text-decoration: none; font-family: 'Plus Jakarta Sans', sans-serif; transition: all 0.2s; margin: 0 0.5rem; }
+.article-cta .btn-outline { display: inline-block; padding: 0.875rem 2rem; border: 2px solid var(--gold); color: var(--gold); border-radius: 8px; font-weight: 600; text-decoration: none; font-family: 'Plus Jakarta Sans', sans-serif; transition: all 0.2s; margin: 0 0.5rem; }
+@media (max-width: 600px) {
+  .comparison-table { font-size: 0.9rem; }
+  .comparison-table th, .comparison-table td { padding: 0.625rem 0.5rem; }
+  .article-cta .btn-primary, .article-cta .btn-outline { display: block; margin: 0.5rem 0; }
+}
+</style>
+
+<section class="content-section">
+  <div class="article-body">
+
+    <h2>Three Metrics, Three Perspectives</h2>
+    <p>When lenders evaluate a construction or investment property loan, they rarely look at just one leverage ratio. Most deals are sized using a combination of LTC, LTV, and LTARV. Each metric answers a different question about the deal's risk profile, and the most conservative result typically governs the maximum loan amount.</p>
+
+    <h2>What is LTC (Loan-to-Cost)?</h2>
+    <div class="formula-box">
+      <strong>LTC = Total Loan Amount / Total Project Cost</strong><br><br>
+      Total Project Cost = Land Acquisition + Construction or Renovation Budget + Soft Costs
+    </div>
+    <p>LTC measures how much of the total project cost the lender is financing. If a builder is purchasing a lot for $100,000 and spending $300,000 on construction, the total project cost is $400,000. A loan of $360,000 would represent 90% LTC.</p>
+    <p><strong>When LTC matters most:</strong> Ground-up construction loans, fix-and-flip loans, and any project where the borrower is creating value through new construction or substantial renovation. LTC is the primary sizing metric because it reflects the actual capital at risk relative to what has been spent.</p>
+
+    <h2>What is LTV (Loan-to-Value)?</h2>
+    <div class="formula-box">
+      <strong>LTV = Loan Amount / Current Appraised Value (As-Is)</strong>
+    </div>
+    <p>LTV measures the loan amount relative to the property's current market value. For a stabilized rental property appraised at $350,000, a loan of $262,500 would represent 75% LTV.</p>
+    <p><strong>When LTV matters most:</strong> Purchases or refinances of stabilized, income-producing properties. DSCR rental loans, conventional mortgages, and portfolio term loans are primarily sized on LTV because the property is already in its finished, income-generating state.</p>
+
+    <h2>What is LTARV (Loan-to-After-Repair-Value)?</h2>
+    <div class="formula-box">
+      <strong>LTARV = Total Loan Amount / After-Repair Value (ARV)</strong>
+    </div>
+    <p>LTARV (sometimes written as LTV-ARV or LTAV) measures the loan relative to what the property will be worth after construction or renovation is complete. This is a forward-looking metric based on a "subject-to-completion" appraisal.</p>
+    <p><strong>When LTARV matters most:</strong> Construction and renovation loans where the finished value significantly exceeds the current value or cost basis. LTARV acts as a ceiling on leverage, ensuring the total loan does not exceed a safe percentage of the completed property's market value.</p>
+
+    <h2>Side-by-Side Comparison</h2>
+    <table class="comparison-table">
+      <thead>
+        <tr>
+          <th>Metric</th>
+          <th>Numerator</th>
+          <th>Denominator</th>
+          <th>Best Used For</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>LTC</strong></td>
+          <td>Total Loan</td>
+          <td>Total Project Cost</td>
+          <td>Construction, fix-and-flip</td>
+        </tr>
+        <tr>
+          <td><strong>LTV</strong></td>
+          <td>Loan Amount</td>
+          <td>Current (As-Is) Value</td>
+          <td>Stabilized rentals, refinances</td>
+        </tr>
+        <tr>
+          <td><strong>LTARV</strong></td>
+          <td>Total Loan</td>
+          <td>After-Repair Value</td>
+          <td>Value-add, construction</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h2>Worked Example: Same Deal, Three Metrics</h2>
+    <p>Consider a builder purchasing a vacant lot and constructing a single-family home:</p>
+
+    <div class="example-box">
+      <h4>New Construction Project in Raleigh, NC</h4>
+      <table>
+        <tr><td>Lot Purchase Price</td><td>$120,000</td></tr>
+        <tr><td>Construction Budget</td><td>$280,000</td></tr>
+        <tr><td><strong>Total Project Cost</strong></td><td><strong>$400,000</strong></td></tr>
+        <tr class="divider"><td>As-Is Lot Value (appraised)</td><td>$130,000</td></tr>
+        <tr><td>After-Repair Value (ARV)</td><td>$550,000</td></tr>
+        <tr class="divider"><td><strong>Loan Amount</strong></td><td><strong>$360,000</strong></td></tr>
+      </table>
+    </div>
+
+    <div class="example-box">
+      <h4>How Each Metric Sizes the Deal</h4>
+      <table>
+        <tr><td>LTC</td><td>$360K / $400K = <strong>90%</strong></td></tr>
+        <tr><td>LTV (As-Is)</td><td>$360K / $130K = <strong>277%</strong></td></tr>
+        <tr><td>LTARV</td><td>$360K / $550K = <strong>65.5%</strong></td></tr>
+      </table>
+    </div>
+
+    <p>Notice how the same $360,000 loan looks very different depending on which metric you use. The LTV on the as-is lot value is 277%, which is why construction lenders do not use as-is LTV as a primary sizing tool for ground-up projects. Instead, they use LTC (90%) and LTARV (65.5%) together. The loan must satisfy both constraints.</p>
+    <p>If this lender's maximum parameters are 90% LTC and 75% LTARV, the deal works: 90% LTC (at the limit) and 65.5% LTARV (well within the 75% cap).</p>
+
+    <h2>How Lenders Use All Three Together</h2>
+    <p>In practice, construction and value-add lenders size loans using a "lesser of" approach. The maximum loan is the lowest amount produced by any applicable constraint. For example:</p>
+    <ul>
+      <li>90% of Total Project Cost (LTC constraint) = $360,000</li>
+      <li>75% of ARV (LTARV constraint) = $412,500</li>
+      <li>Maximum loan = $360,000 (the lesser of the two)</li>
+    </ul>
+    <p>For stabilized rental property loans (DSCR, conventional), LTV is the primary metric because there is no construction or renovation component. The property's current appraised value is the relevant benchmark.</p>
+
+    <div class="article-cta">
+      <h3>See How Your Deal Sizes</h3>
+      <p>Use our calculators to model LTC, LTV, and rate scenarios for your next project.</p>
+      <a href="construction-loan-calculator.html" class="btn-outline">Construction Calculator</a>
+      <a href="rental-loan-calculator.html" class="btn-outline">DSCR Calculator</a>
+      <a href="get-in-touch.html" class="btn-primary">Get a Quote</a>
+    </div>
+
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-contact">
+      60 Broad Street, Suite 2428, New York, NY 10004<br>
+      <a href="tel:201-749-1691">201-749-1691</a><span class="footer-sep">|</span><a href="mailto:Info@ledgertc.com">Info@ledgertc.com</a><span class="footer-sep">|</span><a href="https://www.linkedin.com/company/ledger-trade-capital/" target="_blank">LinkedIn</a>
+    </div>
+    <div class="footer-center">
+      <div class="footer-copy">&copy; 2026 Ledger Trade &amp; Capital. All rights reserved.</div>
+      <div class="footer-legal"><a href="terms-and-conditions.html">Terms of Service</a><span class="footer-sep">|</span><a href="privacy-policy.html">Privacy Policy</a></div>
+    </div>
+    <div class="footer-logo-wrap">
+      <img src="logo-inverse.png" alt="Ledger Trade &amp; Capital" width="269" height="67">
+    </div>
+  </div>
+</footer>
+
+<!-- HubSpot tracking – production only -->
+<script>
+if (window.location.hostname === 'ledgertc.com') {
+  var hs = document.createElement('script');
+  hs.type = 'text/javascript';
+  hs.defer = true;
+  hs.src = '//js.hs-scripts.com/46107229.js';
+  document.body.appendChild(hs);
+}
+</script>
+
+<!-- Capture tracking params to sessionStorage on page load -->
+<script>
+(function() {
+  var TRACKING_KEYS = ['gclid','gbraid','wbraid','gad_source','gad_campaignid',
+    'utm_source','utm_medium','utm_campaign','utm_term','utm_content'];
+  var lp = new URLSearchParams(window.location.search);
+  var found = {};
+  TRACKING_KEYS.forEach(function(k) {
+    var v = lp.get(k);
+    if (v) found[k] = v;
+  });
+  if (Object.keys(found).length > 0) {
+    try { sessionStorage.setItem('ltc_tracking', JSON.stringify(found)); } catch(e) {}
+  }
+})();
+</script>
+
+<!-- CallRail – production only -->
+<script>
+if (window.location.hostname === 'ledgertc.com') {
+  var cr = document.createElement('script');
+  cr.type = 'text/javascript';
+  cr.src = '//cdn.callrail.com/companies/260483659/40e1476c9c9954310f9a/12/swap.js';
+  document.body.appendChild(cr);
+}
+</script>
+</body>
+</html>
