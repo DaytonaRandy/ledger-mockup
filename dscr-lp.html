@@ -582,6 +582,67 @@ img{max-width:100%;height:auto;display:block;}
   color:var(--white);
 }
 
+/* ── How It Works ── */
+.howitworks-section{
+  background:var(--white);
+  padding:clamp(2.5rem,5vw,4rem) 2rem 0;
+}
+.howitworks-inner{
+  max-width:900px;
+  margin:0 auto;
+}
+.howitworks-inner h2{
+  font-size:clamp(1.5rem,3.5vw,2.25rem);
+  font-weight:800;
+  color:var(--green);
+  margin-bottom:0.75rem;
+  text-align:center;
+}
+.howitworks-intro{
+  font-size:clamp(0.92rem,0.9rem + 0.15vw,1rem);
+  color:var(--gray-600);
+  line-height:1.7;
+  text-align:center;
+  max-width:720px;
+  margin:0 auto 2rem;
+}
+.howitworks-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:1.5rem;
+  margin-bottom:2.5rem;
+}
+.howitworks-card{
+  background:var(--cream);
+  border-radius:12px;
+  padding:1.5rem;
+}
+.howitworks-card h3{
+  font-family:'Plus Jakarta Sans','DM Sans',sans-serif;
+  font-size:1rem;
+  font-weight:700;
+  color:var(--green);
+  margin-bottom:0.5rem;
+}
+.howitworks-card p{
+  font-size:0.9rem;
+  color:var(--gray-600);
+  line-height:1.6;
+}
+.howitworks-text{
+  font-size:clamp(0.92rem,0.9rem + 0.15vw,1rem);
+  color:var(--gray-600);
+  line-height:1.75;
+  margin-bottom:1.5rem;
+}
+.howitworks-text strong{
+  color:var(--green);
+  font-weight:600;
+}
+@media(max-width:640px){
+  .howitworks-grid{grid-template-columns:1fr;}
+}
+
 /* ── FAQ ── */
 .faq-section{
   background:var(--cream);
@@ -1067,6 +1128,38 @@ img{max-width:100%;height:auto;display:block;}
   </div>
 </section>
 
+<!-- ── How DSCR Loans Work ── -->
+<section class="howitworks-section">
+  <div class="howitworks-inner">
+    <div class="section-label" style="color:var(--gold);">How It Works</div>
+    <h2>What Is a DSCR Loan?</h2>
+    <p class="howitworks-intro">A DSCR (Debt Service Coverage Ratio) loan is an investment property loan that qualifies borrowers based on the rental income of the property, not personal income. If the property's rent covers the mortgage payment, you can qualify.</p>
+
+    <div class="howitworks-grid">
+      <div class="howitworks-card">
+        <h3>How qualification works</h3>
+        <p>DSCR is calculated by dividing the property's gross rental income by the total monthly payment (principal, interest, taxes, insurance, and HOA). A DSCR of 1.00x means rent exactly covers the payment. Our minimum is 1.00x, while most lenders require 1.20x or higher.</p>
+      </div>
+      <div class="howitworks-card">
+        <h3>No personal income required</h3>
+        <p>Unlike conventional loans, DSCR financing does not require tax returns, W-2s, pay stubs, or employment verification. This is ideal for self-employed investors and business owners who write off heavily and show lower taxable income than their actual earnings.</p>
+      </div>
+      <div class="howitworks-card">
+        <h3>Who uses DSCR loans</h3>
+        <p>Experienced rental investors, portfolio builders, and real estate professionals who want to scale without the documentation burden of conventional lending. Borrowers must have a minimum 680 credit score and at least one prior rental property owned.</p>
+      </div>
+      <div class="howitworks-card">
+        <h3>What properties qualify</h3>
+        <p>Single-family residences (SFR), 2-4 unit properties, townhomes, warrantable condos, and small multifamily. Properties must be investment (non-owner-occupied) and located in an eligible state. Both purchase and refinance transactions are available.</p>
+      </div>
+    </div>
+
+    <p class="howitworks-text"><strong>How Ledger is different:</strong> We are a direct private lender, not a broker. Our capital comes from institutional sources, which means faster decisions, flexible structuring, and no middleman markup. We offer 30-year fully amortizing fixed rates with interest-only options up to 10 years, cash-out refinance with no seasoning requirement, and the ability to close in your LLC or corporate entity for asset protection. There is no yield maintenance or prepayment penalty.</p>
+
+    <p class="howitworks-text"><strong>Eligible states:</strong> We lend in 40+ states and DC. Our top markets include North Carolina, South Carolina, Virginia, Ohio, Florida, and Texas, but we serve investors nationwide with consistent terms and a streamlined process regardless of location.</p>
+  </div>
+</section>
+
 <!-- ── Estimate Your Rate ── -->
 <section class="estimate-section">
   <div class="estimate-inner">
@@ -1129,7 +1222,7 @@ img{max-width:100%;height:auto;display:block;}
       </div>
       <div class="faq-item">
         <button class="faq-question" onclick="toggleFaq(this)">Do you lend nationwide?<svg viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></button>
-        <div class="faq-answer"><div class="faq-answer-inner">Yes, we lend nationwide across all 50 states. Whether your rental property is in Texas, Florida, Ohio, or California, we can provide DSCR financing with consistent terms and a streamlined process.</div></div>
+        <div class="faq-answer"><div class="faq-answer-inner">Yes, we lend in 40+ states and DC. Whether your rental property is in Texas, Florida, Ohio, North Carolina, or Virginia, we can provide DSCR financing with consistent terms and a streamlined process.</div></div>
       </div>
       <div class="faq-item">
         <button class="faq-question" onclick="toggleFaq(this)">How is my rate calculated?<svg viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></button>
