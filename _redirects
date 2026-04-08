@@ -95,6 +95,16 @@
 /private-lending-dallas.html    /private-lending-dallas    301!
 /private-lending-columbus.html    /private-lending-columbus    301!
 /private-lending-richmond.html    /private-lending-richmond    301!
+# New product page .html redirects
+/ground-up-construction-loans.html    /ground-up-construction-loans    301!
+/spec-home-construction-loans.html    /spec-home-construction-loans    301!
+# Geo DSCR page .html redirects
+/dscr-loan-new-york.html    /dscr-loan-new-york    301!
+/dscr-loan-new-jersey.html    /dscr-loan-new-jersey    301!
+/dscr-loan-ohio.html    /dscr-loan-ohio    301!
+/dscr-loan-north-carolina.html    /dscr-loan-north-carolina    301!
+/dscr-loan-florida.html    /dscr-loan-florida    301!
+/dscr-loan-texas.html    /dscr-loan-texas    301!
 
 /externaldocshare/admin /externaldocshare/admin/index.html 200
 /externaldocshare/:orgId/:docId /externaldocshare/index.html 200
