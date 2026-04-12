@@ -744,7 +744,8 @@ exports.handler = async function (event) {
 
     // Resolve Google click ID: gclid > gbraid > wbraid
     formData.googleClickId = formData.gclid || formData.gbraid || formData.wbraid || "";
-    formData.isGoogleAds = !!(formData.googleClickId || formData.gadSource || formData.gadCampaignId);
+    const formSource = raw.form_source || "";
+    formData.isGoogleAds = !!(formData.googleClickId || formData.gadSource || formData.gadCampaignId || formSource.includes("google-ads"));
 
     // Campaign attribution from form_source and/or UTMs
     formData.formSource = raw.form_source || "";
