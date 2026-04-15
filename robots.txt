@@ -26,6 +26,7 @@ Allow: /
 # All other crawlers
 User-agent: *
 Allow: /
+Disallow: /thank-you
 
 Sitemap: https://ledgertc.com/sitemap.xml
 
