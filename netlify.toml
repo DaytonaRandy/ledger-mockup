@@ -2,5 +2,6 @@
   included_files = ["netlify/functions/documents/**"]
 
 [build]
+  ignore = "[ \"$SITE_NAME\" = 'ledgertc-co' ] && exit 0 || exit 1"
   command = "if [ \"$IS_PRODUCTION\" != 'true' ]; then echo 'User-agent: *' > robots.txt && echo 'Disallow: /' >> robots.txt; fi"
   publish = "."
