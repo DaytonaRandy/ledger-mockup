@@ -4,8 +4,7 @@
 
 ## Loan Products
 
-- [Vertical Construction Loans](https://ledgertc.com/vertical-construction-loans): Short-term financing for new residential construction projects, covering vertical build costs with flexible draw schedules.
-- [Ground-Up Construction Loans](https://ledgertc.com/ground-up-construction-loans): Financing for builders constructing new residential properties from the ground up, including land and vertical costs.
+- [Ground-Up Construction Loans](https://ledgertc.com/vertical-construction-loans): Draw-based financing for builders constructing new residential properties from the ground up, covering land and vertical build costs with flexible draw schedules.
 - [Spec Home Construction Loans](https://ledgertc.com/spec-home-construction-loans): Construction financing for speculative home builds where the property is not pre-sold to a buyer.
 - [DSCR Rental Loans](https://ledgertc.com/dscr): Long-term rental property loans qualified on property cash flow (debt service coverage ratio) rather than borrower income.
 - [Fix and Flip Loans](https://ledgertc.com/fix-and-flip): Short-term rehab financing for investors purchasing and renovating residential properties for resale.

@@ -96,7 +96,8 @@
 /private-lending-columbus.html    /private-lending-columbus    301!
 /private-lending-richmond.html    /private-lending-richmond    301!
 # New product page .html redirects
-/ground-up-construction-loans.html    /ground-up-construction-loans    301!
+/ground-up-construction-loans.html    /vertical-construction-loans    301!
+/ground-up-construction-loans    /vertical-construction-loans    301!
 /spec-home-construction-loans.html    /spec-home-construction-loans    301!
 # Geo DSCR page .html redirects
 /dscr-loan-new-york.html    /dscr-loan-new-york    301!
