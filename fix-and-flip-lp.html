@@ -429,6 +429,7 @@ img{max-width:100%;height:auto;display:block;}
   margin-bottom:0.3rem;
 }
 .form-field input,
+.form-field select,
 .form-field textarea{
   width:100%;
   padding:0.7rem 0.9rem;
@@ -441,6 +442,7 @@ img{max-width:100%;height:auto;display:block;}
   transition:border-color 0.2s;
 }
 .form-field input:focus,
+.form-field select:focus,
 .form-field textarea:focus{
   outline:none;
   border-color:var(--gold);
@@ -1194,9 +1196,61 @@ img{max-width:100%;height:auto;display:block;}
             <label for="phone">Phone</label>
             <input type="tel" id="phone" name="phone" required autocomplete="tel">
           </div>
+          <div class="form-row">
+            <div class="form-field">
+              <label for="property_state">State <span style="font-weight:400;color:#999;">(optional)</span></label>
+              <select id="property_state" name="property_state">
+                <option value="">Select...</option>
+                <option value="Alabama">Alabama</option><option value="Alaska">Alaska</option>
+                <option value="Arizona">Arizona</option><option value="Arkansas">Arkansas</option>
+                <option value="Colorado">Colorado</option><option value="Connecticut">Connecticut</option>
+                <option value="Delaware">Delaware</option><option value="District of Columbia">District of Columbia</option>
+                <option value="Florida">Florida</option><option value="Georgia">Georgia</option>
+                <option value="Hawaii">Hawaii</option><option value="Illinois">Illinois</option>
+                <option value="Indiana">Indiana</option><option value="Iowa">Iowa</option>
+                <option value="Kansas">Kansas</option><option value="Kentucky">Kentucky</option>
+                <option value="Louisiana">Louisiana</option><option value="Maine">Maine</option>
+                <option value="Maryland">Maryland</option><option value="Massachusetts">Massachusetts</option>
+                <option value="Mississippi">Mississippi</option><option value="Missouri">Missouri</option>
+                <option value="Montana">Montana</option><option value="Nebraska">Nebraska</option>
+                <option value="New Hampshire">New Hampshire</option><option value="New Jersey">New Jersey</option>
+                <option value="New Mexico">New Mexico</option><option value="New York">New York</option>
+                <option value="North Carolina">North Carolina</option><option value="Ohio">Ohio</option>
+                <option value="Oklahoma">Oklahoma</option><option value="Pennsylvania">Pennsylvania</option>
+                <option value="Rhode Island">Rhode Island</option><option value="South Carolina">South Carolina</option>
+                <option value="Tennessee">Tennessee</option><option value="Texas">Texas</option>
+                <option value="Virginia">Virginia</option><option value="Washington">Washington</option>
+                <option value="West Virginia">West Virginia</option><option value="Wisconsin">Wisconsin</option>
+                <option value="Wyoming">Wyoming</option>
+              </select>
+            </div>
+            <div class="form-field">
+              <label for="loan_amount_range">Loan Amount <span style="font-weight:400;color:#999;">(optional)</span></label>
+              <select id="loan_amount_range" name="loan_amount_range">
+                <option value="">Select...</option>
+                <option value="Under $250K">Under $250K</option>
+                <option value="$250K – $750K">$250K &ndash; $750K</option>
+                <option value="$750K – $2M">$750K &ndash; $2M</option>
+                <option value="$2M – $5M">$2M &ndash; $5M</option>
+                <option value="$5M+">$5M+</option>
+                <option value="Not Sure">Not sure yet</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-field">
+            <label for="deal_timeline">Timeline <span style="font-weight:400;color:#999;">(optional)</span></label>
+            <select id="deal_timeline" name="deal_timeline">
+              <option value="">Select...</option>
+              <option value="Under contract / closing soon">Under contract or closing soon</option>
+              <option value="Already closed - need refi/bridge">Already closed - need refi or bridge</option>
+              <option value="Have land/project - ready to build">Have land or project - ready to build</option>
+              <option value="Actively scouting deals">Actively scouting deals</option>
+              <option value="Just researching">Just researching</option>
+            </select>
+          </div>
           <div class="form-field">
             <label for="details">Property Details <span style="font-weight:400;color:#999;">(optional)</span></label>
-            <textarea id="details" name="details" placeholder="Tell us about your project — e.g. SFR in Charlotte, $300K purchase, $80K rehab"></textarea>
+            <textarea id="details" name="details" placeholder="Tell us about your project, e.g. SFR in Charlotte, $300K purchase, $80K rehab"></textarea>
           </div>
           <!-- Honeypot -->
           <div class="hp-field" aria-hidden="true">

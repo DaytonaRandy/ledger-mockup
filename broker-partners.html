@@ -366,10 +366,6 @@ document.addEventListener("click", function(e) {
           <div id="brokerPhoneError" style="display:none; color:#dc2626; font-size:0.8rem; margin-top:0.25rem;">Please enter a valid phone number</div>
         </div>
         <div class="form-group">
-          <label>State(s) You Originate In</label>
-          <input type="text" name="states" placeholder="e.g. NY, NJ, FL">
-        </div>
-        <div class="form-group">
           <label>Estimated Monthly Volume</label>
           <select name="monthly_volume">
             <option value="" disabled selected>Select volume</option>
@@ -377,6 +373,52 @@ document.addEventListener("click", function(e) {
             <option value="4-10 loans/month">4-10 loans/month</option>
             <option value="10+ loans/month">10+ loans/month</option>
           </select>
+        </div>
+        <div class="form-group full">
+          <label>State(s) You Originate In <span style="font-weight:400;text-transform:none;letter-spacing:0;color:var(--gray-500);font-size:0.85em;">(check all that apply)</span></label>
+          <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(72px,1fr));gap:0.35rem 0.75rem;margin-top:0.45rem;">
+            <label style="display:inline-flex;align-items:center;gap:0.35rem;font-weight:400;text-transform:none;letter-spacing:0;cursor:pointer;font-size:0.85rem;"><input type="checkbox" name="states" value="AK" style="width:auto;margin:0;"> AK</label>
+            <label style="display:inline-flex;align-items:center;gap:0.35rem;font-weight:400;text-transform:none;letter-spacing:0;cursor:pointer;font-size:0.85rem;"><input type="checkbox" name="states" value="AL" style="width:auto;margin:0;"> AL</label>
+            <label style="display:inline-flex;align-items:center;gap:0.35rem;font-weight:400;text-transform:none;letter-spacing:0;cursor:pointer;font-size:0.85rem;"><input type="checkbox" name="states" value="AR" style="width:auto;margin:0;"> AR</label>
+            <label style="display:inline-flex;align-items:center;gap:0.35rem;font-weight:400;text-transform:none;letter-spacing:0;cursor:pointer;font-size:0.85rem;"><input type="checkbox" name="states" value="AZ" style="width:auto;margin:0;"> AZ</label>
+            <label style="display:inline-flex;align-items:center;gap:0.35rem;font-weight:400;text-transform:none;letter-spacing:0;cursor:pointer;font-size:0.85rem;"><input type="checkbox" name="states" value="CO" style="width:auto;margin:0;"> CO</label>
+            <label style="display:inline-flex;align-items:center;gap:0.35rem;font-weight:400;text-transform:none;letter-spacing:0;cursor:pointer;font-size:0.85rem;"><input type="checkbox" name="states" value="CT" style="width:auto;margin:0;"> CT</label>
+            <label style="display:inline-flex;align-items:center;gap:0.35rem;font-weight:400;text-transform:none;letter-spacing:0;cursor:pointer;font-size:0.85rem;"><input type="checkbox" name="states" value="DC" style="width:auto;margin:0;"> DC</label>
+            <label style="display:inline-flex;align-items:center;gap:0.35rem;font-weight:400;text-transform:none;letter-spacing:0;cursor:pointer;font-size:0.85rem;"><input type="checkbox" name="states" value="DE" style="width:auto;margin:0;"> DE</label>
+            <label style="display:inline-flex;align-items:center;gap:0.35rem;font-weight:400;text-transform:none;letter-spacing:0;cursor:pointer;font-size:0.85rem;"><input type="checkbox" name="states" value="FL" style="width:auto;margin:0;"> FL</label>
+            <label style="display:inline-flex;align-items:center;gap:0.35rem;font-weight:400;text-transform:none;letter-spacing:0;cursor:pointer;font-size:0.85rem;"><input type="checkbox" name="states" value="GA" style="width:auto;margin:0;"> GA</label>
+            <label style="display:inline-flex;align-items:center;gap:0.35rem;font-weight:400;text-transform:none;letter-spacing:0;cursor:pointer;font-size:0.85rem;"><input type="checkbox" name="states" value="HI" style="width:auto;margin:0;"> HI</label>
+            <label style="display:inline-flex;align-items:center;gap:0.35rem;font-weight:400;text-transform:none;letter-spacing:0;cursor:pointer;font-size:0.85rem;"><input type="checkbox" name="states" value="IA" style="width:auto;margin:0;"> IA</label>
+            <label style="display:inline-flex;align-items:center;gap:0.35rem;font-weight:400;text-transform:none;letter-spacing:0;cursor:pointer;font-size:0.85rem;"><input type="checkbox" name="states" value="IL" style="width:auto;margin:0;"> IL</label>
+            <label style="display:inline-flex;align-items:center;gap:0.35rem;font-weight:400;text-transform:none;letter-spacing:0;cursor:pointer;font-size:0.85rem;"><input type="checkbox" name="states" value="IN" style="width:auto;margin:0;"> IN</label>
+            <label style="display:inline-flex;align-items:center;gap:0.35rem;font-weight:400;text-transform:none;letter-spacing:0;cursor:pointer;font-size:0.85rem;"><input type="checkbox" name="states" value="KS" style="width:auto;margin:0;"> KS</label>
+            <label style="display:inline-flex;align-items:center;gap:0.35rem;font-weight:400;text-transform:none;letter-spacing:0;cursor:pointer;font-size:0.85rem;"><input type="checkbox" name="states" value="KY" style="width:auto;margin:0;"> KY</label>
+            <label style="display:inline-flex;align-items:center;gap:0.35rem;font-weight:400;text-transform:none;letter-spacing:0;cursor:pointer;font-size:0.85rem;"><input type="checkbox" name="states" value="LA" style="width:auto;margin:0;"> LA</label>
+            <label style="display:inline-flex;align-items:center;gap:0.35rem;font-weight:400;text-transform:none;letter-spacing:0;cursor:pointer;font-size:0.85rem;"><input type="checkbox" name="states" value="MA" style="width:auto;margin:0;"> MA</label>
+            <label style="display:inline-flex;align-items:center;gap:0.35rem;font-weight:400;text-transform:none;letter-spacing:0;cursor:pointer;font-size:0.85rem;"><input type="checkbox" name="states" value="MD" style="width:auto;margin:0;"> MD</label>
+            <label style="display:inline-flex;align-items:center;gap:0.35rem;font-weight:400;text-transform:none;letter-spacing:0;cursor:pointer;font-size:0.85rem;"><input type="checkbox" name="states" value="ME" style="width:auto;margin:0;"> ME</label>
+            <label style="display:inline-flex;align-items:center;gap:0.35rem;font-weight:400;text-transform:none;letter-spacing:0;cursor:pointer;font-size:0.85rem;"><input type="checkbox" name="states" value="MO" style="width:auto;margin:0;"> MO</label>
+            <label style="display:inline-flex;align-items:center;gap:0.35rem;font-weight:400;text-transform:none;letter-spacing:0;cursor:pointer;font-size:0.85rem;"><input type="checkbox" name="states" value="MS" style="width:auto;margin:0;"> MS</label>
+            <label style="display:inline-flex;align-items:center;gap:0.35rem;font-weight:400;text-transform:none;letter-spacing:0;cursor:pointer;font-size:0.85rem;"><input type="checkbox" name="states" value="MT" style="width:auto;margin:0;"> MT</label>
+            <label style="display:inline-flex;align-items:center;gap:0.35rem;font-weight:400;text-transform:none;letter-spacing:0;cursor:pointer;font-size:0.85rem;"><input type="checkbox" name="states" value="NC" style="width:auto;margin:0;"> NC</label>
+            <label style="display:inline-flex;align-items:center;gap:0.35rem;font-weight:400;text-transform:none;letter-spacing:0;cursor:pointer;font-size:0.85rem;"><input type="checkbox" name="states" value="NE" style="width:auto;margin:0;"> NE</label>
+            <label style="display:inline-flex;align-items:center;gap:0.35rem;font-weight:400;text-transform:none;letter-spacing:0;cursor:pointer;font-size:0.85rem;"><input type="checkbox" name="states" value="NH" style="width:auto;margin:0;"> NH</label>
+            <label style="display:inline-flex;align-items:center;gap:0.35rem;font-weight:400;text-transform:none;letter-spacing:0;cursor:pointer;font-size:0.85rem;"><input type="checkbox" name="states" value="NJ" style="width:auto;margin:0;"> NJ</label>
+            <label style="display:inline-flex;align-items:center;gap:0.35rem;font-weight:400;text-transform:none;letter-spacing:0;cursor:pointer;font-size:0.85rem;"><input type="checkbox" name="states" value="NM" style="width:auto;margin:0;"> NM</label>
+            <label style="display:inline-flex;align-items:center;gap:0.35rem;font-weight:400;text-transform:none;letter-spacing:0;cursor:pointer;font-size:0.85rem;"><input type="checkbox" name="states" value="NY" style="width:auto;margin:0;"> NY</label>
+            <label style="display:inline-flex;align-items:center;gap:0.35rem;font-weight:400;text-transform:none;letter-spacing:0;cursor:pointer;font-size:0.85rem;"><input type="checkbox" name="states" value="OH" style="width:auto;margin:0;"> OH</label>
+            <label style="display:inline-flex;align-items:center;gap:0.35rem;font-weight:400;text-transform:none;letter-spacing:0;cursor:pointer;font-size:0.85rem;"><input type="checkbox" name="states" value="OK" style="width:auto;margin:0;"> OK</label>
+            <label style="display:inline-flex;align-items:center;gap:0.35rem;font-weight:400;text-transform:none;letter-spacing:0;cursor:pointer;font-size:0.85rem;"><input type="checkbox" name="states" value="PA" style="width:auto;margin:0;"> PA</label>
+            <label style="display:inline-flex;align-items:center;gap:0.35rem;font-weight:400;text-transform:none;letter-spacing:0;cursor:pointer;font-size:0.85rem;"><input type="checkbox" name="states" value="RI" style="width:auto;margin:0;"> RI</label>
+            <label style="display:inline-flex;align-items:center;gap:0.35rem;font-weight:400;text-transform:none;letter-spacing:0;cursor:pointer;font-size:0.85rem;"><input type="checkbox" name="states" value="SC" style="width:auto;margin:0;"> SC</label>
+            <label style="display:inline-flex;align-items:center;gap:0.35rem;font-weight:400;text-transform:none;letter-spacing:0;cursor:pointer;font-size:0.85rem;"><input type="checkbox" name="states" value="TN" style="width:auto;margin:0;"> TN</label>
+            <label style="display:inline-flex;align-items:center;gap:0.35rem;font-weight:400;text-transform:none;letter-spacing:0;cursor:pointer;font-size:0.85rem;"><input type="checkbox" name="states" value="TX" style="width:auto;margin:0;"> TX</label>
+            <label style="display:inline-flex;align-items:center;gap:0.35rem;font-weight:400;text-transform:none;letter-spacing:0;cursor:pointer;font-size:0.85rem;"><input type="checkbox" name="states" value="VA" style="width:auto;margin:0;"> VA</label>
+            <label style="display:inline-flex;align-items:center;gap:0.35rem;font-weight:400;text-transform:none;letter-spacing:0;cursor:pointer;font-size:0.85rem;"><input type="checkbox" name="states" value="WA" style="width:auto;margin:0;"> WA</label>
+            <label style="display:inline-flex;align-items:center;gap:0.35rem;font-weight:400;text-transform:none;letter-spacing:0;cursor:pointer;font-size:0.85rem;"><input type="checkbox" name="states" value="WI" style="width:auto;margin:0;"> WI</label>
+            <label style="display:inline-flex;align-items:center;gap:0.35rem;font-weight:400;text-transform:none;letter-spacing:0;cursor:pointer;font-size:0.85rem;"><input type="checkbox" name="states" value="WV" style="width:auto;margin:0;"> WV</label>
+            <label style="display:inline-flex;align-items:center;gap:0.35rem;font-weight:400;text-transform:none;letter-spacing:0;cursor:pointer;font-size:0.85rem;"><input type="checkbox" name="states" value="WY" style="width:auto;margin:0;"> WY</label>
+          </div>
         </div>
         <div class="form-group full">
           <label>Loan Products of Interest <span style="font-weight:400;text-transform:none;letter-spacing:0;color:var(--gray-500);font-size:0.85em;">(check all that apply)</span></label>

@@ -47,6 +47,52 @@ function deriveAdCampaign(formSource, utmCampaign, adsLp) {
   return "";
 }
 
+// ─── Extract structured HubSpot fields from calculator JSON ──────
+// DSCR calc → loan_type_interest = "DSCR Rental"
+// RTL calc  → "Ground-Up Construction" (if projectType has "ground"/"new")
+//             or "Fix & Flip / Bridge" (default)
+function bucketLoanAmount(amt) {
+  const n = Number(amt);
+  if (!n || isNaN(n)) return "";
+  if (n < 250000) return "Under $250K";
+  if (n < 750000) return "$250K – $750K";
+  if (n < 2000000) return "$750K – $2M";
+  if (n < 5000000) return "$2M – $5M";
+  return "$5M+";
+}
+function normalizePropertyType(t) {
+  if (!t) return "";
+  const s = String(t).toLowerCase();
+  if (s.includes("sfr") || s.includes("single")) return "Single-Family / SFR";
+  if (s.includes("2-4") || s.includes("2–4") || s.includes("duplex") || s.includes("triplex") || s.includes("fourplex")) return "2-4 Unit";
+  if (s.includes("5+") || s.includes("multi")) return "5+ Unit / Small Multifamily";
+  if (s.includes("townhome") || s.includes("condo")) return "Townhome / Condo";
+  if (s.includes("land") || s.includes("ground")) return "Land + Build (Ground-Up)";
+  return "";
+}
+function extractCalculatorFields(formSource, jsonStr) {
+  if (!jsonStr) return {};
+  let d;
+  try { d = JSON.parse(jsonStr); } catch { return {}; }
+  const out = {};
+  if (formSource === "dscr-calculator") {
+    out.loanTypeInterest = "DSCR Rental";
+  } else if (formSource === "rtl-calculator") {
+    const proj = String(d.projectType || d.dealType || "").toLowerCase();
+    out.loanTypeInterest = (proj.includes("ground") || proj.includes("new construction") || proj.includes("spec"))
+      ? "Ground-Up Construction"
+      : "Fix & Flip / Bridge";
+  }
+  const stateCandidate = d.stateName || d.state || "";
+  if (stateCandidate) out.propertyState = stateCandidate;
+  const amtCandidate = d.loanAmt || d.tla || d.day1 || 0;
+  const bucket = bucketLoanAmount(amtCandidate);
+  if (bucket) out.loanAmountRange = bucket;
+  const pt = normalizePropertyType(d.propertyType || d.assetType || "");
+  if (pt) out.propertyTypeInterest = pt;
+  return out;
+}
+
 // ─── Format calculator results JSON into a readable one-liner ────
 function formatCalculatorResults(jsonStr) {
   if (!jsonStr) return "";
@@ -825,6 +871,14 @@ exports.handler = async function (event) {
     const projectText = formData.projectOverview || "";
     formData.projectDetails = [calcSummary, projectText].filter(Boolean).join(" | ") || "";
 
+    // Calculator submissions: backfill the 5 structured fields from the
+    // calc JSON so calc leads populate the same HubSpot props as form leads.
+    // HTML form selections take precedence; only fill blanks.
+    const calcExtracted = extractCalculatorFields(formData.formSource, raw["calculator-results"] || "");
+    for (const [k, v] of Object.entries(calcExtracted)) {
+      if (!formData[k] && v) formData[k] = v;
+    }
+
     // ── Honeypot check ──────────────────────────────────────────
     if (formData.website) {
       console.log("Honeypot triggered — rejecting silently");
@@ -944,10 +998,11 @@ exports.handler = async function (event) {
     // ── Broker Partner flow ─────────────────────────────────────
     if (raw.form_source === "broker-partner") {
       // Map broker-specific fields
-      formData.states = raw.states || "";
+      // states is now a multi-select (checkboxes). Object.fromEntries() only
+      // keeps the last one, so pull from params directly.
+      formData.states = params.getAll("states").filter(Boolean).join(", ");
       formData.monthlyVolume = raw.monthly_volume || "";
-      // loan_products is a multi-select (checkboxes). Collect all values —
-      // Object.fromEntries() above only keeps the last one, so pull from params directly.
+      // loan_products is a multi-select (checkboxes). Same pattern.
       formData.loanProducts = params.getAll("loan_products").filter(Boolean).join(", ");
       formData.notes = raw.notes || "";
 
