@@ -122,6 +122,3 @@
 /externaldocshare/admin /externaldocshare/admin/index.html 200
 /externaldocshare/:orgId/:docId /externaldocshare/index.html 200
 /externaldocshare/* /externaldocshare/index.html 200
-
-# Normalize trailing slashes (must come AFTER /externaldocshare/* rules)
-/*/ /:splat 301!
