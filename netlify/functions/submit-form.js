@@ -390,10 +390,13 @@ async function backfillTracking(existing, formData) {
   if (!existing.properties.source_website) {
     updateProps.source_website = "Yes";
   }
-  if (formData.formSource && !existing.properties.form_source) {
+  // Calculator submissions upgrade the label over prior LP submissions
+  // (higher-intent signal). Non-calculator submissions preserve existing values.
+  const isCalcSubmit = formData.formSource === "rtl-calculator" || formData.formSource === "dscr-calculator";
+  if (formData.formSource && (!existing.properties.form_source || isCalcSubmit)) {
     updateProps.form_source = formData.formSource;
   }
-  if (formData.adCampaign && !existing.properties.ad_campaign) {
+  if (formData.adCampaign && (!existing.properties.ad_campaign || isCalcSubmit)) {
     updateProps.ad_campaign = formData.adCampaign;
   }
   if (formData.utmCampaign && !existing.properties.utm_campaign) {
