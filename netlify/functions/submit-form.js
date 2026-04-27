@@ -909,6 +909,125 @@ async function createTicket(formData, ownerId, contactId, companyId, ticketCateg
   return ticket;
 }
 
+// ─── Calc activity note helpers (for calc-first/form-after flow) ──
+// When a visitor runs the calculator BEFORE submitting a form, the hutk
+// has no contact attached yet so log-calc.js can't create the Note.
+// In that case the calc payload is stashed in sessionStorage and posted
+// up alongside the form submit as `pending_calc_log`. We retroactively
+// create the Note here, after the contact has been created/found.
+
+function calcFmtMoney(n) {
+  const v = Number(n);
+  if (!isFinite(v)) return String(n || "");
+  return "$" + Math.round(v).toLocaleString();
+}
+function calcFmtPct(n, digits) {
+  const v = Number(n);
+  if (!isFinite(v)) return "";
+  return v.toFixed(digits == null ? 1 : digits) + "%";
+}
+
+function buildDscrCalcNote(p) {
+  const lines = [];
+  const rate = p.rate != null ? Number(p.rate).toFixed(3) + "%" : "—";
+  const amt = p.loan_amount != null ? calcFmtMoney(p.loan_amount) : "—";
+  lines.push(`<b>DSCR Calculator — ${rate} on ${amt} loan</b>`);
+  lines.push("");
+  lines.push("<u>Inputs</u>");
+  if (p.property_type) lines.push(`• Property: ${p.property_type}${p.state ? " (" + p.state + ")" : ""}`);
+  if (p.loan_purpose) lines.push(`• Purpose: ${p.loan_purpose}`);
+  if (p.arv != null) lines.push(`• Property Value: ${calcFmtMoney(p.arv)}`);
+  if (p.monthly_rent != null) lines.push(`• Rent: ${calcFmtMoney(p.monthly_rent)}/mo`);
+  const tii = [];
+  if (p.annual_taxes != null) tii.push(`Taxes ${calcFmtMoney(p.annual_taxes)}/yr`);
+  if (p.annual_insurance != null) tii.push(`Insurance ${calcFmtMoney(p.annual_insurance)}/yr`);
+  if (p.annual_hoa) tii.push(`HOA ${calcFmtMoney(p.annual_hoa)}/yr`);
+  if (tii.length) lines.push(`• ${tii.join(" | ")}`);
+  if (p.fico != null) lines.push(`• FICO: ${p.fico}`);
+  if (p.ltv != null) lines.push(`• LTV: ${calcFmtPct(Number(p.ltv) * 100, 0)}`);
+  if (p.foreign_national) lines.push(`• Foreign National: ${p.foreign_national}`);
+  if (p.interest_only) lines.push(`• Interest-Only: ${p.interest_only}`);
+  if (p.prepay_months) lines.push(`• Prepay: ${p.prepay_months}-mo`);
+  lines.push("");
+  lines.push("<u>Result</u>");
+  lines.push(`• Rate: ${rate}`);
+  lines.push(`• Loan Amount: ${amt}`);
+  if (p.monthly_pitia != null) lines.push(`• Monthly PITIA: ${calcFmtMoney(p.monthly_pitia)}`);
+  if (p.dscr_ratio != null) lines.push(`• DSCR: ${Number(p.dscr_ratio).toFixed(2)}`);
+  if (p.program_tier) lines.push(`• Program: ${p.program_tier}`);
+  return lines.join("<br>");
+}
+
+function buildRtlCalcNote(p) {
+  const lines = [];
+  const rate = p.rate != null ? Number(p.rate).toFixed(3) + "%" : "—";
+  const tla = p.tla != null ? calcFmtMoney(p.tla) : "—";
+  lines.push(`<b>Construction Calculator — ${rate} on ${tla} TLA</b>`);
+  lines.push("");
+  lines.push("<u>Inputs</u>");
+  if (p.program) lines.push(`• Program: ${p.program}`);
+  if (p.asset_type) lines.push(`• Asset: ${p.asset_type}`);
+  if (p.deal_type) lines.push(`• Deal: ${p.deal_type}`);
+  if (p.project_type) lines.push(`• Project: ${p.project_type}`);
+  if (p.experience) lines.push(`• Experience: ${p.experience}${p.experience_count != null ? " (" + p.experience_count + " projects)" : ""}`);
+  if (p.fico != null) lines.push(`• FICO: ${p.fico}`);
+  if (p.foreign_national) lines.push(`• Foreign National: ${p.foreign_national}`);
+  if (p.purchase_price != null) lines.push(`• Purchase Price: ${calcFmtMoney(p.purchase_price)}`);
+  if (p.as_is_value != null) lines.push(`• As-Is Value: ${calcFmtMoney(p.as_is_value)}`);
+  if (p.rehab_budget != null && Number(p.rehab_budget) > 0) lines.push(`• Rehab Budget: ${calcFmtMoney(p.rehab_budget)}`);
+  if (p.arv != null) lines.push(`• ARV: ${calcFmtMoney(p.arv)}`);
+  if (p.loan_term_months) lines.push(`• Term: ${p.loan_term_months}mo`);
+  lines.push("");
+  lines.push("<u>Result</u>");
+  lines.push(`• Rate: ${rate} (Tier ${p.tier != null ? p.tier : "—"})`);
+  lines.push(`• Total Loan Amount: ${tla}`);
+  if (p.day1 != null) lines.push(`• Day 1 Funding: ${calcFmtMoney(p.day1)}`);
+  if (p.holdback != null && Number(p.holdback) > 0) lines.push(`• Construction Holdback: ${calcFmtMoney(p.holdback)}`);
+  if (p.monthly_interest != null) lines.push(`• Monthly Interest: ${calcFmtMoney(p.monthly_interest)}`);
+  const lev = [];
+  if (p.ltaiv != null) lev.push(`LTAIV ${p.ltaiv}%`);
+  if (p.ltc != null) lev.push(`LTC ${p.ltc}%`);
+  if (p.ltv != null) lev.push(`LTARV ${p.ltv}%`);
+  if (lev.length) lines.push(`• Leverage: ${lev.join(" · ")}`);
+  return lines.join("<br>");
+}
+
+async function maybeLogPendingCalcNote(contactId, pendingCalcLogStr) {
+  if (!pendingCalcLogStr || !contactId) return;
+  let payload;
+  try {
+    payload = JSON.parse(pendingCalcLogStr);
+  } catch (e) {
+    console.warn("pending_calc_log: invalid JSON, skipping");
+    return;
+  }
+  if (!payload || (payload.calculator !== "dscr" && payload.calculator !== "rtl")) {
+    console.warn("pending_calc_log: unrecognized calculator, skipping");
+    return;
+  }
+  const body = payload.calculator === "dscr"
+    ? buildDscrCalcNote(payload)
+    : buildRtlCalcNote(payload);
+
+  const note = await hubspot("POST", "/crm/v3/objects/notes", {
+    properties: {
+      hs_note_body: body,
+      hs_timestamp: Date.now(),
+    },
+    associations: [
+      {
+        to: { id: contactId },
+        types: [{ associationCategory: "HUBSPOT_DEFINED", associationTypeId: 202 }],
+      },
+    ],
+  });
+  if (note.error) {
+    console.error(`pending_calc_log: note creation failed for contact ${contactId}:`, note.data);
+    return;
+  }
+  console.log(`pending_calc_log: logged ${payload.calculator} calc activity to contact ${contactId} (note ${note.id})`);
+}
+
 // ─── Main handler ────────────────────────────────────────────────
 exports.handler = async function (event) {
   // CORS headers
@@ -975,6 +1094,7 @@ exports.handler = async function (event) {
       utmContent: raw.utm_content || "",
       hutk: raw.hutk || "",
       pageName: raw.page_name || "",
+      pendingCalcLog: raw.pending_calc_log || "",
     };
 
     // Resolve Google click ID: gclid > gbraid > wbraid
@@ -1207,6 +1327,18 @@ exports.handler = async function (event) {
 
       // Write new structured form fields (degrades gracefully if properties don't yet exist)
       await patchContactWithFormFields(contactId, formData);
+
+      // Calc-first/form-after: if visitor ran the calculator before submitting
+      // this form, log-calc.js couldn't attach a Note (no contact existed for
+      // that hutk yet). The browser stashed the calc payload and posted it up
+      // here as `pending_calc_log` — create the Note now.
+      if (formData.pendingCalcLog) {
+        try {
+          await maybeLogPendingCalcNote(contactId, formData.pendingCalcLog);
+        } catch (err) {
+          console.error("pending_calc_log handling failed:", err);
+        }
+      }
 
       // Step 2: Company — check existing association first, then find/create
       let companyResult = null;

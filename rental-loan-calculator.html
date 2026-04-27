@@ -1681,6 +1681,35 @@ function calculateDSCR() {
   document.getElementById('dscr-slider-section').style.display = 'block';
 
   renderResults(result);
+
+  const stateVal = document.getElementById('state').value;
+  const calcPayload = {
+    calculator: 'dscr',
+    property_type: propType,
+    loan_purpose: loanPurpose,
+    state: stateVal,
+    fico: fico,
+    foreign_national: isFN ? 'Yes' : 'No',
+    arv: arv,
+    monthly_rent: monthlyRent,
+    annual_taxes: annualTaxes,
+    annual_insurance: annualInsurance,
+    annual_hoa: annualHOA,
+    ltv: ltv,
+    interest_only: io ? 'Yes' : 'No',
+    prepay_months: prepay,
+    rate: result && result.rate ? result.rate : null,
+    loan_amount: result && result.loanAmt ? result.loanAmt : null,
+    monthly_pitia: result && result.monthlyPITIA ? result.monthlyPITIA : null,
+    dscr_ratio: result && result.finalDSCR ? Number(result.finalDSCR.toFixed(2)) : null,
+    program_tier: result && result.program ? result.program : null
+  };
+
+  if (typeof gtag === 'function') {
+    gtag('event', 'rate_calculated', calcPayload);
+  }
+
+  logCalcActivity(calcPayload);
 }
 
 // ─── SLIDER / TOGGLE CHANGE HANDLERS ───
@@ -1724,6 +1753,39 @@ function recalcDSCR() {
   }
 })();
 
+// ─── Log calc activity to HubSpot via Netlify function ───
+// Fires once per session per calculator. If the visitor already has a HubSpot
+// contact (hutk cookie resolves), a Note is added to their timeline with the
+// full inputs + computed result. Anonymous visitors are silently skipped.
+function logCalcActivity(payload) {
+  try {
+    try { sessionStorage.setItem('ltc_pending_calc_log', JSON.stringify(payload)); } catch(e) {}
+    var key = 'ltc_calc_logged_' + (payload && payload.calculator ? payload.calculator : 'x');
+    if (sessionStorage.getItem(key) === '1') return;
+    sessionStorage.setItem(key, '1');
+    var hutkMatch = document.cookie.match(/hubspotutk=([^;]+)/);
+    var hutk = hutkMatch ? hutkMatch[1] : '';
+    var body = {
+      hutk: hutk,
+      page_url: window.location.href,
+      page_name: document.title,
+      payload: payload
+    };
+    fetch('/.netlify/functions/log-calc', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(body),
+      keepalive: true
+    }).then(function(r) { return r.ok ? r.json() : null; })
+      .then(function(d) {
+        if (d && d.success && d.noteId) {
+          try { sessionStorage.removeItem('ltc_pending_calc_log'); } catch(e) {}
+        }
+      })
+      .catch(function() {});
+  } catch (e) {}
+}
+
 function submitLead(e) {
   e.preventDefault();
   const form = e.target;
@@ -1747,6 +1809,8 @@ function submitLead(e) {
   });
   var adsLp = ''; try { adsLp = sessionStorage.getItem('ltc_ads_lp') || ''; } catch(e) {}
   if (adsLp) params.set('ads_lp', adsLp);
+  var pendingCalc = ''; try { pendingCalc = sessionStorage.getItem('ltc_pending_calc_log') || ''; } catch(e) {}
+  if (pendingCalc) params.set('pending_calc_log', pendingCalc);
   fetch('/.netlify/functions/submit-form', {
     method: 'POST',
     headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
@@ -1758,6 +1822,7 @@ function submitLead(e) {
       showLeadFormError(form, msg);
       return;
     }
+    try { sessionStorage.removeItem('ltc_pending_calc_log'); } catch(e) {}
     form.parentElement.style.display = 'none';
     const success = section.querySelector('.lead-success');
     if (success) success.style.display = 'block';

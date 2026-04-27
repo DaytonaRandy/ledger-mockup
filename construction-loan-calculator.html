@@ -1694,6 +1694,38 @@ function calculateRTL() {
   });
   const editHidden = document.getElementById('hidden-results-edit');
   if (editHidden) editHidden.value = document.getElementById('hidden-results').value;
+
+  const calcPayload = {
+    calculator: 'rtl',
+    program: programDisplay,
+    asset_type: assetType,
+    deal_type: dealType,
+    project_type: projectType,
+    experience: experience,
+    experience_count: expCount,
+    fico: fico,
+    foreign_national: foreignNational,
+    purchase_price: purchasePrice,
+    as_is_value: asIsValue,
+    rehab_budget: rehabBudget,
+    arv: arv,
+    loan_term_months: loanTerm,
+    tier: tier,
+    rate: rate,
+    tla: tla,
+    day1: day1,
+    holdback: holdback,
+    ltaiv: Number((ltaivRatio * 100).toFixed(1)),
+    ltc: Number((ltcRatio * 100).toFixed(1)),
+    ltv: Number((ltvRatio * 100).toFixed(1)),
+    monthly_interest: monthlyInterest
+  };
+
+  if (typeof gtag === 'function') {
+    gtag('event', 'rate_calculated', calcPayload);
+  }
+
+  logCalcActivity(calcPayload);
 }
 
 
@@ -1711,6 +1743,39 @@ function calculateRTL() {
     try { sessionStorage.setItem('ltc_tracking', JSON.stringify(found)); } catch(e) {}
   }
 })();
+
+// ─── Log calc activity to HubSpot via Netlify function ───
+// Fires once per session per calculator. If the visitor already has a HubSpot
+// contact (hutk cookie resolves), a Note is added to their timeline with the
+// full inputs + computed result. Anonymous visitors are silently skipped.
+function logCalcActivity(payload) {
+  try {
+    try { sessionStorage.setItem('ltc_pending_calc_log', JSON.stringify(payload)); } catch(e) {}
+    var key = 'ltc_calc_logged_' + (payload && payload.calculator ? payload.calculator : 'x');
+    if (sessionStorage.getItem(key) === '1') return;
+    sessionStorage.setItem(key, '1');
+    var hutkMatch = document.cookie.match(/hubspotutk=([^;]+)/);
+    var hutk = hutkMatch ? hutkMatch[1] : '';
+    var body = {
+      hutk: hutk,
+      page_url: window.location.href,
+      page_name: document.title,
+      payload: payload
+    };
+    fetch('/.netlify/functions/log-calc', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(body),
+      keepalive: true
+    }).then(function(r) { return r.ok ? r.json() : null; })
+      .then(function(d) {
+        if (d && d.success && d.noteId) {
+          try { sessionStorage.removeItem('ltc_pending_calc_log'); } catch(e) {}
+        }
+      })
+      .catch(function() {});
+  } catch (e) {}
+}
 
 // ─── LEAD FORM ───
 function submitLead(e) {
@@ -1736,6 +1801,8 @@ function submitLead(e) {
   });
   var adsLp = ''; try { adsLp = sessionStorage.getItem('ltc_ads_lp') || ''; } catch(e) {}
   if (adsLp) params.set('ads_lp', adsLp);
+  var pendingCalc = ''; try { pendingCalc = sessionStorage.getItem('ltc_pending_calc_log') || ''; } catch(e) {}
+  if (pendingCalc) params.set('pending_calc_log', pendingCalc);
   fetch('/.netlify/functions/submit-form', {
     method: 'POST',
     headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
@@ -1747,6 +1814,7 @@ function submitLead(e) {
       showLeadFormError(form, msg);
       return;
     }
+    try { sessionStorage.removeItem('ltc_pending_calc_log'); } catch(e) {}
     form.parentElement.style.display = 'none';
     const success = section.querySelector('.lead-success');
     if (success) success.style.display = 'block';
