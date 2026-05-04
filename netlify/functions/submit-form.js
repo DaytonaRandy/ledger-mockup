@@ -124,12 +124,13 @@ async function registerFormSubmission(formData) {
   const guid = FORM_GUIDS[formData.formSource];
   if (!guid || !formData.email) return;
   const fields = [
-    { objectTypeId: "0-1", name: "email",        value: formData.email },
-    { objectTypeId: "0-1", name: "firstname",    value: formData.firstName || "" },
-    { objectTypeId: "0-1", name: "lastname",     value: formData.lastName || "" },
-    { objectTypeId: "0-1", name: "phone",        value: formData.phone || "" },
-    { objectTypeId: "0-1", name: "form_source",  value: formData.formSource || "" },
-    { objectTypeId: "0-1", name: "ad_campaign",  value: formData.adCampaign || "" },
+    { objectTypeId: "0-1", name: "email",           value: formData.email },
+    { objectTypeId: "0-1", name: "firstname",       value: formData.firstName || "" },
+    { objectTypeId: "0-1", name: "lastname",        value: formData.lastName || "" },
+    { objectTypeId: "0-1", name: "phone",           value: formData.phone || "" },
+    { objectTypeId: "0-1", name: "form_source",     value: formData.formSource || "" },
+    { objectTypeId: "0-1", name: "ad_campaign",     value: formData.adCampaign || "" },
+    { objectTypeId: "0-1", name: "project_details", value: formData.projectDetails || "" },
   ];
   const context = {
     pageUri:  formData.pageUrl || "",
