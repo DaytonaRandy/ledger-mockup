@@ -1039,161 +1039,6 @@ img{max-width:100%;height:auto;display:block;}
 </section>
 
 <!-- ── Form + Value Props ── -->
-<section class="form-section" id="form">
-  <div class="form-grid">
-    <!-- Left: Value Props -->
-    <div class="value-props">
-      <h2>Why Investors Choose Ledger</h2>
-
-      <div class="value-prop">
-        <div class="value-prop-icon">
-          <svg viewBox="0 0 24 24"><path d="M9 12l2 2 4-4"/><path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"/></svg>
-        </div>
-        <div>
-          <div class="value-prop-title">No Income Verification</div>
-          <div class="value-prop-desc">Qualify based on the property's rental income, not your personal tax returns, W-2s, or employment history.</div>
-        </div>
-      </div>
-
-      <div class="value-prop">
-        <div class="value-prop-icon">
-          <svg viewBox="0 0 24 24"><path d="M12 2v20M2 12h20"/><circle cx="12" cy="12" r="10"/></svg>
-        </div>
-        <div>
-          <div class="value-prop-title">30-Year Fixed Rate</div>
-          <div class="value-prop-desc">Lock in long-term, predictable payments with a fully amortizing 30-year fixed rate. No balloon payments.</div>
-        </div>
-      </div>
-
-      <div class="value-prop">
-        <div class="value-prop-icon">
-          <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
-        </div>
-        <div>
-          <div class="value-prop-title">Close in Entity Name</div>
-          <div class="value-prop-desc">Close in your LLC or corporate entity for asset protection and liability separation. No personal name required on title.</div>
-        </div>
-      </div>
-
-      <div class="value-prop">
-        <div class="value-prop-icon">
-          <svg viewBox="0 0 24 24"><path d="M12 1v22M17 5H9.5a3.5 3.5 0 1 0 0 7h5a3.5 3.5 0 1 1 0 7H6"/></svg>
-        </div>
-        <div>
-          <div class="value-prop-title">Cash-Out Refinance Available</div>
-          <div class="value-prop-desc">Pull equity from stabilized rentals to reinvest. Cash-out refinance up to 75% LTV with no seasoning requirement.</div>
-        </div>
-      </div>
-
-      <div class="value-prop">
-        <div class="value-prop-icon">
-          <svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><path d="M8 21h8M12 17v4"/></svg>
-        </div>
-        <div>
-          <div class="value-prop-title">Portfolio SFR Loans</div>
-          <div class="value-prop-desc">Bundle multiple rental properties under a single loan for simplified management and better terms across your portfolio.</div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Right: Form -->
-    <div>
-      <div class="form-card">
-        <h3>Get Your Custom Rate</h3>
-        <form id="leadForm" novalidate>
-          <div class="form-row">
-            <div class="form-field">
-              <label for="first_name">First Name</label>
-              <input type="text" id="first_name" name="first_name" required autocomplete="given-name">
-            </div>
-            <div class="form-field">
-              <label for="last_name">Last Name</label>
-              <input type="text" id="last_name" name="last_name" required autocomplete="family-name">
-            </div>
-          </div>
-          <div class="form-field">
-            <label for="email">Email</label>
-            <input type="email" id="email" name="email" required autocomplete="email">
-          </div>
-          <div class="form-field">
-            <label for="phone">Phone</label>
-            <input type="tel" id="phone" name="phone" required autocomplete="tel">
-          </div>
-          <div class="form-row">
-            <div class="form-field">
-              <label for="property_state">State <span style="font-weight:400;color:#999;">(optional)</span></label>
-              <select id="property_state" name="property_state">
-                <option value="">Select...</option>
-                <option value="Alabama">Alabama</option><option value="Alaska">Alaska</option>
-                <option value="Arizona">Arizona</option><option value="Arkansas">Arkansas</option>
-                <option value="Colorado">Colorado</option><option value="Connecticut">Connecticut</option>
-                <option value="Delaware">Delaware</option><option value="District of Columbia">District of Columbia</option>
-                <option value="Florida">Florida</option><option value="Georgia">Georgia</option>
-                <option value="Hawaii">Hawaii</option><option value="Illinois">Illinois</option>
-                <option value="Indiana">Indiana</option><option value="Iowa">Iowa</option>
-                <option value="Kansas">Kansas</option><option value="Kentucky">Kentucky</option>
-                <option value="Louisiana">Louisiana</option><option value="Maine">Maine</option>
-                <option value="Maryland">Maryland</option><option value="Massachusetts">Massachusetts</option>
-                <option value="Mississippi">Mississippi</option><option value="Missouri">Missouri</option>
-                <option value="Montana">Montana</option><option value="Nebraska">Nebraska</option>
-                <option value="New Hampshire">New Hampshire</option><option value="New Jersey">New Jersey</option>
-                <option value="New Mexico">New Mexico</option><option value="New York">New York</option>
-                <option value="North Carolina">North Carolina</option><option value="Ohio">Ohio</option>
-                <option value="Oklahoma">Oklahoma</option><option value="Pennsylvania">Pennsylvania</option>
-                <option value="Rhode Island">Rhode Island</option><option value="South Carolina">South Carolina</option>
-                <option value="Tennessee">Tennessee</option><option value="Texas">Texas</option>
-                <option value="Virginia">Virginia</option><option value="Washington">Washington</option>
-                <option value="West Virginia">West Virginia</option><option value="Wisconsin">Wisconsin</option>
-                <option value="Wyoming">Wyoming</option>
-              </select>
-            </div>
-            <div class="form-field">
-              <label for="loan_amount_range">Loan Amount <span style="font-weight:400;color:#999;">(optional)</span></label>
-              <select id="loan_amount_range" name="loan_amount_range">
-                <option value="">Select...</option>
-                <option value="Under $250K">Under $250K</option>
-                <option value="$250K – $750K">$250K &ndash; $750K</option>
-                <option value="$750K – $2M">$750K &ndash; $2M</option>
-                <option value="$2M – $5M">$2M &ndash; $5M</option>
-                <option value="$5M+">$5M+</option>
-                <option value="Not Sure">Not sure yet</option>
-              </select>
-            </div>
-          </div>
-          <div class="form-field">
-            <label for="deal_timeline">Timeline <span style="font-weight:400;color:#999;">(optional)</span></label>
-            <select id="deal_timeline" name="deal_timeline">
-              <option value="">Select...</option>
-              <option value="Under contract / closing soon">Under contract or closing soon</option>
-              <option value="Already closed - need refi/bridge">Already closed - need refi or bridge</option>
-              <option value="Have land/project - ready to build">Have land or project - ready to build</option>
-              <option value="Actively scouting deals">Actively scouting deals</option>
-              <option value="Just researching">Just researching</option>
-            </select>
-          </div>
-          <div class="form-field">
-            <label for="details">Property Details <span style="font-weight:400;color:#999;">(optional)</span></label>
-            <textarea id="details" name="details" placeholder="Tell us about your property, e.g. SFR rental in Tampa, $350K purchase"></textarea>
-          </div>
-          <!-- Honeypot -->
-          <div class="hp-field" aria-hidden="true">
-            <label for="website">Company URL</label>
-            <input type="text" id="website" name="website" tabindex="-1" autocomplete="off">
-          </div>
-          <input type="hidden" name="form_source" value="dscr-landing-page-google-ads">
-          <input type="hidden" name="form_loaded_at" id="form_loaded_at">
-          <div class="cf-turnstile" data-sitekey="0x4AAAAAACtw1TOxqy4xMX4D" data-theme="light"></div>
-          <button type="submit" class="form-submit">Get My Rate &rarr;</button>
-          <p class="form-note">No obligation. No credit pull. Just a conversation.</p>
-        </form>
-        <div class="form-success" id="formSuccess">
-          <h3>Thank You!</h3>
-          <p>We received your information and a loan advisor will reach out shortly. If you need immediate assistance, call us at <a href="tel:2017491691" style="color:var(--gold);font-weight:600;">(201) 749-1691</a>.</p>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
 
 <!-- ── Recent Closings ── -->
 <section class="closings-section">
@@ -1344,6 +1189,162 @@ img{max-width:100%;height:auto;display:block;}
     <div class="llc-bottom">
       <h3>We walk you through it</h3>
       <p>If you're new to entity structuring, we'll guide you through the process. Our borrowers close in their LLC or corporate entity as standard practice, and we can help you understand what's needed before you apply. <a href="#form">Get in touch</a> and we'll point you in the right direction.</p>
+    </div>
+  </div>
+</section>
+
+<section class="form-section" id="form">
+  <div class="form-grid">
+    <!-- Left: Value Props -->
+    <div class="value-props">
+      <h2>Why Investors Choose Ledger</h2>
+
+      <div class="value-prop">
+        <div class="value-prop-icon">
+          <svg viewBox="0 0 24 24"><path d="M9 12l2 2 4-4"/><path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"/></svg>
+        </div>
+        <div>
+          <div class="value-prop-title">No Income Verification</div>
+          <div class="value-prop-desc">Qualify based on the property's rental income, not your personal tax returns, W-2s, or employment history.</div>
+        </div>
+      </div>
+
+      <div class="value-prop">
+        <div class="value-prop-icon">
+          <svg viewBox="0 0 24 24"><path d="M12 2v20M2 12h20"/><circle cx="12" cy="12" r="10"/></svg>
+        </div>
+        <div>
+          <div class="value-prop-title">30-Year Fixed Rate</div>
+          <div class="value-prop-desc">Lock in long-term, predictable payments with a fully amortizing 30-year fixed rate. No balloon payments.</div>
+        </div>
+      </div>
+
+      <div class="value-prop">
+        <div class="value-prop-icon">
+          <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+        </div>
+        <div>
+          <div class="value-prop-title">Close in Entity Name</div>
+          <div class="value-prop-desc">Close in your LLC or corporate entity for asset protection and liability separation. No personal name required on title.</div>
+        </div>
+      </div>
+
+      <div class="value-prop">
+        <div class="value-prop-icon">
+          <svg viewBox="0 0 24 24"><path d="M12 1v22M17 5H9.5a3.5 3.5 0 1 0 0 7h5a3.5 3.5 0 1 1 0 7H6"/></svg>
+        </div>
+        <div>
+          <div class="value-prop-title">Cash-Out Refinance Available</div>
+          <div class="value-prop-desc">Pull equity from stabilized rentals to reinvest. Cash-out refinance up to 75% LTV with no seasoning requirement.</div>
+        </div>
+      </div>
+
+      <div class="value-prop">
+        <div class="value-prop-icon">
+          <svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><path d="M8 21h8M12 17v4"/></svg>
+        </div>
+        <div>
+          <div class="value-prop-title">Portfolio SFR Loans</div>
+          <div class="value-prop-desc">Bundle multiple rental properties under a single loan for simplified management and better terms across your portfolio.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Right: Form -->
+    <div>
+      <div class="form-card">
+        <h3>Get Your Custom Rate</h3>
+        <form id="leadForm" novalidate>
+          <div class="form-row">
+            <div class="form-field">
+              <label for="first_name">First Name</label>
+              <input type="text" id="first_name" name="first_name" required autocomplete="given-name">
+            </div>
+            <div class="form-field">
+              <label for="last_name">Last Name</label>
+              <input type="text" id="last_name" name="last_name" required autocomplete="family-name">
+            </div>
+          </div>
+          <div class="form-field">
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" required autocomplete="email">
+          </div>
+          <div class="form-field">
+            <label for="phone">Phone</label>
+            <input type="tel" id="phone" name="phone" required autocomplete="tel">
+          </div>
+          <div class="form-row">
+            <div class="form-field">
+              <label for="property_state">State <span style="font-weight:400;color:#999;">(optional)</span></label>
+              <select id="property_state" name="property_state">
+                <option value="">Select...</option>
+                <option value="Alabama">Alabama</option><option value="Alaska">Alaska</option>
+                <option value="Arizona">Arizona</option><option value="Arkansas">Arkansas</option>
+                <option value="Colorado">Colorado</option><option value="Connecticut">Connecticut</option>
+                <option value="Delaware">Delaware</option><option value="District of Columbia">District of Columbia</option>
+                <option value="Florida">Florida</option><option value="Georgia">Georgia</option>
+                <option value="Hawaii">Hawaii</option><option value="Illinois">Illinois</option>
+                <option value="Indiana">Indiana</option><option value="Iowa">Iowa</option>
+                <option value="Kansas">Kansas</option><option value="Kentucky">Kentucky</option>
+                <option value="Louisiana">Louisiana</option><option value="Maine">Maine</option>
+                <option value="Maryland">Maryland</option><option value="Massachusetts">Massachusetts</option>
+                <option value="Mississippi">Mississippi</option><option value="Missouri">Missouri</option>
+                <option value="Montana">Montana</option><option value="Nebraska">Nebraska</option>
+                <option value="New Hampshire">New Hampshire</option><option value="New Jersey">New Jersey</option>
+                <option value="New Mexico">New Mexico</option><option value="New York">New York</option>
+                <option value="North Carolina">North Carolina</option><option value="Ohio">Ohio</option>
+                <option value="Oklahoma">Oklahoma</option><option value="Pennsylvania">Pennsylvania</option>
+                <option value="Rhode Island">Rhode Island</option><option value="South Carolina">South Carolina</option>
+                <option value="Tennessee">Tennessee</option><option value="Texas">Texas</option>
+                <option value="Virginia">Virginia</option><option value="Washington">Washington</option>
+                <option value="West Virginia">West Virginia</option><option value="Wisconsin">Wisconsin</option>
+                <option value="Wyoming">Wyoming</option>
+              </select>
+            </div>
+            <div class="form-field">
+              <label for="loan_amount_range">Loan Amount <span style="font-weight:400;color:#999;">(optional)</span></label>
+              <select id="loan_amount_range" name="loan_amount_range">
+                <option value="">Select...</option>
+                <option value="Under $250K">Under $250K</option>
+                <option value="$250K – $750K">$250K &ndash; $750K</option>
+                <option value="$750K – $2M">$750K &ndash; $2M</option>
+                <option value="$2M – $5M">$2M &ndash; $5M</option>
+                <option value="$5M+">$5M+</option>
+                <option value="Not Sure">Not sure yet</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-field">
+            <label for="deal_timeline">Timeline <span style="font-weight:400;color:#999;">(optional)</span></label>
+            <select id="deal_timeline" name="deal_timeline">
+              <option value="">Select...</option>
+              <option value="Under contract / closing soon">Under contract or closing soon</option>
+              <option value="Already closed - need refi/bridge">Already closed - need refi or bridge</option>
+              <option value="Have land/project - ready to build">Have land or project - ready to build</option>
+              <option value="Actively scouting deals">Actively scouting deals</option>
+              <option value="Just researching">Just researching</option>
+            </select>
+          </div>
+          <div class="form-field">
+            <label for="details">Property Details <span style="font-weight:400;color:#999;">(optional)</span></label>
+            <textarea id="details" name="details" placeholder="Tell us about your property, e.g. SFR rental in Tampa, $350K purchase"></textarea>
+          </div>
+          <!-- Honeypot -->
+          <div class="hp-field" aria-hidden="true">
+            <label for="website">Company URL</label>
+            <input type="text" id="website" name="website" tabindex="-1" autocomplete="off">
+          </div>
+          <input type="hidden" name="form_source" value="dscr-landing-page-google-ads">
+          <input type="hidden" name="form_loaded_at" id="form_loaded_at">
+          <div class="cf-turnstile" data-sitekey="0x4AAAAAACtw1TOxqy4xMX4D" data-theme="light" data-render="explicit"></div>
+          <button type="submit" class="form-submit">Get My Rate &rarr;</button>
+          <p class="form-note">No obligation. No credit pull. Just a conversation.</p>
+        </form>
+        <div class="form-success" id="formSuccess">
+          <h3>Thank You!</h3>
+          <p>We received your information and a loan advisor will reach out shortly. If you need immediate assistance, call us at <a href="tel:2017491691" style="color:var(--gold);font-weight:600;">(201) 749-1691</a>.</p>
+        </div>
+      </div>
     </div>
   </div>
 </section>
@@ -1612,5 +1613,43 @@ if (window.location.hostname === 'ledgertc.com') {
   document.body.appendChild(cr);
 }
 </script>
+
+<!-- Lazy-render Cloudflare Turnstile (mobile perf) -->
+<script>
+(function() {
+  var rendered = false;
+  var formEl = document.getElementById('form');
+  if (!formEl) return;
+  var widgetEl = document.querySelector('.cf-turnstile');
+  if (!widgetEl) return;
+  var sitekey = widgetEl.getAttribute('data-sitekey');
+  var theme = widgetEl.getAttribute('data-theme') || 'light';
+  function renderWidget() {
+    if (rendered) return;
+    if (!window.turnstile) {
+      // API not loaded yet, retry shortly
+      setTimeout(renderWidget, 150);
+      return;
+    }
+    window.turnstile.render(widgetEl, { sitekey: sitekey, theme: theme });
+    rendered = true;
+  }
+  if ('IntersectionObserver' in window) {
+    var observer = new IntersectionObserver(function(entries) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting && !rendered) {
+          renderWidget();
+          observer.disconnect();
+        }
+      });
+    }, { rootMargin: '300px' });
+    observer.observe(formEl);
+  } else {
+    // Fallback: render immediately
+    renderWidget();
+  }
+})();
+</script>
+
 </body>
 </html>

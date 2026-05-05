@@ -1152,168 +1152,6 @@ document.addEventListener("click", function(e) {
     </div>
   </section>
 
-  <!-- ── Form + Value Props ── -->
-  <section class="form-section" id="form">
-    <div class="form-section-inner">
-
-      <!-- Left: Value Props -->
-      <div class="value-col">
-        <h2>Why Builders Choose Ledger for Construction Loans</h2>
-        <ul class="value-list">
-          <li>
-            <div class="value-icon">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-            </div>
-            <div class="value-text">
-              <strong>Close in 21 Days</strong>
-              <span>We underwrite fast because we fund our own loans. No waiting on committees.</span>
-            </div>
-          </li>
-          <li>
-            <div class="value-icon">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
-            </div>
-            <div class="value-text">
-              <strong>48-Hour Draw Turnaround</strong>
-              <span>Fast, predictable draws through our Asset Management portal. No surprises.</span>
-            </div>
-          </li>
-          <li>
-            <div class="value-icon">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3h18v18H3zM3 9h18M9 21V9"/></svg>
-            </div>
-            <div class="value-text">
-              <strong>Up to 90% of Construction Costs</strong>
-              <span>Day-one lot leverage plus construction escrow based on your budget.</span>
-            </div>
-          </li>
-          <li>
-            <div class="value-icon">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-            </div>
-            <div class="value-text">
-              <strong>No Junk Fees</strong>
-              <span>Transparent pricing. No hidden costs at closing. Limited recourse available.</span>
-            </div>
-          </li>
-          <li>
-            <div class="value-icon">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-            </div>
-            <div class="value-text">
-              <strong>Repeat Builder Programs</strong>
-              <span>Scaling your pipeline? We offer streamlined processing for repeat borrowers.</span>
-            </div>
-          </li>
-        </ul>
-      </div>
-
-      <!-- Right: Form -->
-      <div class="form-card">
-        <h3>Get Your Custom Rate</h3>
-        <p class="form-sub">We respond within one business day. Business-purpose loans only, not for primary or personal residences.</p>
-
-        <form id="constructionLPForm">
-          <div class="form-row">
-            <div class="form-group">
-              <label for="fname">First Name</label>
-              <input type="text" id="fname" name="first_name" placeholder="John" required>
-            </div>
-            <div class="form-group">
-              <label for="lname">Last Name</label>
-              <input type="text" id="lname" name="last_name" placeholder="Smith" required>
-            </div>
-          </div>
-
-          <div class="form-group">
-            <label for="email">Email</label>
-            <input type="email" id="email" name="email" placeholder="you@email.com" required>
-          </div>
-
-          <div class="form-group">
-            <label for="phone">Phone</label>
-            <input type="tel" id="phone" name="phone" placeholder="(555) 000-0000" required>
-            <div id="phoneError" style="display:none; color:#dc2626; font-size:0.8rem; margin-top:0.25rem;">Please enter a valid phone number</div>
-          </div>
-
-          <div class="form-row">
-            <div class="form-group">
-              <label for="property_state">State <span style="font-weight:400;text-transform:none;letter-spacing:0;color:var(--gray-500);">(optional)</span></label>
-              <select id="property_state" name="property_state">
-                <option value="">Select...</option>
-                <option value="Alabama">Alabama</option><option value="Alaska">Alaska</option>
-                <option value="Arizona">Arizona</option><option value="Arkansas">Arkansas</option>
-                <option value="Colorado">Colorado</option><option value="Connecticut">Connecticut</option>
-                <option value="Delaware">Delaware</option><option value="District of Columbia">District of Columbia</option>
-                <option value="Florida">Florida</option><option value="Georgia">Georgia</option>
-                <option value="Hawaii">Hawaii</option><option value="Illinois">Illinois</option>
-                <option value="Indiana">Indiana</option><option value="Iowa">Iowa</option>
-                <option value="Kansas">Kansas</option><option value="Kentucky">Kentucky</option>
-                <option value="Louisiana">Louisiana</option><option value="Maine">Maine</option>
-                <option value="Maryland">Maryland</option><option value="Massachusetts">Massachusetts</option>
-                <option value="Mississippi">Mississippi</option><option value="Missouri">Missouri</option>
-                <option value="Montana">Montana</option><option value="Nebraska">Nebraska</option>
-                <option value="New Hampshire">New Hampshire</option><option value="New Jersey">New Jersey</option>
-                <option value="New Mexico">New Mexico</option><option value="New York">New York</option>
-                <option value="North Carolina">North Carolina</option><option value="Ohio">Ohio</option>
-                <option value="Oklahoma">Oklahoma</option><option value="Pennsylvania">Pennsylvania</option>
-                <option value="Rhode Island">Rhode Island</option><option value="South Carolina">South Carolina</option>
-                <option value="Tennessee">Tennessee</option><option value="Texas">Texas</option>
-                <option value="Virginia">Virginia</option><option value="Washington">Washington</option>
-                <option value="West Virginia">West Virginia</option><option value="Wisconsin">Wisconsin</option>
-                <option value="Wyoming">Wyoming</option>
-              </select>
-            </div>
-            <div class="form-group">
-              <label for="loan_amount_range">Loan Amount <span style="font-weight:400;text-transform:none;letter-spacing:0;color:var(--gray-500);">(optional)</span></label>
-              <select id="loan_amount_range" name="loan_amount_range">
-                <option value="">Select...</option>
-                <option value="Under $250K">Under $250K</option>
-                <option value="$250K – $750K">$250K &ndash; $750K</option>
-                <option value="$750K – $2M">$750K &ndash; $2M</option>
-                <option value="$2M – $5M">$2M &ndash; $5M</option>
-                <option value="$5M+">$5M+</option>
-                <option value="Not Sure">Not sure yet</option>
-              </select>
-            </div>
-          </div>
-
-          <div class="form-group">
-            <label for="deal_timeline">Timeline <span style="font-weight:400;text-transform:none;letter-spacing:0;color:var(--gray-500);">(optional)</span></label>
-            <select id="deal_timeline" name="deal_timeline">
-              <option value="">Select...</option>
-              <option value="Under contract / closing soon">Under contract or closing soon</option>
-              <option value="Already closed - need refi/bridge">Already closed - need refi or bridge</option>
-              <option value="Have land/project - ready to build">Have land or project - ready to build</option>
-              <option value="Actively scouting deals">Actively scouting deals</option>
-              <option value="Just researching">Just researching</option>
-            </select>
-          </div>
-
-          <div class="form-group">
-            <label for="details">Project Details <span style="font-weight:400;text-transform:none;letter-spacing:0;color:var(--gray-500);">(optional)</span></label>
-            <textarea id="details" name="details" placeholder="Tell us about your project, e.g. $2M spec build in Raleigh" rows="2" style="resize:vertical;min-height:56px;"></textarea>
-          </div>
-
-          <!-- Honeypot -->
-          <div style="position:absolute;left:-9999px;"><input type="text" name="website" tabindex="-1" autocomplete="off"></div>
-          <input type="hidden" name="form_source" value="construction-landing-page-google-ads">
-          <input type="hidden" name="form_loaded_at" id="form_loaded_at">
-
-          <div class="cf-turnstile" data-sitekey="0x4AAAAAACtw1TOxqy4xMX4D" data-theme="light"></div>
-          <button type="submit" class="form-submit">Get My Rate &rarr;</button>
-          <p class="form-note">No obligation. No credit pull. Just a conversation.</p>
-        </form>
-
-        <!-- Success message (hidden by default) -->
-        <div id="form-success" style="display:none; text-align:center; padding:24px 0;">
-          <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#2b4a42" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-bottom:12px;"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
-          <h3 style="font-family:'Plus Jakarta Sans',sans-serif;color:var(--green);font-size:1.25rem;font-weight:700;margin-bottom:6px;">We got your info.</h3>
-          <p style="color:var(--text-secondary);font-size:0.9rem;">A member of our team will be in touch within one business day.</p>
-        </div>
-      </div>
-    </div>
-  </section>
 
   <!-- ── Recent Closings ── -->
   <section class="proof-section">
@@ -1462,6 +1300,169 @@ document.addEventListener("click", function(e) {
             <li><svg class="req-x" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>Credit score below 680</li>
             <li><svg class="req-x" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>No exit strategy or budget</li>
           </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Form + Value Props ── -->
+  <section class="form-section" id="form">
+    <div class="form-section-inner">
+
+      <!-- Left: Value Props -->
+      <div class="value-col">
+        <h2>Why Builders Choose Ledger for Construction Loans</h2>
+        <ul class="value-list">
+          <li>
+            <div class="value-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            </div>
+            <div class="value-text">
+              <strong>Close in 21 Days</strong>
+              <span>We underwrite fast because we fund our own loans. No waiting on committees.</span>
+            </div>
+          </li>
+          <li>
+            <div class="value-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+            </div>
+            <div class="value-text">
+              <strong>48-Hour Draw Turnaround</strong>
+              <span>Fast, predictable draws through our Asset Management portal. No surprises.</span>
+            </div>
+          </li>
+          <li>
+            <div class="value-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3h18v18H3zM3 9h18M9 21V9"/></svg>
+            </div>
+            <div class="value-text">
+              <strong>Up to 90% of Construction Costs</strong>
+              <span>Day-one lot leverage plus construction escrow based on your budget.</span>
+            </div>
+          </li>
+          <li>
+            <div class="value-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            </div>
+            <div class="value-text">
+              <strong>No Junk Fees</strong>
+              <span>Transparent pricing. No hidden costs at closing. Limited recourse available.</span>
+            </div>
+          </li>
+          <li>
+            <div class="value-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+            </div>
+            <div class="value-text">
+              <strong>Repeat Builder Programs</strong>
+              <span>Scaling your pipeline? We offer streamlined processing for repeat borrowers.</span>
+            </div>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Right: Form -->
+      <div class="form-card">
+        <h3>Get Your Custom Rate</h3>
+        <p class="form-sub">We respond within one business day. Business-purpose loans only, not for primary or personal residences.</p>
+
+        <form id="constructionLPForm">
+          <div class="form-row">
+            <div class="form-group">
+              <label for="fname">First Name</label>
+              <input type="text" id="fname" name="first_name" placeholder="John" required>
+            </div>
+            <div class="form-group">
+              <label for="lname">Last Name</label>
+              <input type="text" id="lname" name="last_name" placeholder="Smith" required>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" placeholder="you@email.com" required>
+          </div>
+
+          <div class="form-group">
+            <label for="phone">Phone</label>
+            <input type="tel" id="phone" name="phone" placeholder="(555) 000-0000" required>
+            <div id="phoneError" style="display:none; color:#dc2626; font-size:0.8rem; margin-top:0.25rem;">Please enter a valid phone number</div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="property_state">State <span style="font-weight:400;text-transform:none;letter-spacing:0;color:var(--gray-500);">(optional)</span></label>
+              <select id="property_state" name="property_state">
+                <option value="">Select...</option>
+                <option value="Alabama">Alabama</option><option value="Alaska">Alaska</option>
+                <option value="Arizona">Arizona</option><option value="Arkansas">Arkansas</option>
+                <option value="Colorado">Colorado</option><option value="Connecticut">Connecticut</option>
+                <option value="Delaware">Delaware</option><option value="District of Columbia">District of Columbia</option>
+                <option value="Florida">Florida</option><option value="Georgia">Georgia</option>
+                <option value="Hawaii">Hawaii</option><option value="Illinois">Illinois</option>
+                <option value="Indiana">Indiana</option><option value="Iowa">Iowa</option>
+                <option value="Kansas">Kansas</option><option value="Kentucky">Kentucky</option>
+                <option value="Louisiana">Louisiana</option><option value="Maine">Maine</option>
+                <option value="Maryland">Maryland</option><option value="Massachusetts">Massachusetts</option>
+                <option value="Mississippi">Mississippi</option><option value="Missouri">Missouri</option>
+                <option value="Montana">Montana</option><option value="Nebraska">Nebraska</option>
+                <option value="New Hampshire">New Hampshire</option><option value="New Jersey">New Jersey</option>
+                <option value="New Mexico">New Mexico</option><option value="New York">New York</option>
+                <option value="North Carolina">North Carolina</option><option value="Ohio">Ohio</option>
+                <option value="Oklahoma">Oklahoma</option><option value="Pennsylvania">Pennsylvania</option>
+                <option value="Rhode Island">Rhode Island</option><option value="South Carolina">South Carolina</option>
+                <option value="Tennessee">Tennessee</option><option value="Texas">Texas</option>
+                <option value="Virginia">Virginia</option><option value="Washington">Washington</option>
+                <option value="West Virginia">West Virginia</option><option value="Wisconsin">Wisconsin</option>
+                <option value="Wyoming">Wyoming</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="loan_amount_range">Loan Amount <span style="font-weight:400;text-transform:none;letter-spacing:0;color:var(--gray-500);">(optional)</span></label>
+              <select id="loan_amount_range" name="loan_amount_range">
+                <option value="">Select...</option>
+                <option value="Under $250K">Under $250K</option>
+                <option value="$250K – $750K">$250K &ndash; $750K</option>
+                <option value="$750K – $2M">$750K &ndash; $2M</option>
+                <option value="$2M – $5M">$2M &ndash; $5M</option>
+                <option value="$5M+">$5M+</option>
+                <option value="Not Sure">Not sure yet</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="deal_timeline">Timeline <span style="font-weight:400;text-transform:none;letter-spacing:0;color:var(--gray-500);">(optional)</span></label>
+            <select id="deal_timeline" name="deal_timeline">
+              <option value="">Select...</option>
+              <option value="Under contract / closing soon">Under contract or closing soon</option>
+              <option value="Already closed - need refi/bridge">Already closed - need refi or bridge</option>
+              <option value="Have land/project - ready to build">Have land or project - ready to build</option>
+              <option value="Actively scouting deals">Actively scouting deals</option>
+              <option value="Just researching">Just researching</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="details">Project Details <span style="font-weight:400;text-transform:none;letter-spacing:0;color:var(--gray-500);">(optional)</span></label>
+            <textarea id="details" name="details" placeholder="Tell us about your project, e.g. $2M spec build in Raleigh" rows="2" style="resize:vertical;min-height:56px;"></textarea>
+          </div>
+
+          <!-- Honeypot -->
+          <div style="position:absolute;left:-9999px;"><input type="text" name="website" tabindex="-1" autocomplete="off"></div>
+          <input type="hidden" name="form_source" value="construction-landing-page-google-ads">
+          <input type="hidden" name="form_loaded_at" id="form_loaded_at">
+
+          <div class="cf-turnstile" data-sitekey="0x4AAAAAACtw1TOxqy4xMX4D" data-theme="light" data-render="explicit"></div>
+          <button type="submit" class="form-submit">Get My Rate &rarr;</button>
+          <p class="form-note">No obligation. No credit pull. Just a conversation.</p>
+        </form>
+
+        <!-- Success message (hidden by default) -->
+        <div id="form-success" style="display:none; text-align:center; padding:24px 0;">
+          <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#2b4a42" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-bottom:12px;"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+          <h3 style="font-family:'Plus Jakarta Sans',sans-serif;color:var(--green);font-size:1.25rem;font-weight:700;margin-bottom:6px;">We got your info.</h3>
+          <p style="color:var(--text-secondary);font-size:0.9rem;">A member of our team will be in touch within one business day.</p>
         </div>
       </div>
     </div>
@@ -1793,5 +1794,43 @@ if (window.location.hostname === 'ledgertc.com') {
   document.body.appendChild(cr);
 }
 </script>
+
+<!-- Lazy-render Cloudflare Turnstile (mobile perf) -->
+<script>
+(function() {
+  var rendered = false;
+  var formEl = document.getElementById('form');
+  if (!formEl) return;
+  var widgetEl = document.querySelector('.cf-turnstile');
+  if (!widgetEl) return;
+  var sitekey = widgetEl.getAttribute('data-sitekey');
+  var theme = widgetEl.getAttribute('data-theme') || 'light';
+  function renderWidget() {
+    if (rendered) return;
+    if (!window.turnstile) {
+      // API not loaded yet, retry shortly
+      setTimeout(renderWidget, 150);
+      return;
+    }
+    window.turnstile.render(widgetEl, { sitekey: sitekey, theme: theme });
+    rendered = true;
+  }
+  if ('IntersectionObserver' in window) {
+    var observer = new IntersectionObserver(function(entries) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting && !rendered) {
+          renderWidget();
+          observer.disconnect();
+        }
+      });
+    }, { rootMargin: '300px' });
+    observer.observe(formEl);
+  } else {
+    // Fallback: render immediately
+    renderWidget();
+  }
+})();
+</script>
+
 </body>
 </html>

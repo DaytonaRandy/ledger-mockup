@@ -935,7 +935,7 @@ document.addEventListener("click", function(e) {
           <div style="position:absolute;left:-9999px;"><input type="text" name="website" tabindex="-1" autocomplete="off"></div>
           <input type="hidden" name="form_source" id="form_source" value="first-time-builder-landing-page">
           <input type="hidden" name="form_loaded_at" id="form_loaded_at">
-          <div class="cf-turnstile" data-sitekey="0x4AAAAAACtw1TOxqy4xMX4D" data-theme="light"></div>
+          <div class="cf-turnstile" data-sitekey="0x4AAAAAACtw1TOxqy4xMX4D" data-theme="light" data-render="explicit"></div>
           <button type="submit" class="form-submit">Check My Eligibility &rarr;</button>
           <p class="form-note">No obligation. No credit pull. Just a conversation about your project.</p>
         </form>
@@ -1189,5 +1189,43 @@ if (window.location.hostname === 'ledgertc.com') {
   document.body.appendChild(cr);
 }
 </script>
+
+<!-- Lazy-render Cloudflare Turnstile (mobile perf) -->
+<script>
+(function() {
+  var rendered = false;
+  var formEl = document.getElementById('form');
+  if (!formEl) return;
+  var widgetEl = document.querySelector('.cf-turnstile');
+  if (!widgetEl) return;
+  var sitekey = widgetEl.getAttribute('data-sitekey');
+  var theme = widgetEl.getAttribute('data-theme') || 'light';
+  function renderWidget() {
+    if (rendered) return;
+    if (!window.turnstile) {
+      // API not loaded yet, retry shortly
+      setTimeout(renderWidget, 150);
+      return;
+    }
+    window.turnstile.render(widgetEl, { sitekey: sitekey, theme: theme });
+    rendered = true;
+  }
+  if ('IntersectionObserver' in window) {
+    var observer = new IntersectionObserver(function(entries) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting && !rendered) {
+          renderWidget();
+          observer.disconnect();
+        }
+      });
+    }, { rootMargin: '300px' });
+    observer.observe(formEl);
+  } else {
+    // Fallback: render immediately
+    renderWidget();
+  }
+})();
+</script>
+
 </body>
 </html>
