@@ -414,7 +414,7 @@ async function ensureTrackingAfterHutk(contactId, formData) {
 // ─── Step 1: Contact lookup / creation ────────────────────────────
 async function findOrCreateContact(formData) {
   // Search by email (preferred) or phone (fallback for calc forms with no email)
-  const searchProps = ["email", "firstname", "lastname", "hubspot_owner_id", "hs_google_click_id", "gad_campaignid", "source_website", "form_source", "ad_campaign", "utm_campaign", "hs_analytics_source", "hs_analytics_source_data_1"];
+  const searchProps = ["email", "firstname", "lastname", "hubspot_owner_id", "hs_google_click_id", "gad_campaignid", "source_website", "form_source", "ad_campaign", "utm_campaign", "hs_analytics_source", "hs_analytics_source_data_1", "project_details"];
   let search = { total: 0 };
   if (formData.email) {
     search = await hubspot("POST", "/crm/v3/objects/contacts/search", {
@@ -481,7 +481,7 @@ async function findOrCreateContact(formData) {
         filterGroups: [{
           filters: [{ propertyName: retryProp, operator: "EQ", value: retryVal }]
         }],
-        properties: ["email", "firstname", "lastname", "hubspot_owner_id", "hs_google_click_id", "gad_campaignid", "source_website", "form_source", "ad_campaign", "utm_campaign", "hs_analytics_source", "hs_analytics_source_data_1"],
+        properties: ["email", "firstname", "lastname", "hubspot_owner_id", "hs_google_click_id", "gad_campaignid", "source_website", "form_source", "ad_campaign", "utm_campaign", "hs_analytics_source", "hs_analytics_source_data_1", "project_details"],
       });
       if (retry.total > 0) {
         const existing = retry.results[0];
@@ -530,7 +530,13 @@ async function backfillTracking(existing, formData) {
     // on repaired contacts, but the headline source is what drives reporting.)
     updateProps.hs_analytics_source = "DIRECT_TRAFFIC";
   }
-  if (formData.projectDetails) {
+  // Preserve user-typed project overview text. Calculator submissions send only
+  // a calc summary (no textarea); without this guard, a calc submit after an LP
+  // submit would overwrite the typed text. Only update project_details when the
+  // new submission has typed text, or the existing field is empty.
+  const hasTypedText = !!formData.projectOverview;
+  const existingDetails = existing.properties.project_details || "";
+  if (formData.projectDetails && (hasTypedText || !existingDetails)) {
     updateProps.project_details = formData.projectDetails;
   }
   if (Object.keys(updateProps).length > 0) {
