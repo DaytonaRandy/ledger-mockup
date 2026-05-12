@@ -738,6 +738,48 @@ function buildBrokerTicketDescription(formData) {
   return lines.join("\n");
 }
 
+// ─── Broker Partner: Build contact-note body (HTML for Activities tab) ──
+function buildBrokerNoteBody(formData) {
+  const lines = [];
+  lines.push(`<b>Broker Partner Form Submission</b>`);
+  lines.push("");
+  lines.push("<u>Broker Details</u>");
+  if (formData.states) lines.push(`• States: ${formData.states}`);
+  if (formData.monthlyVolume) lines.push(`• Monthly Volume: ${formData.monthlyVolume}`);
+  if (formData.loanProducts) lines.push(`• Loan Products of Interest: ${formData.loanProducts}`);
+  if (formData.notes) {
+    lines.push("");
+    lines.push("<u>Notes</u>");
+    lines.push(formData.notes.replace(/\n/g, "<br>"));
+  }
+  lines.push("");
+  lines.push(`<i>Source: ${formData.pageUrl || "ledgertc.com/broker-partners"}</i>`);
+  return lines.join("<br>");
+}
+
+// ─── Broker Partner: Create contact-timeline note ─────────────────
+async function createBrokerContactNote(contactId, formData) {
+  if (!contactId) return;
+  const body = buildBrokerNoteBody(formData);
+  const note = await hubspot("POST", "/crm/v3/objects/notes", {
+    properties: {
+      hs_note_body: body,
+      hs_timestamp: Date.now(),
+    },
+    associations: [
+      {
+        to: { id: contactId },
+        types: [{ associationCategory: "HUBSPOT_DEFINED", associationTypeId: 202 }],
+      },
+    ],
+  });
+  if (note.error) {
+    console.error(`Broker note creation failed for contact ${contactId}:`, note.data);
+    return;
+  }
+  console.log(`Broker note logged to contact ${contactId} (note ${note.id})`);
+}
+
 // ─── Broker Partner: Create ticket ───────────────────────────────
 async function createBrokerTicket(formData, ownerId, contactId, companyId) {
   const description = buildBrokerTicketDescription(formData);
@@ -1303,6 +1345,9 @@ exports.handler = async function (event) {
 
       // Step 5: Create broker ticket
       const ticket = await createBrokerTicket(formData, ownerId, contactId, companyId);
+
+      // Step 5b: Mirror broker details onto contact's Activities tab as a Note
+      await createBrokerContactNote(contactId, formData);
 
       // Step 6: Send notification email
       await sendBrokerNotificationEmail(formData, ticket.id);
