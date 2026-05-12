@@ -449,6 +449,7 @@ async function findOrCreateContact(formData) {
     ...(formData.adCampaign && { ad_campaign: formData.adCampaign }),
     ...(formData.utmCampaign && { utm_campaign: formData.utmCampaign }),
     ...(formData.projectDetails && { project_details: formData.projectDetails }),
+    ...(formData.message && { message: formData.message }),
   };
 
   // Set source attribution
@@ -736,6 +737,35 @@ function buildBrokerTicketDescription(formData) {
   lines.push(`Source: ${formData.pageUrl || "ledgertc.com/broker-partner"}`);
 
   return lines.join("\n");
+}
+
+// ─── Broker Partner: Build plain-text broker block for `message` contact property ──
+// Renders inside the #inbounds Slack post via the workflow template's conditional
+// `Message: {message}` line, so all broker details are visible in Slack at a glance.
+function buildBrokerMessageProperty(formData) {
+  const parts = [];
+  if (formData.states) parts.push(`States: ${formData.states}`);
+  if (formData.monthlyVolume) parts.push(`Monthly Volume: ${formData.monthlyVolume}`);
+  if (formData.loanProducts) parts.push(`Loan Products: ${formData.loanProducts}`);
+  if (formData.notes) {
+    if (parts.length) parts.push("");
+    parts.push(formData.notes);
+  }
+  return parts.join("\n");
+}
+
+async function patchBrokerMessageOnContact(contactId, formData) {
+  if (!contactId) return;
+  const message = buildBrokerMessageProperty(formData);
+  if (!message) return;
+  const result = await hubspot("PATCH", `/crm/v3/objects/contacts/${contactId}`, {
+    properties: { message },
+  });
+  if (result.error) {
+    console.error(`Failed to patch broker message on contact ${contactId}:`, result.data);
+  } else {
+    console.log(`Patched broker message onto contact ${contactId}`);
+  }
 }
 
 // ─── Broker Partner: Build contact-note body (HTML for Activities tab) ──
@@ -1310,6 +1340,10 @@ exports.handler = async function (event) {
       // loan_products is a multi-select (checkboxes). Same pattern.
       formData.loanProducts = params.getAll("loan_products").filter(Boolean).join(", ");
       formData.notes = raw.notes || "";
+      // Pre-compute the `message` contact property so it's set at contact-create
+      // time (the #inbounds Slack workflow fires on Contact Created and reads
+      // `enrolled_object.message`).
+      formData.message = buildBrokerMessageProperty(formData);
 
       // Step 1: Contact
       const contactResult = await findOrCreateContact(formData);
@@ -1348,6 +1382,10 @@ exports.handler = async function (event) {
 
       // Step 5b: Mirror broker details onto contact's Activities tab as a Note
       await createBrokerContactNote(contactId, formData);
+
+      // Step 5c: Write broker block to `message` property so the HubSpot
+      // workflow that posts #inbounds picks it up via its `Message:` line.
+      await patchBrokerMessageOnContact(contactId, formData);
 
       // Step 6: Send notification email
       await sendBrokerNotificationEmail(formData, ticket.id);
