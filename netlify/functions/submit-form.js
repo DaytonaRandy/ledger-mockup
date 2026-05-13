@@ -15,8 +15,12 @@
 //   HUBSPOT_PORTAL_ID       - HubSpot portal/account ID
 //   HUBSPOT_PIPELINE_ID     - "Inbound Inquiries" pipeline ID
 //   HUBSPOT_DEFAULT_OWNER_EMAIL - Fallback owner (russell@ledgertc.com)
+//   FB_CAPI_TOKEN           - Meta Conversions API system user token (optional)
 
+const crypto = require("crypto");
 const HUBSPOT_API = "https://api.hubapi.com";
+const FB_PIXEL_ID = "1982014519404337";
+const FB_CAPI_URL = `https://graph.facebook.com/v19.0/${FB_PIXEL_ID}/events`;
 
 // ─── Campaign attribution: map form_source to clean campaign name ──
 // Hard-channel forms always map to the same campaign regardless of traffic source.
@@ -1107,6 +1111,74 @@ async function maybeLogPendingCalcNote(contactId, pendingCalcLogStr) {
   console.log(`pending_calc_log: logged ${payload.calculator} calc activity to contact ${contactId} (note ${note.id})`);
 }
 
+// ─── Meta Conversions API: server-side Lead event ────────────────
+// Highest-match-quality path because we have unhashed email/phone here.
+// Fire-and-forget pattern: errors logged but never break form submission.
+// Skipped if FB_CAPI_TOKEN is not set (graceful no-op).
+function sha256Lower(s) {
+  return crypto.createHash("sha256").update(String(s).trim().toLowerCase()).digest("hex");
+}
+function normalizePhone(p) {
+  const digits = String(p || "").replace(/\D/g, "");
+  return digits ? sha256Lower(digits) : null;
+}
+async function sendMetaCapiLead(formData, eventReq) {
+  const token = process.env.FB_CAPI_TOKEN;
+  if (!token) {
+    console.log("Meta CAPI: FB_CAPI_TOKEN not set, skipping");
+    return;
+  }
+  try {
+    const user_data = {};
+    if (formData.email) user_data.em = [sha256Lower(formData.email)];
+    if (formData.phone) {
+      const ph = normalizePhone(formData.phone);
+      if (ph) user_data.ph = [ph];
+    }
+    if (formData.firstName) user_data.fn = [sha256Lower(formData.firstName)];
+    if (formData.lastName) user_data.ln = [sha256Lower(formData.lastName)];
+    const clientIp = (eventReq.headers["x-forwarded-for"] || "").split(",")[0].trim();
+    if (clientIp) user_data.client_ip_address = clientIp;
+    const ua = eventReq.headers["user-agent"] || eventReq.headers["User-Agent"];
+    if (ua) user_data.client_user_agent = ua;
+    // fbp/fbc not collected in v1 — visitors aren't Meta-sourced yet (campaigns
+    // still drafts). Add when draft campaigns publish: read _fbp cookie + build
+    // fbc from fbclid query param, post both as hidden form fields.
+
+    const body = {
+      data: [{
+        event_name: "Lead",
+        event_time: Math.floor(Date.now() / 1000),
+        action_source: "website",
+        event_source_url: formData.pageUrl || "https://ledgertc.com/",
+        user_data,
+        custom_data: {
+          currency: "USD",
+          value: 0,
+          lead_event_source: formData.formSource || "unknown",
+        },
+      }],
+      access_token: token,
+    };
+    if (process.env.FB_CAPI_TEST_CODE) {
+      body.test_event_code = process.env.FB_CAPI_TEST_CODE;
+    }
+    const res = await fetch(FB_CAPI_URL, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(body),
+    });
+    const result = await res.json();
+    if (result.error) {
+      console.error("Meta CAPI error:", JSON.stringify(result.error));
+    } else {
+      console.log(`Meta CAPI Lead fired (events_received=${result.events_received})`);
+    }
+  } catch (err) {
+    console.error("Meta CAPI exception:", err);
+  }
+}
+
 // ─── Main handler ────────────────────────────────────────────────
 exports.handler = async function (event) {
   // CORS headers
@@ -1390,6 +1462,9 @@ exports.handler = async function (event) {
       // Step 6: Send notification email
       await sendBrokerNotificationEmail(formData, ticket.id);
 
+      // Step 7: Fire Meta CAPI Lead event (highest match quality from server)
+      await sendMetaCapiLead(formData, event);
+
       return {
         statusCode: 200,
         headers,
@@ -1470,6 +1545,9 @@ exports.handler = async function (event) {
       };
       const ticketCategory = ticketCategoryMap[raw.form_source] || "GENERAL_INQUIRY";
       const ticket = await createTicket(formData, ownerId, contactId, companyId, ticketCategory);
+
+      // Step 7: Fire Meta CAPI Lead event (highest match quality from server)
+      await sendMetaCapiLead(formData, event);
 
       return {
         statusCode: 200,
